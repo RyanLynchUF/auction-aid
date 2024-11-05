@@ -14,6 +14,7 @@ import models as models
 
 import config.settings as settings
 
+
 """
 TODO: 
 
@@ -219,7 +220,7 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     prediction_features = pd.merge(prediction_features, prediction_projected_position_rank_features,
                                                 left_on=['pos', 'curr_year_projected_pos_rank'], 
                                                 right_on=['pos', 'projected_pos_rank'], how='left').set_index('player_name')
-        
+
     # Filter out players unlikely to get drafted, but make sure to keep DST players that may not show up in projections
     training_features = training_features[(training_features['curr_year_projected_pos_rank'].notna()) | (training_features['pos'] == 'DST')]
     prediction_features = prediction_features[(prediction_features['curr_year_projected_pos_rank'].notna()) | (prediction_features['pos'] == 'DST')]
