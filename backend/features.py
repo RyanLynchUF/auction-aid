@@ -10,7 +10,7 @@ logger = get_logger(__name__)
 CURR_LEAGUE_YR = settings.CURR_LEAGUE_YR
 
 
-def get_league_features(league):
+def generate_league_features(league):
 
     scoring_format_dict = {item['id']: item for item in league.settings.scoring_format}
     
@@ -19,35 +19,34 @@ def get_league_features(league):
         'league_size': [len(league.teams)][0],
         'scoring_format_' + scoring_format_dict[53]['abbr'] : [scoring_format_dict[53]['points']][0], # Points per Reception
         'scoring_format_' + scoring_format_dict[4]['abbr'] : [scoring_format_dict[4]['points']][0], # Passing TDs
-        'team_composition_QB': league.settings.position_slot_counts['QB'],
-        'team_composition_TQB': league.settings.position_slot_counts['TQB'],
-        'team_composition_RB': league.settings.position_slot_counts['RB'],
-        'team_composition_RBWR': league.settings.position_slot_counts['RB/WR'],
-        'team_composition_WR': league.settings.position_slot_counts['WR'],
-        'team_composition_WRTE': league.settings.position_slot_counts['WR/TE'],
-        'team_composition_TE': league.settings.position_slot_counts['TE'],
-        'team_composition_OP': league.settings.position_slot_counts['OP'],
-        'team_composition_DT': league.settings.position_slot_counts['DT'],
-        'team_composition_DE': league.settings.position_slot_counts['DE'],
-        'team_composition_LB': league.settings.position_slot_counts['LB'],
-        'team_composition_DL': league.settings.position_slot_counts['DL'],
-        'team_composition_CB': league.settings.position_slot_counts['CB'],
-        'team_composition_S': league.settings.position_slot_counts['S'],
-        'team_composition_DB': league.settings.position_slot_counts['DB'],
-        'team_composition_DP': league.settings.position_slot_counts['DP'],
-        'team_composition_D/ST': league.settings.position_slot_counts['D/ST'],
-        'team_composition_K': league.settings.position_slot_counts['K'],
-        'team_composition_P': league.settings.position_slot_counts['P'],
-        'team_composition_HC': league.settings.position_slot_counts['HC'],
-        'team_composition_BE': league.settings.position_slot_counts['BE'],
-        'team_composition_IR': league.settings.position_slot_counts['IR'],
-        'team_composition_RB/WR/TE': league.settings.position_slot_counts['RB/WR/TE'],
-        'team_composition_ER': league.settings.position_slot_counts['ER']
+        'QB': league.settings.position_slot_counts['QB'],
+        'TQB': league.settings.position_slot_counts['TQB'],
+        'RB': league.settings.position_slot_counts['RB'],
+        'RBWR': league.settings.position_slot_counts['RB/WR'],
+        'WR': league.settings.position_slot_counts['WR'],
+        'WRTE': league.settings.position_slot_counts['WR/TE'],
+        'TE': league.settings.position_slot_counts['TE'],
+        'OP': league.settings.position_slot_counts['OP'],
+        'DT': league.settings.position_slot_counts['DT'],
+        'DE': league.settings.position_slot_counts['DE'],
+        'LB': league.settings.position_slot_counts['LB'],
+        'DL': league.settings.position_slot_counts['DL'],
+        'CB': league.settings.position_slot_counts['CB'],
+        'S': league.settings.position_slot_counts['S'],
+        'DB': league.settings.position_slot_counts['DB'],
+        'DP': league.settings.position_slot_counts['DP'],
+        'DST': league.settings.position_slot_counts['D/ST'],
+        'K': league.settings.position_slot_counts['K'],
+        'P': league.settings.position_slot_counts['P'],
+        'HC': league.settings.position_slot_counts['HC'],
+        'BE': league.settings.position_slot_counts['BE'],
+        'IR': league.settings.position_slot_counts['IR'],
+        'RBWRTE': league.settings.position_slot_counts['RB/WR/TE'],
+        'ER': league.settings.position_slot_counts['ER']
     }
 
     return pd.DataFrame(league_features, index=[0])
 
-# TODO: Make 'training' vs. 'predictor' a parameter and move year manipulation into the function
 def generate_player_features(input_features, included_past_seasons, vorp_configuration:dict):
     
     #  Select statistics to use for features
@@ -121,12 +120,13 @@ def generate_player_features(input_features, included_past_seasons, vorp_configu
     return player_features
 
 def generate_actual_position_rank_features(league_features, input_player_features, latest_player_projections, included_past_seasons,
-                                    total_remaining_auction_dollars, vorp_configuration):
+                                    auction_dollars_per_team, vorp_configuration):
     #TODO: Read this and go over this again with fresh eyes https://pitcherlist.com/fantasy-101-how-to-turn-projections-into-rankings-and-auction-values/
     #TODO: Find a better approach for addressing $1 players and filling out the bench
     #TODO: Ensure $1 is alotted to each remaining bench spot
 
     #TODO: Remove concatenated column names and use variable in all of code base
+    league_size = league_features['league_size'][0]
 
     # Parameters used in calculation of league-specific VORP
     statistic_for_vorp_calculation = vorp_configuration['statistic_for_vorp_calculation'].lower()
@@ -137,10 +137,116 @@ def generate_actual_position_rank_features(league_features, input_player_feature
 
     actual_pos_rank_column = 'actual_pos_rank_' + statistic_for_vorp_calculation
 
-    # Create actual_pos_rank column values for DST using projections, since actual data is not available 
-    actual_pos_rank_columns = [f'{actual_pos_rank_column}_{year}' for year in included_past_seasons]
-    input_player_features.loc[input_player_features['pos'] == 'DST', actual_pos_rank_columns] = \
-    input_player_features.loc[input_player_features['pos'] == 'DST', 'projected_pos_rank_2024']
+    # Determine the number of slots remaining to be drafted and the total number of auction dollars remaining
+    #TODO: NEW FEATURE - REAL-TIME UPDATES: update to consider live values "# of teams * budget - number of player slots"
+    team_position_counts = {
+        'QB': league_features['QB'],
+        'TQB': league_features['TQB'],
+        'RB': league_features['RB'],
+        'RBWR': league_features['RBWR'],
+        'WR': league_features['WR'],
+        'WRTE': league_features['WRTE'],
+        'TE': league_features['TE'],
+        'OP': league_features['OP'],
+        'DT': league_features['DT'],
+        'DE': league_features['DE'],
+        'LB': league_features['LB'],
+        'DL': league_features['DL'],
+        'CB': league_features['CB'],
+        'S': league_features['S'],
+        'DB': league_features['DB'],
+        'DP': league_features['DP'],
+        'DST': league_features['DST'],
+        'K': league_features['K'],
+        'P': league_features['P'],
+        'HC': league_features['HC'],
+        'BE': league_features['BE'],
+        'IR': league_features['IR'],
+        'RBWRTE': league_features['RBWRTE'],
+        'ER': league_features['ER']
+    }
+    
+    starting_player_counts, bench_player_counts = count_of_positions_for_auction_dollars(league_size, team_position_counts, latest_player_projections)
+    total_player_counts = starting_player_counts + bench_player_counts
+
+    actual_position_ranks_with_vorp = calculate_value_over_replacement_player(input_player_features, included_past_seasons, vorp_configuration)
+
+    count_of_positions_to_spend_on = actual_position_ranks_with_vorp[actual_position_ranks_with_vorp['vorp'] > 0].groupby('pos').size()
+    count_of_one_dollar_positions = (total_player_counts['count'] - count_of_positions_to_spend_on).fillna(total_player_counts['count'])
+    total_remaining_auction_dollars = league_size * int(auction_dollars_per_team) - count_of_one_dollar_positions.sum()
+    
+    # Create a final dataframe of all positions ranks who should be drafted
+    drafted_pos_ranks = pd.DataFrame()
+    for pos, count in total_player_counts['count'].items():
+        # Get the top 'count' rows for each 'pos' in df1, sorted by 'actual_pos_rank_ppg' in descending order
+        top_rows = actual_position_ranks_with_vorp[actual_position_ranks_with_vorp['pos'] == pos].nsmallest(count, 'actual_pos_rank_ppg')
+        drafted_pos_ranks = pd.concat([drafted_pos_ranks, top_rows])
+    drafted_pos_ranks = drafted_pos_ranks.set_index(['pos', actual_pos_rank_column])
+
+    # Drop all players below baseline player's position rank.  They are assumed to be worth 1 or 0 dollars.
+    actual_position_ranks_with_vorp = actual_position_ranks_with_vorp[actual_position_ranks_with_vorp[actual_pos_rank_column] < actual_position_ranks_with_vorp['baseline_pos_rank']]
+    actual_position_ranks_with_vorp = actual_position_ranks_with_vorp[actual_position_ranks_with_vorp['pos'].isin(['QB', 'RB', 'WR', 'TE'])]
+    actual_position_ranks_with_vorp = actual_position_ranks_with_vorp.set_index(['pos', actual_pos_rank_column])
+
+    # Determine what proportion of points are from each position group (what are the most valuable positions)
+    actual_position_ranks_with_vorp[statistic_for_vorp_calculation + '_percentage'] = actual_position_ranks_with_vorp.groupby(level='pos').apply(
+        lambda x: x[statistic_for_vorp_calculation] / x[statistic_for_vorp_calculation].sum()
+    ).reset_index(level=0, drop=True)
+    
+    # Calculate the total VORP for each position
+    statistics_by_position = actual_position_ranks_with_vorp.groupby(level='pos').apply(
+        lambda x: x['vorp'].sum())
+    statistics_by_position = statistics_by_position.to_frame(name='total_vorp')
+
+    # Calculate the proportion of total VORP for each position
+    statistics_by_position['proportion_of_total_vorp'] = statistics_by_position / statistics_by_position.sum()
+
+    # Calculate total value for each position group based on available auction dollars
+    statistics_by_position['position_auction_value_by_vorp'] = statistics_by_position['proportion_of_total_vorp'] * total_remaining_auction_dollars
+    
+    # Based on players expected to be drafted, deteremine the total value for that position
+    statistics_by_position['total_value_to_spend_by_pos'] = statistics_by_position['position_auction_value_by_vorp'] * starting_player_counts['count']
+    # Total value across all positions
+    total_value_to_spend = statistics_by_position['total_value_to_spend_by_pos'].sum()
+    # Determine the proportion of total value to dollars to spend
+    vorp_value_factor = total_value_to_spend / total_remaining_auction_dollars
+
+    # Adjust vorp values based value and dollars available in league
+    statistics_by_position['league_adjusted_vorp'] = statistics_by_position['total_value_to_spend_by_pos'] / vorp_value_factor
+    statistics_by_position = statistics_by_position.reset_index(names='pos')
+    actual_position_ranks_with_vorp = actual_position_ranks_with_vorp.reset_index()
+    actual_position_ranks_with_vorp = pd.merge(actual_position_ranks_with_vorp, statistics_by_position[['pos', 'league_adjusted_vorp']], on='pos').set_index(['pos', actual_pos_rank_column])
+
+    # Calculate true auction values for players based on team_draft_strategy
+    if team_draft_strategy == 'Balanced':
+        # Determine true auction values
+        actual_position_ranks_with_vorp['true_auction_value'] = actual_position_ranks_with_vorp[statistic_for_vorp_calculation + '_percentage'] * actual_position_ranks_with_vorp['league_adjusted_vorp']
+    else:
+        # The crossover parameter sets the point at which the sigmoid curve crosses over from increasing to decreasing slope
+        crossover = max(actual_position_ranks_with_vorp['vorp']) * .50 # Higher number means more "valuable" players (quantity)
+        sigmoid_denominator = 20 # High number means lower value of top players
+        
+        # Calculate vorp value to use in the sigmoid function
+        actual_position_ranks_with_vorp['vorp_for_sigmoid'] = ((actual_position_ranks_with_vorp['vorp']) - crossover) / sigmoid_denominator
+        actual_position_ranks_with_vorp['sigmoid'] = 1 / (1 + np.exp(-actual_position_ranks_with_vorp['vorp_for_sigmoid']))
+        # Determine true auction values
+        actual_position_ranks_with_vorp['true_auction_value'] = total_remaining_auction_dollars / actual_position_ranks_with_vorp['sigmoid'].sum() * actual_position_ranks_with_vorp['sigmoid']
+    
+    # Create final Dataframe, which contains all drafted players
+    drafted_pos_ranks = drafted_pos_ranks.join(actual_position_ranks_with_vorp['true_auction_value'], how='left')
+    drafted_pos_ranks['true_auction_value'] = drafted_pos_ranks['true_auction_value'].fillna(1)
+
+    return drafted_pos_ranks[['vorp', 'actual_pos_rank_avg_bid_amt', 'true_auction_value']]
+
+def calculate_value_over_replacement_player(input_player_features, included_past_seasons, vorp_configuration):
+    # Parameters used in calculation of league-specific VORP
+    statistic_for_vorp_calculation = vorp_configuration['statistic_for_vorp_calculation'].lower()
+    team_draft_strategy = vorp_configuration['team_draft_strategy']
+    baseline_player_strategy = vorp_configuration['baseline_player_strategy']
+    parameters_for_find_baseline_player = {'baseline_player_strategy':baseline_player_strategy, 
+                                        'statistic_for_vorp_calculation':statistic_for_vorp_calculation}
+    
+    actual_pos_rank_column = 'actual_pos_rank_' + statistic_for_vorp_calculation
 
     # Normalize data to prep for VORP calculations
     input_player_features = normalize(input_player_features, 
@@ -173,80 +279,26 @@ def generate_actual_position_rank_features(league_features, input_player_feature
     # Determine VORP using the baseline player's PPG or Total Points
     statistics_by_position_rank['vorp'] = (statistics_by_position_rank[statistic_for_vorp_calculation] - statistics_by_position_rank['baseline_' + statistic_for_vorp_calculation]).clip(lower=0)
     
-    # Determine the count of each position expected to be drafted based on expert projections
-    starter_counts, bench_counts = count_of_positions_for_auction_dollars(league_features, latest_player_projections)
+    return statistics_by_position_rank.reset_index()
 
-    #TODO: Should count_of_players_to_spend_on == the total number of players in our statistics_by_position_rank?
-    count_of_players_to_spend_on = starter_counts.loc[['QB', 'RB', 'TE', 'WR']]
-    count_of_players_to_draft = starter_counts + bench_counts
-
-    # Determine how much many is spent on non $1 players
-    total_remaining_auction_dollars = total_remaining_auction_dollars - bench_counts.sum() - starter_counts.loc[['DST', 'K']].sum()
-    total_remaining_auction_dollars = total_remaining_auction_dollars[0]
-
-    # Create a final dataframe of all positions ranks who should be drafted
-    statistics_by_position_rank = statistics_by_position_rank.reset_index()
-    drafted_pos_ranks = pd.DataFrame()
-    for pos, count in count_of_players_to_draft['count'].items():
-        # Get the top 'count' rows for each 'pos' in df1, sorted by 'actual_pos_rank_ppg' in descending order
-        top_rows = statistics_by_position_rank[statistics_by_position_rank['pos'] == pos].nsmallest(count, 'actual_pos_rank_ppg')
-        drafted_pos_ranks = pd.concat([drafted_pos_ranks, top_rows])
-    drafted_pos_ranks = drafted_pos_ranks.set_index(['pos', actual_pos_rank_column])
-
-    # Drop all players below baseline player's position rank.  They are assumed to be worth 1 or 0 dollars.
-    statistics_by_position_rank = statistics_by_position_rank[statistics_by_position_rank[actual_pos_rank_column] < statistics_by_position_rank['baseline_pos_rank']]
-    statistics_by_position_rank = statistics_by_position_rank[statistics_by_position_rank['pos'].isin(['QB', 'RB', 'WR', 'TE'])]
-    statistics_by_position_rank = statistics_by_position_rank.set_index(['pos', actual_pos_rank_column])
-
-    # Determine what proportion of points are from each position group (what are the most valuable positions)
-    statistics_by_position_rank[statistic_for_vorp_calculation + '_percentage'] = statistics_by_position_rank.groupby(level='pos').apply(
-        lambda x: x[statistic_for_vorp_calculation] / x[statistic_for_vorp_calculation].sum()
-    ).reset_index(level=0, drop=True)
+# Function to find the baseline players
+def find_baseline_player(group, baseline_player_strategy, statistic_for_vorp_calculation):
     
-    # Calculate the total VORP for each position
-    statistics_by_position = statistics_by_position_rank.groupby(level='pos').apply(
-        lambda x: x['vorp'].sum())
-    statistics_by_position = statistics_by_position.to_frame(name='total_vorp')
+    if baseline_player_strategy == 'First $1 Player':
+        # Find the first player with a actual_pos_rank_avg_bid_amt < 1
+        #TODO: Less than or equal?
+        mask = group['actual_pos_rank_avg_bid_amt'] <= 1
+        if mask.any():
+            baseline = group.loc[mask, statistic_for_vorp_calculation].iloc[0]
+            pos_rank = group.loc[mask, statistic_for_vorp_calculation].index[0][1]
+        else: # Handle case where no actual_pos_rank_avg_bid_amt < 1
+            baseline = 0  
+            pos_rank = 1
+        group['baseline_' + statistic_for_vorp_calculation] = baseline
+        group['baseline_pos_rank'] = pos_rank
 
-    # Calculate the proportion of total VORP for each position
-    statistics_by_position['proportion_of_total_vorp'] = statistics_by_position / statistics_by_position.sum()
+    return group
 
-    # Calculate total value for each position group based on available auction dollars
-    statistics_by_position['position_auction_value_by_vorp'] = statistics_by_position['proportion_of_total_vorp'] * total_remaining_auction_dollars
-    
-    # Based on players expected to be drafted, deteremine the total value for that position
-    statistics_by_position['total_value_to_spend_by_pos'] = statistics_by_position['position_auction_value_by_vorp'] * count_of_players_to_spend_on['count']
-    # Total value across all positions
-    total_value_to_spend = statistics_by_position['total_value_to_spend_by_pos'].sum()
-    # Determine the proportion of total value to dollars to spend
-    vorp_value_factor = total_value_to_spend / total_remaining_auction_dollars
-
-    # Adjust vorp values based value and dollars available in league
-    statistics_by_position['league_adjusted_vorp'] = statistics_by_position['total_value_to_spend_by_pos'] / vorp_value_factor
-    statistics_by_position = statistics_by_position.reset_index(names='pos')
-    statistics_by_position_rank = statistics_by_position_rank.reset_index()
-    statistics_by_position_rank = pd.merge(statistics_by_position_rank, statistics_by_position[['pos', 'league_adjusted_vorp']], on='pos').set_index(['pos', actual_pos_rank_column])
-
-    # Calculate true auction values for players based on team_draft_strategy
-    if team_draft_strategy == 'Balanced':
-        # Determine true auction values
-        statistics_by_position_rank['true_auction_value'] = statistics_by_position_rank[statistic_for_vorp_calculation + '_percentage'] * statistics_by_position_rank['league_adjusted_vorp']
-    else:
-        # The crossover parameter sets the point at which the sigmoid curve crosses over from increasing to decreasing slope
-        crossover = max(statistics_by_position_rank['vorp']) * .50 # Higher number means more "valuable" players (quantity)
-        sigmoid_denominator = 20 # High number means lower value of top players
-        
-        # Calculate vorp value to use in the sigmoid function
-        statistics_by_position_rank['vorp_for_sigmoid'] = ((statistics_by_position_rank['vorp']) - crossover) / sigmoid_denominator
-        statistics_by_position_rank['sigmoid'] = 1 / (1 + np.exp(-statistics_by_position_rank['vorp_for_sigmoid']))
-        # Determine true auction values
-        statistics_by_position_rank['true_auction_value'] = total_remaining_auction_dollars / statistics_by_position_rank['sigmoid'].sum() * statistics_by_position_rank['sigmoid']
-    
-    # Create final Dataframe, which contains all drafted players
-    drafted_pos_ranks = drafted_pos_ranks.join(statistics_by_position_rank['true_auction_value'], how='left')
-    drafted_pos_ranks['true_auction_value'] = drafted_pos_ranks['true_auction_value'].fillna(1)
-
-    return drafted_pos_ranks[['vorp', 'actual_pos_rank_avg_bid_amt', 'true_auction_value']]
 
 def generate_projected_position_rank_features(input_player_features, included_past_seasons):
 
@@ -267,44 +319,51 @@ def generate_projected_position_rank_features(input_player_features, included_pa
 
     return projected_pos_rank_bid_amts
 
-# Function to find the baseline players
-def find_baseline_player(group, baseline_player_strategy, statistic_for_vorp_calculation):
+def generate_player_draft_score(draft_features:pd.DataFrame):
+    # Determine the difference between the predicted value of the player and the true value of the player to determine which players are overvalued by the league.
+    draft_features['auction_value_difference'] = draft_features['expected_auction_value'] - draft_features['true_auction_value']
     
-    if baseline_player_strategy == 'First $1 Player':
-        # Find the first player with a actual_pos_rank_avg_bid_amt < 1
-        #TODO: Less than or equal?
-        mask = group['actual_pos_rank_avg_bid_amt'] <= 1
-        if mask.any():
-            baseline = group.loc[mask, statistic_for_vorp_calculation].iloc[0]
-            pos_rank = group.loc[mask, statistic_for_vorp_calculation].index[0][1]
-        else: # Handle case where no actual_pos_rank_avg_bid_amt < 1
-            baseline = 0  
-            pos_rank = 1
-        group['baseline_' + statistic_for_vorp_calculation] = baseline
-        group['baseline_pos_rank'] = pos_rank
+    # Normalize the auction_value_difference among a position group to compare the players on an even scale.
+    draft_features['normalized_auction_value_difference'] = draft_features.groupby('pos')['auction_value_difference'].transform(min_max_scale, invert_min_and_max=True)
+    
+    # Determine the percent dropoff in VORP to determine relative value to the next best available player
+    # Sort by position and descending VORP within each position
+    draft_features = draft_features.sort_values(['pos', 'vorp'], ascending=[True, False])
 
-    return group
+    # Shift VORP within each position group to get the next highest VORP
+    draft_features['next_highest_vorp'] = draft_features.groupby('pos')['vorp'].shift(-1)
+    draft_features['next_highest_vorp'] = draft_features['next_highest_vorp'].fillna(0)
+
+    # Calculate the % difference between each player's VORP and the next highest in the same position
+    draft_features['vorp_pct_difference'] = (
+        (draft_features['vorp'] - draft_features['next_highest_vorp']) / draft_features['vorp'].abs()
+    )
+    draft_features['vorp_pct_difference'] = draft_features['vorp_pct_difference'].fillna(1)
+
+    # Create a final score that weighs both the value of the player and the scarcity of the position via vorp_pct_difference
+    draft_features['draft_score'] = draft_features['normalized_auction_value_difference'] * draft_features['vorp_pct_difference']
+
+    draft_features['normalized_draft_score'] = draft_features['draft_score'].transform(min_max_scale)
+    
+    return draft_features
 
 # TODO: NEW FEATURE - REAL-TIME UPDATES: Might need to move this to a utility function run in main().  
 # The results would be passed into other functions and originally calculated values would be updated based on real-time draft updates.
-def count_of_positions_for_auction_dollars(features_league, latest_player_projections):
+def count_of_positions_for_auction_dollars(league_size, team_position_counts, latest_player_projections):
 
-    league_size = features_league.loc[0, 'league_size']
+    qb_count_starter = qb_count_dedicated = team_position_counts['QB'][0] * league_size
+    rb_count_starter = rb_count_dedicated = team_position_counts['RB'][0] * league_size
+    wr_count_starter = wr_count_dedicated = team_position_counts['WR'][0] * league_size
+    te_count_starter = te_count_dedicated = team_position_counts['TE'][0] * league_size
+    dst_count_starter = dst_count_dedicated = team_position_counts['DST'][0] * league_size
+    k_count_starter = k_count_dedicated = team_position_counts['K'][0] * league_size
+    bench_count = team_position_counts['BE'][0] * league_size
 
-    qb_count_starter = qb_count_dedicated = features_league.loc[0, 'team_composition_QB'] * league_size
-    rb_count_starter = rb_count_dedicated = features_league.loc[0, 'team_composition_RB'] * league_size
-    wr_count_starter = wr_count_dedicated = features_league.loc[0, 'team_composition_WR'] * league_size
-    te_count_starter = te_count_dedicated = features_league.loc[0, 'team_composition_TE'] * league_size
-    dst_count_starter = dst_count_dedicated = features_league.loc[0, 'team_composition_D/ST'] * league_size #TODO: Consider DST and kickers
-    k_count_starter = k_count_dedicated = features_league.loc[0, 'team_composition_K'] * league_size
-    bench_count = features_league.loc[0, 'team_composition_BE'] * league_size
+    rbwr_flex_count = [team_position_counts['RBWR'][0] * league_size] 
+    rbwrte_flex_count = [team_position_counts['RBWRTE'][0] * league_size] 
+    wrte_flex_count = [team_position_counts['WRTE'][0] * league_size] 
+    super_flex_count = [team_position_counts['OP'][0] * league_size] 
 
-    rbwr_flex_count = [features_league.loc[0, 'team_composition_RBWR'] * league_size] 
-    rbwrte_flex_count = [features_league.loc[0, 'team_composition_RB/WR/TE'] * league_size] 
-    wrte_flex_count = [features_league.loc[0, 'team_composition_WRTE'] * league_size] 
-    super_flex_count = [features_league.loc[0, 'team_composition_OP'] * league_size] 
-
-    #TODO: For blog post, talk about mutable data types in Python
     qb_flexes = [super_flex_count]
     rb_flexes = [super_flex_count, rbwr_flex_count, rbwrte_flex_count]
     wr_flexes = [super_flex_count, rbwr_flex_count, rbwrte_flex_count, wrte_flex_count]
@@ -401,8 +460,8 @@ def count_of_positions_for_auction_dollars(features_league, latest_player_projec
                                         dst_bench, k_bench], 
                                     index=['QB', 'RB', 'WR', 'TE', 'DST', 'K'], columns=['count'])
     
-    if sum(bench_counts['count']) < features_league.loc[0, 'team_composition_BE'] * league_size:
-        bench_counts.loc['RB', 'count'] = bench_counts.loc['RB', 'count'] + (features_league.loc[0, 'team_composition_BE'] * league_size - sum(bench_counts['count']))
+    if sum(bench_counts['count']) < team_position_counts['BE'][0] * league_size:
+        bench_counts.loc['RB', 'count'] = bench_counts.loc['RB', 'count'] + (team_position_counts['BE'][0] * league_size - sum(bench_counts['count']))
    
     return  starter_counts, bench_counts
 

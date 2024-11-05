@@ -70,7 +70,7 @@ class FPScraper:
                     ecr_data = ecr_found.group(0).replace("var ecrData = ", "").replace(";", "")
                     ecr_data =  json.loads(ecr_data)
                 
-        remove_substrings = [" Jr.", " III", " II", " IV", " V"," Sr."]
+        remove_substrings = [" Jr.", " III", " II", " IV", " Sr."]
         # Remove certain substrings from player name 
         for player in ecr_data['players']:
             player_name = player['player_name']
@@ -96,7 +96,7 @@ class FPScraper:
         soup = BeautifulSoup(results.text, 'html.parser')
 
         vbd_data = {}
-        remove_substrings = [" Jr.", " III", " II", " IV", " V"," Sr."]
+        remove_substrings = [" Jr.", " III", " II", " IV", " Sr."]
 
         for row in soup.find_all('tr', class_='player-row'):
 
@@ -142,7 +142,7 @@ class FPScraper:
 
         adp_data = {}
 
-        remove_substrings = [" Jr.", " III", " II", " IV", " V"," Sr."]
+        remove_substrings = [" Jr.", " III", " II", " IV", " Sr."]
 
         for row in soup.find_all('tr'):
             columns = row.find_all('td')
@@ -192,7 +192,7 @@ class FPScraper:
         sport = "nfl"
         showAuction = "Y"
 
-        team_composition_string = "".join(["&" + position + "=" + count for position, count in self.team_composition.items()])
+        team_composition_string = "".join(["&" + position + "=" + str(count) for position, count in self.team_composition.items()])
 
 
         url = DOMAIN_AUCTION + 'sport=' + sport \
@@ -208,7 +208,7 @@ class FPScraper:
 
         auction_data = {}
 
-        remove_substrings = [" Jr.", " III", " II", " IV", " V"," Sr."]
+        remove_substrings = [" Jr.", " III", " II", " IV", " Sr."]
 
         for row in soup.find_all('tr', class_=["PlayerQB", "PlayerRB", "PlayerWR", "PlayerTE", "PlayerDST", "PlayerK"]):
             columns = row.find_all('td')
