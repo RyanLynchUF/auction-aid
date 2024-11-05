@@ -60,11 +60,11 @@ def transform_latest_player_projections(league_size, latest_projections, latest_
     latest_player_projections_df = latest_player_projections_df.dropna()
     latest_player_projections_df = latest_player_projections_df.drop(labels=['ecr', 'vorp', 'vols', 'adp'], axis=1)
     latest_player_projections_df['projected_pos_rank_' + str(CURR_LEAGUE_YR)] = latest_player_projections_df.groupby('pos')['ecr_avg'].rank(ascending=True)    
-        
+
 
     return latest_player_projections_df.set_index('player_name')
 
-def transform_past_player_stats(past_player_stats:Dict, years:List[int]):
+def transform_past_player_stats(past_player_stats:Dict, league_features:pd.DataFrame, years:List[int]):
 
     past_player_stats = {year: past_player_stats[str(year)] for year in years if str(year) in past_player_stats}
 
@@ -84,7 +84,7 @@ def transform_past_player_stats(past_player_stats:Dict, years:List[int]):
                                        index=['player_name', 'pos'], groupby=['player_name', 'year', 'pos'])
     past_player_stats_df = past_player_stats_df.reset_index()
 
-    #TODO: Remove outliers (players who got hurt, but we're highly projected)
+    #TODO: Remove outliers (players who got hurt, but were highly projected)
     
     # pos rank replace 0 with max((actual_pos_rank)) group by pos
     actual_pos_rank_columns = [col for col in past_player_stats_df.columns if col.startswith('actual_pos_rank_')]
@@ -93,17 +93,13 @@ def transform_past_player_stats(past_player_stats:Dict, years:List[int]):
             lambda x: x.replace(0, x.max())
         )
 
+    # Remove any players from positions that are not used for the league
+    league_position_features = league_features[['QB', 'TQB', 'RB', 'RBWR', 'WR', 'WRTE', 'TE', 'OP', 'DT', 'DE', 'LB', 
+    'DL', 'CB', 'S', 'DB', 'DP', 'DST', 'K', 'P', 'HC', 'BE', 'IR', 'RBWRTE', 'ER']]
+    valid_positions = [pos for pos, count in league_position_features.items() if count[0] > 0]
+    past_player_stats_df = past_player_stats_df[past_player_stats_df['pos'].isin(valid_positions)]
 
-    # Remove players no longer likely to be draft (nan value in 'team' for each of the past 3 years)
-    team_columns = [col for col in past_player_stats_df.columns if col.startswith('team_')]
-    past_player_stats_df[team_columns] = past_player_stats_df[team_columns].replace('None', np.nan)  
-    team_last_3_years = sorted(team_columns, reverse=True)[:3] # Sort to select past 3 years
-    past_player_stats_df = past_player_stats_df.dropna(subset=team_last_3_years, how='all')
-
-    # Remove rows 
-    past_player_stats_df = past_player_stats_df.set_index('player_name')
-
-    return past_player_stats_df
+    return past_player_stats_df.set_index('player_name')
 
 def transform_past_auction_values(past_leagues:Dict, years:List[int], min_max_scaling:bool=True):
 
