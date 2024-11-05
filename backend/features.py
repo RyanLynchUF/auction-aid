@@ -10,42 +10,44 @@ logger = get_logger(__name__)
 CURR_LEAGUE_YR = settings.CURR_LEAGUE_YR
 
 
-def generate_league_features(league):
+def create_league_settings(league):
 
     scoring_format_dict = {item['id']: item for item in league.settings.scoring_format}
     
-    league_features = {
+    league_settings = {
         'league_id': [league.league_id][0],
         'league_size': [len(league.teams)][0],
         'scoring_format_' + scoring_format_dict[53]['abbr'] : [scoring_format_dict[53]['points']][0], # Points per Reception
         'scoring_format_' + scoring_format_dict[4]['abbr'] : [scoring_format_dict[4]['points']][0], # Passing TDs
-        'QB': league.settings.position_slot_counts['QB'],
-        'TQB': league.settings.position_slot_counts['TQB'],
-        'RB': league.settings.position_slot_counts['RB'],
-        'RBWR': league.settings.position_slot_counts['RB/WR'],
-        'WR': league.settings.position_slot_counts['WR'],
-        'WRTE': league.settings.position_slot_counts['WR/TE'],
-        'TE': league.settings.position_slot_counts['TE'],
-        'OP': league.settings.position_slot_counts['OP'],
-        'DT': league.settings.position_slot_counts['DT'],
-        'DE': league.settings.position_slot_counts['DE'],
-        'LB': league.settings.position_slot_counts['LB'],
-        'DL': league.settings.position_slot_counts['DL'],
-        'CB': league.settings.position_slot_counts['CB'],
-        'S': league.settings.position_slot_counts['S'],
-        'DB': league.settings.position_slot_counts['DB'],
-        'DP': league.settings.position_slot_counts['DP'],
-        'DST': league.settings.position_slot_counts['D/ST'],
-        'K': league.settings.position_slot_counts['K'],
-        'P': league.settings.position_slot_counts['P'],
-        'HC': league.settings.position_slot_counts['HC'],
-        'BE': league.settings.position_slot_counts['BE'],
-        'IR': league.settings.position_slot_counts['IR'],
-        'RBWRTE': league.settings.position_slot_counts['RB/WR/TE'],
-        'ER': league.settings.position_slot_counts['ER']
+        'team_composition': {
+            'QB': league.settings.position_slot_counts['QB'],
+            'TQB': league.settings.position_slot_counts['TQB'],
+            'RB': league.settings.position_slot_counts['RB'],
+            'RBWR': league.settings.position_slot_counts['RB/WR'],
+            'WR': league.settings.position_slot_counts['WR'],
+            'WRTE': league.settings.position_slot_counts['WR/TE'],
+            'TE': league.settings.position_slot_counts['TE'],
+            'OP': league.settings.position_slot_counts['OP'],
+            'DT': league.settings.position_slot_counts['DT'],
+            'DE': league.settings.position_slot_counts['DE'],
+            'LB': league.settings.position_slot_counts['LB'],
+            'DL': league.settings.position_slot_counts['DL'],
+            'CB': league.settings.position_slot_counts['CB'],
+            'S': league.settings.position_slot_counts['S'],
+            'DB': league.settings.position_slot_counts['DB'],
+            'DP': league.settings.position_slot_counts['DP'],
+            'DST': league.settings.position_slot_counts['D/ST'],
+            'K': league.settings.position_slot_counts['K'],
+            'P': league.settings.position_slot_counts['P'],
+            'HC': league.settings.position_slot_counts['HC'],
+            'BE': league.settings.position_slot_counts['BE'],
+            'IR': league.settings.position_slot_counts['IR'],
+            'RBWRTE': league.settings.position_slot_counts['RB/WR/TE'],
+            'ER': league.settings.position_slot_counts['ER']
+        }
     }
 
-    return pd.DataFrame(league_features, index=[0])
+    return league_settings
 
 def generate_player_features(input_features, included_past_seasons, vorp_configuration:dict):
     
@@ -119,14 +121,14 @@ def generate_player_features(input_features, included_past_seasons, vorp_configu
 
     return player_features
 
-def generate_actual_position_rank_features(league_features, input_player_features, latest_player_projections, included_past_seasons,
+def generate_actual_position_rank_features(league_settings, input_player_features, latest_player_projections, included_past_seasons,
                                     auction_dollars_per_team, vorp_configuration):
     #TODO: Read this and go over this again with fresh eyes https://pitcherlist.com/fantasy-101-how-to-turn-projections-into-rankings-and-auction-values/
     #TODO: Find a better approach for addressing $1 players and filling out the bench
     #TODO: Ensure $1 is alotted to each remaining bench spot
 
     #TODO: Remove concatenated column names and use variable in all of code base
-    league_size = league_features['league_size'][0]
+    league_size = league_settings['league_size']
 
     # Parameters used in calculation of league-specific VORP
     statistic_for_vorp_calculation = vorp_configuration['statistic_for_vorp_calculation'].lower()
@@ -139,32 +141,7 @@ def generate_actual_position_rank_features(league_features, input_player_feature
 
     # Determine the number of slots remaining to be drafted and the total number of auction dollars remaining
     #TODO: NEW FEATURE - REAL-TIME UPDATES: update to consider live values "# of teams * budget - number of player slots"
-    team_position_counts = {
-        'QB': league_features['QB'],
-        'TQB': league_features['TQB'],
-        'RB': league_features['RB'],
-        'RBWR': league_features['RBWR'],
-        'WR': league_features['WR'],
-        'WRTE': league_features['WRTE'],
-        'TE': league_features['TE'],
-        'OP': league_features['OP'],
-        'DT': league_features['DT'],
-        'DE': league_features['DE'],
-        'LB': league_features['LB'],
-        'DL': league_features['DL'],
-        'CB': league_features['CB'],
-        'S': league_features['S'],
-        'DB': league_features['DB'],
-        'DP': league_features['DP'],
-        'DST': league_features['DST'],
-        'K': league_features['K'],
-        'P': league_features['P'],
-        'HC': league_features['HC'],
-        'BE': league_features['BE'],
-        'IR': league_features['IR'],
-        'RBWRTE': league_features['RBWRTE'],
-        'ER': league_features['ER']
-    }
+    team_position_counts = league_settings['team_decomposition']
     
     starting_player_counts, bench_player_counts = count_of_positions_for_auction_dollars(league_size, team_position_counts, latest_player_projections)
     total_player_counts = starting_player_counts + bench_player_counts
@@ -351,18 +328,18 @@ def generate_player_draft_score(draft_features:pd.DataFrame):
 # The results would be passed into other functions and originally calculated values would be updated based on real-time draft updates.
 def count_of_positions_for_auction_dollars(league_size, team_position_counts, latest_player_projections):
 
-    qb_count_starter = qb_count_dedicated = team_position_counts['QB'][0] * league_size
-    rb_count_starter = rb_count_dedicated = team_position_counts['RB'][0] * league_size
-    wr_count_starter = wr_count_dedicated = team_position_counts['WR'][0] * league_size
-    te_count_starter = te_count_dedicated = team_position_counts['TE'][0] * league_size
-    dst_count_starter = dst_count_dedicated = team_position_counts['DST'][0] * league_size
-    k_count_starter = k_count_dedicated = team_position_counts['K'][0] * league_size
-    bench_count = team_position_counts['BE'][0] * league_size
+    qb_count_starter = qb_count_dedicated = team_position_counts['QB'] * league_size
+    rb_count_starter = rb_count_dedicated = team_position_counts['RB'] * league_size
+    wr_count_starter = wr_count_dedicated = team_position_counts['WR'] * league_size
+    te_count_starter = te_count_dedicated = team_position_counts['TE'] * league_size
+    dst_count_starter = dst_count_dedicated = team_position_counts['DST'] * league_size
+    k_count_starter = k_count_dedicated = team_position_counts['K'] * league_size
+    bench_count = team_position_counts['BE'] * league_size
 
-    rbwr_flex_count = [team_position_counts['RBWR'][0] * league_size] 
-    rbwrte_flex_count = [team_position_counts['RBWRTE'][0] * league_size] 
-    wrte_flex_count = [team_position_counts['WRTE'][0] * league_size] 
-    super_flex_count = [team_position_counts['OP'][0] * league_size] 
+    rbwr_flex_count = [team_position_counts['RBWR'] * league_size] 
+    rbwrte_flex_count = [team_position_counts['RBWRTE'] * league_size] 
+    wrte_flex_count = [team_position_counts['WRTE'] * league_size] 
+    super_flex_count = [team_position_counts['OP'] * league_size] 
 
     qb_flexes = [super_flex_count]
     rb_flexes = [super_flex_count, rbwr_flex_count, rbwrte_flex_count]
@@ -460,7 +437,7 @@ def count_of_positions_for_auction_dollars(league_size, team_position_counts, la
                                         dst_bench, k_bench], 
                                     index=['QB', 'RB', 'WR', 'TE', 'DST', 'K'], columns=['count'])
     
-    if sum(bench_counts['count']) < team_position_counts['BE'][0] * league_size:
-        bench_counts.loc['RB', 'count'] = bench_counts.loc['RB', 'count'] + (team_position_counts['BE'][0] * league_size - sum(bench_counts['count']))
+    if sum(bench_counts['count']) < team_position_counts['BE'] * league_size:
+        bench_counts.loc['RB', 'count'] = bench_counts.loc['RB', 'count'] + (team_position_counts['BE'] * league_size - sum(bench_counts['count']))
    
     return  starter_counts, bench_counts

@@ -21,6 +21,7 @@ TODO:
 
 - After initial Commit:
     - Check what features are actually used in model and make sure there aren't any redundnace training / predictions dfs being calculated
+    - Review final response to ensure enough players are sent
 
 - Frontend
     - Address no past leagues use cases
@@ -163,17 +164,16 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     else:
         print(f"Unavailable projection source: {projections_source}")
 
-    # Generate features for league
-    league_features = features.generate_league_features(curr_league)
+    # Create dictionary which contains league setting
+    league_settings = features.create_league_settings(curr_league)
 
-    #TODO: Add filter on position to p
     # Transform input data into format for further processing and feature engineering
     latest_player_projections = transform_latest_player_projections(league_size, player_projections, expert_auction_valuation)
     past_player_projections = transform_past_expert_player_projections(league_size, past_player_projections, years=included_past_seasons)
-    past_player_stats = transform_past_player_stats(past_player_stats, league_features, years=included_past_seasons)
+    past_player_stats = transform_past_player_stats(past_player_stats, league_settings, years=included_past_seasons)
     past_player_auction_values = transform_past_auction_values(past_leagues, years=included_past_seasons)
 
-    # Combine input data into one DataFrame for feature engineering
+    # Combine input data into one DataFrame for feature engineering and analysis
     input_dataframes = [latest_player_projections, past_player_auction_values,
                         past_player_stats, past_player_projections]
     input_player_features = reduce(lambda left, right: left.join(right, on='player_name', how='outer', lsuffix='to_merge1', rsuffix='to_merge2'), input_dataframes)
@@ -186,6 +186,8 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     input_player_features.loc[input_player_features['pos'] == 'DST', actual_pos_rank_columns] = \
     input_player_features.loc[input_player_features['pos'] == 'DST', 'projected_pos_rank_2024']
     
+    
+
 # Feature Engineering
     # Determine years to use for training data vs. prediction data for upcoming draft
     past_seasons_for_training = included_past_seasons.copy()
@@ -197,9 +199,9 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     prediction_player_features = features.generate_player_features(input_player_features, past_seasons_for_prediction, vorp_configuration=vorp_configuration).reset_index()
 
     # Generate features for actual position ranks (e.g., RB1, RB2, etc.) based on past league(s)
-    training_actual_position_rank_features = features.generate_actual_position_rank_features(league_features, input_player_features, latest_player_projections,
+    training_actual_position_rank_features = features.generate_actual_position_rank_features(league_settings, input_player_features, latest_player_projections,
                                                                                past_seasons_for_training, auction_dollars_per_team, vorp_configuration).reset_index()
-    prediction_actual_position_rank_features = features.generate_actual_position_rank_features(league_features, input_player_features, latest_player_projections,
+    prediction_actual_position_rank_features = features.generate_actual_position_rank_features(league_settings, input_player_features, latest_player_projections,
                                                                                  past_seasons_for_prediction, auction_dollars_per_team, vorp_configuration).reset_index()
     
     # Generate features for projected position ranks (e.g., RB1, RB2, etc.) based on FP projections
