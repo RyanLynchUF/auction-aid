@@ -75,9 +75,9 @@ def get_past_fantasypros_projections(scoring_format:str='standard'):
 
 
 def scrape_fantasypros_auction_values(scoring_format:str='standard', year:str=CURR_LEAGUE_YR, league_size:str="12", team_balance:int=200,
-                                        team_composition:dict={"QB":"1", "RB":"2", "WR":"3", "TE":"1", "DST":"1", "K":"1", "BN":"6",
-                                                               "WR/RB":"0", "WR/RB/TE":"0", "WR/TE":"0", "RB/TE":"0", "QB/WR/RB/TE":"0", "DL":"0",
-                                                               "LB":"0", "DB":"0", "IDP":"0"}):
+                                        team_composition:dict= {'QB':1, 'RB':2, 'WR':3, 'TE':1, 'DST':1, 'K':1, 'BN':6,
+                                                                'WR/RB':0, 'WR/RB/TE':0, 'WR/TE':0, 'RB/TE':0, 'QB/WR/RB/TE':0, 'DL':0,
+                                                                'LB':0, 'DB':0, 'IDP':0}):
     """
     Scrape the latest FantasyPros auction valaues from either S3 or local storage.
     
