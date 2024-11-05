@@ -101,7 +101,7 @@ def transform_past_player_stats(past_player_stats:Dict, league_features:pd.DataF
 
     return past_player_stats_df.set_index('player_name')
 
-def transform_past_auction_values(past_leagues:Dict, years:List[int], min_max_scaling:bool=True):
+def transform_past_auction_values(past_leagues:Dict, years:List[int]):
 
     past_leagues = {year: past_leagues[str(year)] for year in years if str(year) in past_leagues}
     
@@ -114,7 +114,7 @@ def transform_past_auction_values(past_leagues:Dict, years:List[int], min_max_sc
 
     return past_auction_values_df
 
-def transform_past_expert_player_projections(league_size:int, past_player_projections:Dict, years:List[int], min_max_scaling:bool=True):
+def transform_past_expert_player_projections(league_size:int, past_player_projections:Dict, years:List[int]):
     
     years_string = [str(year) for year in years]
 

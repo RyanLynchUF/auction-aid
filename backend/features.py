@@ -464,3 +464,34 @@ def count_of_positions_for_auction_dollars(league_size, team_position_counts, la
         bench_counts.loc['RB', 'count'] = bench_counts.loc['RB', 'count'] + (team_position_counts['BE'][0] * league_size - sum(bench_counts['count']))
    
     return  starter_counts, bench_counts
+
+
+def generate_player_draft_score(draft_features:pd.DataFrame):
+    # Determine the difference between the predicted value of the player and the true value of the player to determine which players are overvalued by the league.
+    draft_features['auction_value_difference'] = draft_features['predicted_auction_value'] - draft_features['true_auction_value']
+    
+    # Normalize the auction_value_difference among a position group to compare the players on an even scale.
+    draft_features['normalized_auction_value_difference'] = draft_features.groupby('pos')['auction_value_difference'].transform(min_max_scale, invert_min_and_max=True)
+    
+    # Determine the percent dropoff in VORP to determine relative value to the next best available player
+    # Sort by position and descending VORP within each position
+    draft_features = draft_features.sort_values(['pos', 'vorp'], ascending=[True, False])
+
+    # Shift VORP within each position group to get the next highest VORP
+    draft_features['next_highest_vorp'] = draft_features.groupby('pos')['vorp'].shift(-1)
+    draft_features['next_highest_vorp'] = draft_features['next_highest_vorp'].fillna(0)
+
+    # Calculate the % difference between each player's VORP and the next highest in the same position
+    draft_features['vorp_pct_difference'] = (
+        (draft_features['vorp'] - draft_features['next_highest_vorp']) / draft_features['vorp'].abs()
+    )
+    draft_features['vorp_pct_difference'] = draft_features['vorp_pct_difference'].fillna(1)
+
+    # Create a final score that weighs both the value of the player and the scarcity of the position via vorp_pct_difference
+    draft_features['draft_score'] = draft_features['normalized_auction_value_difference'] * draft_features['vorp_pct_difference']
+
+    draft_features['normalized_draft_score'] = draft_features['draft_score'].transform(min_max_scale)
+    
+    return draft_features
+
+

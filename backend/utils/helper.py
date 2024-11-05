@@ -59,12 +59,3 @@ def scale_features_min_max(df:pd.DataFrame, features_to_scale:List[str]):
         df[feature] = scaled_features[:, i]
 
     return df[features_to_scale]
-
-def min_max_scale(series:pd.Series, invert_min_and_max:bool=False):
-    min_val = series.min()
-    max_val = series.max()
-
-    if invert_min_and_max:
-        return 1 - (series - min_val) / (max_val - min_val)
-    else:
-        return (series - min_val) / (max_val - min_val)
