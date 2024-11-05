@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 from config import settings
-from utils.helper import normalize
+from utils.helper import normalize, min_max_scale
 from utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -435,11 +435,4 @@ def generate_player_draft_score(draft_features:pd.DataFrame):
     
     return draft_features
 
-def min_max_scale(series:pd.Series, invert_min_and_max:bool=False):
-    min_val = series.min()
-    max_val = series.max()
 
-    if invert_min_and_max:
-        return 1 - (series - min_val) / (max_val - min_val)
-    else:
-        return (series - min_val) / (max_val - min_val)

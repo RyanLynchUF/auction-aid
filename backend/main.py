@@ -13,7 +13,6 @@ import features as features
 import models as models
 
 import config.settings as settings
-from utils.helper import scale_features_min_max
 
 
 """
@@ -52,8 +51,6 @@ TODO:
     - Create instruction and add links
         - Landing Login details links
 
-- Potential Bugs:
-    - Does pos_rank needs to be min max?  do we need normal pos_rank column and min_max pos rank column?
 
     
 - Generate README: https://www.reddit.com/r/SideProject/s/Pj6jbnUG7w
@@ -228,14 +225,7 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     prediction_features = pd.merge(prediction_features, prediction_projected_position_rank_features,
                                                 left_on=['pos', 'curr_year_projected_pos_rank'], 
                                                 right_on=['pos', 'projected_pos_rank'], how='left').set_index('player_name')
-    
-    min_max_scaling = False
-    if min_max_scaling:
-        features_to_scale = [col for col in training_features.columns if col not in 
-                             ['player_name', 'pos', 'curr_year_bid_amt']]
-        training_features[features_to_scale] = scale_features_min_max(training_features, features_to_scale)
-        prediction_features[features_to_scale] = scale_features_min_max(prediction_features, features_to_scale)
-        
+
     # Filter out players unlikely to get drafted, but make sure to keep DST players that may not show up in projections
     training_features = training_features[(training_features['curr_year_projected_pos_rank'].notna()) | (training_features['pos'] == 'DST')]
     prediction_features = prediction_features[(prediction_features['curr_year_projected_pos_rank'].notna()) | (prediction_features['pos'] == 'DST')]
