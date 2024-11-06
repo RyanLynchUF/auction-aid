@@ -1,4 +1,4 @@
-from fastapi import Cookie, FastAPI, Response
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -7,55 +7,29 @@ from functools import reduce
 import pandas as pd
 
 from data.espn.league_api import get_league_data, get_past_leagues, post_leagues, aggregate_and_post_player_stats, get_league_player_stats
-from data.metrics_api import get_fantasypros_projections_daily, get_past_fantasypros_projections, scrape_fantasypros_auction_values
+from data.projections_api import get_fantasypros_projections_daily, get_past_fantasypros_projections, scrape_fantasypros_auction_values
 from data.preprocessing import transform_latest_player_projections, transform_past_expert_player_projections, transform_past_auction_values, transform_past_player_stats
+from statistical_analysis import calculate_true_auction_value, generate_player_draft_score
 import features as features
 import models as models
 
 import config.settings as settings
+from utils.logger import get_logger
 
+logger = get_logger(__name__)
 
 """
 TODO: 
-
-- After initial Commit:
-    - Check what features are actually used in model and make sure there aren't any redundnace training / predictions dfs being calculated
-    - Review final response to ensure enough players are sent
-
-- Frontend
-    - Address no past leagues use cases
-    - Invalid league data info    
-    - Information hovers for input fields
-
 - Check if 2021 ADP is back for half-ppr
-
-- Line by Line code step through:
-    - Determine any code that can be used for utils
-    - Define typing for all functions
-    - Make variable names NOT source specific (i.e., fp...)
-    - Limit redundnat API calls
-    - Improve logging
-        - Update all print statements to logger statements
-        - Think through error handling of someone setting up their own AWS bucket and update logging
-    - Think through minor data validations (duplicates?)
-    - Address yucky names
-        - S3 buckets - historical metrics
-        - redundant key names
-    - Add clean comments throughout
-    - Add input / output style comments to functions
-    - Address warnings in terminal
-    - Create instruction and add links
-        - Landing Login details links
-
-
-- Generate README: https://www.reddit.com/r/SideProject/s/Pj6jbnUG7w
+- Create instruction and add links
+    - Generate README: https://www.reddit.com/r/SideProject/s/Pj6jbnUG7w
+- Landing Login details links
 """
 
 """
 TODO (tests): 
 - New league sign-in - start to finish
     - S3 storage and AppData storage
-        - Check if League objects are working in AppData version with using json package instead of jsonpickle
     - Test while changing S3 bucket name
 - New league sign-in - stop and restart at different steps
 - New league sign-in - use seasonsToInclude features
@@ -138,10 +112,12 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     # Get current league data and available past league data
     curr_league = get_league_data(league_id=league_id, year=CURR_LEAGUE_YR, swid=swid, espn_s2=espn_s2)
     past_leagues = get_past_leagues(league_id=league_id)
-        
+
     # Load current and past league data
     # If there is no past_leagues, or if the last season is not in past_leagues, refresh past_leagues and player stats
     if past_leagues is None or int(max(past_leagues.keys())) + 1 < CURR_LEAGUE_YR:
+        if curr_league.previousSeasons is None:
+                raise HTTPException(status_code=400, detail="No past league data available.  Auction AId only works for leagues with multiple years of history.")
         post_leagues(league_id=league_id, years=curr_league.previousSeasons, swid=swid, espn_s2=espn_s2)
         past_leagues = get_past_leagues(league_id)
         aggregate_and_post_player_stats(past_leagues)
@@ -158,7 +134,7 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
         player_projections = get_fantasypros_projections_daily(scoring_format=scoring_format)
         past_player_projections = get_past_fantasypros_projections(scoring_format=scoring_format)
     else:
-        print(f"Unavailable projection source: {projections_source}")
+        logger.error(f"Unavailable projection source: {projections_source}")
 
     # Create dictionary which contains league setting
     league_settings = features.create_league_settings(curr_league)
@@ -182,7 +158,9 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     input_player_features.loc[input_player_features['pos'] == 'DST', actual_pos_rank_columns] = \
     input_player_features.loc[input_player_features['pos'] == 'DST', 'projected_pos_rank_2024']
     
-    
+    # Generate statistics for actual position ranks (e.g., RB1, RB2, etc.) based on past league(s)
+    actual_position_rank_statistics = calculate_true_auction_value(league_settings, input_player_features, latest_player_projections,
+                                            included_past_seasons, auction_dollars_per_team, vorp_configuration).reset_index()
 
 # Feature Engineering
     # Determine years to use for training data vs. prediction data for upcoming draft
@@ -191,73 +169,46 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     past_seasons_for_prediction = included_past_seasons.copy()
     
     # Generate features for players based on past league(s) and  projections
-    training_player_features = features.generate_player_features(input_player_features, past_seasons_for_training, vorp_configuration=vorp_configuration).reset_index()
-    prediction_player_features = features.generate_player_features(input_player_features, past_seasons_for_prediction, vorp_configuration=vorp_configuration).reset_index()
-
-    # Generate features for actual position ranks (e.g., RB1, RB2, etc.) based on past league(s)
-    training_actual_position_rank_features = features.generate_actual_position_rank_features(league_settings, input_player_features, latest_player_projections,
-                                                                               past_seasons_for_training, auction_dollars_per_team, vorp_configuration).reset_index()
-    prediction_actual_position_rank_features = features.generate_actual_position_rank_features(league_settings, input_player_features, latest_player_projections,
-                                                                                 past_seasons_for_prediction, auction_dollars_per_team, vorp_configuration).reset_index()
+    training_player_features = features.generate_player_features(input_player_features, past_seasons_for_training, statistic_for_vorp_calculation).reset_index()
+    prediction_player_features = features.generate_player_features(input_player_features, past_seasons_for_prediction, statistic_for_vorp_calculation).reset_index()
     
     # Generate features for projected position ranks (e.g., RB1, RB2, etc.) based on FP projections
     training_projected_position_rank_features = features.generate_projected_position_rank_features(input_player_features, past_seasons_for_training)
     prediction_projected_position_rank_features = features.generate_projected_position_rank_features(input_player_features, past_seasons_for_prediction)
 
-    #TODO: Make a DF with ALL potentially drafted players as the base
-
-
-    training_features = pd.merge(training_player_features, training_actual_position_rank_features,
-                                                left_on=['pos', 'curr_year_projected_pos_rank'], 
-                                                right_on=['pos', actual_pos_rank_column], how='left')
-    training_features = pd.merge(training_features, training_projected_position_rank_features,
+    # Combine feature sets
+    training_features = pd.merge(training_player_features, training_projected_position_rank_features,
                                                 left_on=['pos', 'curr_year_projected_pos_rank'], 
                                                 right_on=['pos', 'projected_pos_rank'], how='left').set_index('player_name')
     
-    prediction_features = pd.merge(prediction_player_features, prediction_actual_position_rank_features,
-                                                left_on=['pos', 'curr_year_projected_pos_rank'], 
-                                                right_on=['pos', actual_pos_rank_column], how='left')
-    prediction_features = pd.merge(prediction_features, prediction_projected_position_rank_features,
+    prediction_features = pd.merge(prediction_player_features, prediction_projected_position_rank_features,
                                                 left_on=['pos', 'curr_year_projected_pos_rank'], 
                                                 right_on=['pos', 'projected_pos_rank'], how='left').set_index('player_name')
 
     # Filter out players unlikely to get drafted, but make sure to keep DST players that may not show up in projections
-    training_features = training_features[(training_features['curr_year_projected_pos_rank'].notna()) | (training_features['pos'] == 'DST')]
-    prediction_features = prediction_features[(prediction_features['curr_year_projected_pos_rank'].notna()) | (prediction_features['pos'] == 'DST')]
+    training_features = training_features[(training_features['curr_year_projected_pos_rank'].notna())]
+    prediction_features = prediction_features[(prediction_features['curr_year_projected_pos_rank'].notna())]
 
     # Replace nan values with 0
-    columns_for_nan_replacement = ['curr_year_bid_amt', 'prev_year_bid_amt', 'curr_year_vbd', 'actual_pos_rank_avg_bid_amt',
-                    'vorp', 'true_auction_value', 'avg_ppg_from_league_history',  'avg_bid_amt_from_league_history',
+    columns_for_nan_replacement = ['curr_year_bid_amt', 'prev_year_bid_amt', 'curr_year_vbd', 'avg_ppg_from_league_history',  'avg_bid_amt_from_league_history',
                     'avg_ratio_of_vbd_to_auction_value_from_league_history', 'projected_pos_rank_avg_bid_amt']
     training_features.loc[:,columns_for_nan_replacement] = training_features.loc[:,columns_for_nan_replacement].fillna(0)
     prediction_features.loc[:,columns_for_nan_replacement] = prediction_features.loc[:,columns_for_nan_replacement].fillna(0)
 
-    training_features.loc[:,'curr_year_projected_pos_rank'] = training_features.loc[:,'curr_year_projected_pos_rank'].fillna(training_features.groupby('pos')['curr_year_projected_pos_rank'].transform('max'))
-    prediction_features.loc[:,'curr_year_projected_pos_rank'] = prediction_features.loc[:,'curr_year_projected_pos_rank'].fillna(prediction_features.groupby('pos')['curr_year_projected_pos_rank'].transform('max'))
-
     # Remove unneccesary columns 
-    training_features = training_features.drop(['avg_bid_amt_from_league_history',
-                                                'true_auction_value', actual_pos_rank_column, 'actual_pos_rank_avg_bid_amt', 'vorp',
+    features_to_remove = ['avg_bid_amt_from_league_history',
                                                 'projected_pos_rank',
                                                 'team_ARI', 'team_ATL',
                                                 'team_BAL', 'team_BUF', 'team_CAR', 'team_CHI', 'team_CIN', 'team_CLE',
                                                 'team_DAL', 'team_DEN', 'team_DET', 'team_GB', 'team_HOU', 'team_IND',
                                                 'team_JAC', 'team_KC', 'team_LAC', 'team_LAR', 'team_LV', 'team_MIA',
                                                 'team_MIN', 'team_NE', 'team_NO', 'team_NYG', 'team_NYJ', 'team_PHI',
-                                                'team_PIT', 'team_SEA', 'team_SF', 'team_TB', 'team_TEN', 'team_WAS'], axis=1)
-    prediction_features = prediction_features.drop(['curr_year_bid_amt',
-                                                'avg_bid_amt_from_league_history',
-                                                'true_auction_value', actual_pos_rank_column, 'actual_pos_rank_avg_bid_amt', 'vorp',
-                                                'projected_pos_rank',
-                                                'team_ARI', 'team_ATL',
-                                                'team_BAL', 'team_BUF', 'team_CAR', 'team_CHI', 'team_CIN', 'team_CLE',
-                                                'team_DAL', 'team_DEN', 'team_DET', 'team_GB', 'team_HOU', 'team_IND',
-                                                'team_JAC', 'team_KC', 'team_LAC', 'team_LAR', 'team_LV', 'team_MIA',
-                                                'team_MIN', 'team_NE', 'team_NO', 'team_NYG', 'team_NYJ', 'team_PHI',
-                                                'team_PIT', 'team_SEA', 'team_SF', 'team_TB', 'team_TEN', 'team_WAS'], axis=1)
+                                                'team_PIT', 'team_SEA', 'team_SF', 'team_TB', 'team_TEN', 'team_WAS']
+    training_features = training_features.drop(features_to_remove, axis=1)
+    prediction_features = prediction_features.drop(['curr_year_bid_amt'] +  features_to_remove, axis=1)
 
-    # Models
-    model, multicollinearity_columns_to_remove = models.train_model(training_features, model_type='random_forest', mode='testing')
+    # Train models
+    model, multicollinearity_columns_to_remove = models.train_model(training_features, model_type='random_forest', mode='predraft')
     
     # Drop identifed columns with multi-collinearity
     training_features = training_features.drop(multicollinearity_columns_to_remove, axis=1)  
@@ -267,32 +218,24 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     auction_value_predictions = models.predict_auction_value(model, prediction_features)
 
     # Select the final set of fields to include in draft_features and display on User Interface
-    draft_features = pd.merge(auction_value_predictions.reset_index(), input_player_features[['team', 'ecr_avg', 'pos']].reset_index(), 
+    draft_insights = pd.merge(auction_value_predictions.reset_index(), input_player_features[['team', 'ecr_avg', 'pos']].reset_index(), 
                         how='left', on='player_name')
-    draft_features = pd.merge(draft_features, prediction_actual_position_rank_features, how='left',
+    draft_insights = pd.merge(draft_insights, actual_position_rank_statistics, how='left',
                         left_on=['pos', 'curr_year_projected_pos_rank'], right_on=['pos', actual_pos_rank_column])
-    draft_features = draft_features[['ecr_avg', 'player_name', 'team', 
+    draft_insights = draft_insights[['ecr_avg', 'player_name', 'team', 
                 'pos', 'curr_year_projected_pos_rank', 'vorp',
                 'prev_year_bid_amt', 'projected_pos_rank_avg_bid_amt',
                 'expected_auction_value', 'true_auction_value']]
-    draft_features['true_auction_value'] = draft_features['true_auction_value'].fillna(1)
-    draft_features['vorp'] = draft_features['vorp'].fillna(0)
+    draft_insights[['true_auction_value', 'vorp']] = draft_insights[['true_auction_value', 'vorp']].fillna(0)
 
     # Create draft score to help user identify draft targets
-    draft_features = features.generate_player_draft_score(draft_features)
-
-    draft_features = draft_features.drop_duplicates(subset=['player_name'])
-    sorted_response = draft_features.sort_values(by='ecr_avg')
-
+    draft_insights = generate_player_draft_score(draft_insights)
+    draft_insights = draft_insights.drop_duplicates(subset=['player_name'])
+    sorted_response = draft_insights.sort_values(by='ecr_avg')
     sorted_response = sorted_response.to_dict(orient='records')
 
     return JSONResponse(content=sorted_response)
 
-    """
-    Not Used - Alternative approach which creates a model for each position group.
-    model_performance, overall_performance = models.train_model_by_position(training_features, model_type='random_forest')
-    predictions = models.predict_by_position(prediction_features, models=model_performance)
-    """
 
 if __name__ == '__main__':
     import uvicorn

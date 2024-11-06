@@ -75,7 +75,7 @@ def upload_league(league:League, s3:bool=settings.S3):
     if s3:
         uploader.upload_json_to_s3(league_json, f'espn/league/{object_name}')
     else:
-        appdata_path = os.path.join(os.getcwd(), "backend/AppData")
+        appdata_path = os.path.join(os.getcwd(), "backend/AppData/league")
         file_path = os.path.join(appdata_path, object_name)
         with open(file_path, 'w') as f:
             json.dump(league_json, f, indent=4)
@@ -130,7 +130,7 @@ def get_past_leagues(league_id:int, s3:bool=settings.S3):
             if object_key[-9:-5] != str(CURR_LEAGUE_YR):
                 leagues[object_key[-9:-5]] = obj
     else:
-        appdata_path = os.path.join(os.getcwd(), "backend/AppData")
+        appdata_path = os.path.join(os.getcwd(), "backend/AppData/league")
         appdata_matching_league_objects = [os.path.join(root, file)
                                             for root, dirs, files in os.walk(appdata_path)
                                             for file in files
@@ -143,11 +143,12 @@ def get_past_leagues(league_id:int, s3:bool=settings.S3):
             file_name = os.path.basename(file_path)
             try:
                 with open(file_path, 'r') as f:
-                    leagues[file_name[-9:-5]] = json.load(f)  # Load JSON content
+                    leagues[file_name[-9:-5]] = jsonpickle.decode(json.load(f))
+                    logger.info(f'Successfully read {file_name}')   
             except json.JSONDecodeError:
-                print(f"Error decoding JSON in file: {file_name}")
+                logger.info(f"Error decoding JSON in file: {file_name}")
             except Exception as e:
-                print(f"Error reading file {file_name}: {e}")
+                logger.info(f"Error reading file {file_name}: {e}")
 
     return leagues
         
@@ -200,7 +201,7 @@ def aggregate_and_post_player_stats(past_leagues:Dict, s3=settings.S3):
         player_history_stats_json = json.dumps(dict(player_history_stats), indent=4)
         uploader.upload_json_to_s3(player_history_stats_json, f'espn/league/playerstats/{object_name}')
     else:
-        appdata_path = os.path.join(os.getcwd(), "backend/AppData")
+        appdata_path = os.path.join(os.getcwd(), "backend/AppData/league")
         file_path = os.path.join(appdata_path, object_name)
         with open(file_path, 'w') as f:
             json.dump(player_history_stats, f, indent=4)
@@ -224,30 +225,29 @@ def get_league_player_stats(league_id:int, s3=settings.S3):
         s3_league_objects = reader.s3.list_objects_v2(Bucket=AWS_S3_BUCKET_NAME_LEAGUE)
         s3_matching_league_objects = [obj['Key'] for obj in s3_league_objects['Contents'] if re.search(fr'^espn\/league\/playerstats\/espn-{league_id}-playerstats.json$', obj['Key'])]
         if not s3_matching_league_objects:
-            print("No player stats currently in S3.  Downloading player stats from fantasy platform.")
+            logger.info("No player stats currently in S3.  Downloading player stats from fantasy platform.")
             return None
         for object_key in s3_matching_league_objects:
             obj_response = reader.read_from_s3(object_key=object_key)
             player_history_stats = json.loads(obj_response['Body'].read())
     else:
-        appdata_path = os.path.join(os.getcwd(), "backend/AppData")
+        appdata_path = os.path.join(os.getcwd(), "backend/AppData/league")
         appdata_matching_league_objects = [os.path.join(root, file)
                                             for root, dirs, files in os.walk(appdata_path)
                                             for file in files
                                             if re.search(fr'^espn-{league_id}-playerstats.json$', file)]
         if not appdata_matching_league_objects:
-            print("No player stats currently in AppData folder.  Downloading player stats from fantasy platform.")
+            logger.info("No player stats currently in AppData folder.  Downloading player stats from fantasy platform.")
             return None
         
         for file_path in appdata_matching_league_objects:
             file_name = os.path.basename(file_path)
             try:
                 with open(file_path, 'r') as f:
-                    if file_name[-20:-16] != str(CURR_LEAGUE_YR):
-                        player_history_stats[file_name[-20:-16]] = json.load(f)
+                    player_history_stats = json.load(f)
             except json.JSONDecodeError:
-                print(f"Error decoding JSON in file: {file_name}")
+                logger.error(f"Error decoding JSON in file: {file_name}")
             except Exception as e:
-                print(f"Error reading file {file_name}: {e}")
+                logger.error(f"Error reading file {file_name}: {e}")
 
     return player_history_stats

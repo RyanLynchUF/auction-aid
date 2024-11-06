@@ -8,6 +8,9 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 from config import settings
+from utils.logger import get_logger
+
+logger = get_logger(__name__)
 
 CURR_LEAGUE_YR = settings.CURR_LEAGUE_YR
 
@@ -87,7 +90,6 @@ def tune_model(features:pd.DataFrame, model_type:str,
             n_jobs=-1,
             scoring='neg_mean_squared_error'
         )
-
         print("Training Random Forest model...")
     else:
 
@@ -284,118 +286,3 @@ def print_multicollinearity_analysis(results: Tuple[Dict, pd.DataFrame, List[str
             print(f"- {col}")
     else:
         print("No columns recommended for removal")
-
-"""
-Not Used - Alternative approach which creates a model for each position group.
-
-def train_model_by_position(data: pd.DataFrame, model_type: str = 'random_forest'):
-    Train and evaluate separate random forest models for each position.
-    
-    Parameters:
-    data (pd.DataFrame): DataFrame containing the input features and target variable
-    model_type (str): Type of model to train, either 'random_forest' or 'linear_regression'
-    
-    Returns:
-    dict: A dictionary containing the model performance metrics for each position
-  
-    # Get the unique positions
-    positions = ['WR', 'RB', 'QB', 'K', 'TE', 'DST']
-
-    model_performance = {}
-    for pos in positions:
-        # Filter the data for the current position
-        X_pos = data.drop(['curr_year_bid_amt', 'pos'], axis=1)[data['pos'] == pos]
-        y_pos = data['curr_year_bid_amt'][data['pos'] == pos]
-
-        # Split the data into train and test sets
-        X_train, X_test, y_train, y_test = train_test_split(X_pos, y_pos, test_size=0.2, random_state=42)
-
-        # Train the model
-        if model_type == 'random_forest':
-            model = RandomForestRegressor(n_estimators=100, random_state=42)
-        else:
-            model = LinearRegression()
-        model.fit(X_train, y_train)
-
-        # Evaluate the model
-        train_predictions = model.predict(X_train)
-        test_predictions = model.predict(X_test)
-
-        train_r2 = r2_score(y_train, train_predictions)
-        test_r2 = r2_score(y_test, test_predictions)
-        train_rmse = np.sqrt(mean_squared_error(y_train, train_predictions))
-        test_rmse = np.sqrt(mean_squared_error(y_test, test_predictions))
-
-        model_performance[pos] = {
-            'train_r2': train_r2,
-            'test_r2': test_r2,
-            'train_rmse': train_rmse,
-            'test_rmse': test_rmse,
-            'trained_model': model
-        }
-
-     # Calculate the overall performance metrics
-    all_train_r2 = sum(metrics['train_r2'] for metrics in model_performance.values()) / len(model_performance)
-    all_test_r2 = sum(metrics['test_r2'] for metrics in model_performance.values()) / len(model_performance)
-    all_train_rmse = np.sqrt(sum(metrics['train_rmse']**2 for metrics in model_performance.values()) / len(model_performance))
-    all_test_rmse = np.sqrt(sum(metrics['test_rmse']**2 for metrics in model_performance.values()) / len(model_performance))
-
-    overall_performance = {
-        'all_train_r2': all_train_r2,
-        'all_test_r2': all_test_r2,
-        'all_train_rmse': all_train_rmse,
-        'all_test_rmse': all_test_rmse
-    }
-
-    # Print the summary of model performance
-    print("Training - Position Model Performance Summary:")
-    for pos, metrics in model_performance.items():
-        print(f"Position: {pos}")
-        print(f"  Train R^2: {metrics['train_r2']:.2f}")
-        print(f"  Test R^2: {metrics['test_r2']:.2f}")
-        print(f"  Train RMSE: {metrics['train_rmse']:.2f}")
-        print(f"  Test RMSE: {metrics['test_rmse']:.2f}")
-
-
-    print("\nTraining - Position Overall Performance:")
-    print(f"  Train R^2: {overall_performance['all_train_r2']:.2f}")
-    print(f"  Test R^2: {overall_performance['all_test_r2']:.2f}")
-    print(f"  Train RMSE: {overall_performance['all_train_rmse']:.2f}")
-    print(f"  Test RMSE: {overall_performance['all_test_rmse']:.2f}")
-
-    return model_performance, overall_performance
-
-
-def predict_by_position(prediction_features: pd.DataFrame, models: dict):
-
-    Use the trained models to predict values on a new dataset and assess the performance.
-    
-    Parameters:
-    prediction_features (pd.DataFrame): DataFrame containing the input features and target variable for the new dataset
-    models (dict): A dictionary of trained models, with positions as keys and models as values
-    
-    Returns:
-    dict: A dictionary containing the prediction performance metrics for the new dataset
-    
-    # Get the unique positions
-    positions = ['WR', 'RB', 'QB', 'K', 'TE', 'DST']
-
-    # Create a copy to avoid modifying the original DataFrame
-    df = prediction_features.copy()
-    
-    predictions_list_by_position = []
-    for pos in positions:
-        # Filter the data for the current position
-        X_pos = df.drop(['pos'], axis=1)[df['pos'] == pos]
-        
-        # Make predictions using the trained model
-        model = models[pos]['trained_model']
-        predictions = model.predict(X_pos)
-        X_pos['predicted_bid_amt'] = predictions
-        predictions_list_by_position.append(X_pos)
-
-    all_predictions = pd.concat(predictions_list_by_position)
-        
-    return all_predictions
-    
-    """

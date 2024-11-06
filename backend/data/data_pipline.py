@@ -26,7 +26,7 @@ CURR_LEAGUE_YR = settings.CURR_LEAGUE_YR
 SCORING_FORMATS = ['standard', 'ppr', 'half-ppr']
 LEAGUE_SIZES = ['10', '12', '14']
     
-def scrape_daily_fantasypros_projections():
+def scrape_daily_fantasypros_projections(s3:bool=settings.S3):
     """
     Daily process to scrape the latest projection data from FantasyPros.
     """
@@ -47,13 +47,23 @@ def scrape_daily_fantasypros_projections():
         adp_scraper = FPScraper('adp', scoring_format)
         daily_projections['adp'] = adp_scraper.scrape_adp()
 
-        daily_projections_json = json.dumps(daily_projections)
-        object_name = f"fp-metrics-{scoring_format}-{date_string}.json"
+        object_name = f"fp-projections-{scoring_format}-{date_string}.json"
 
-        uploader.upload_json_to_s3(daily_projections_json, f'fp/daily-metrics/{object_name}')
+        if s3:
+            daily_projections_json = json.dumps(daily_projections)
+            uploader.upload_json_to_s3(daily_projections_json, f'fp/daily-projections/{object_name}')
+        else:
+            daily_projections_json = daily_projections
+            appdata_path = os.path.join(os.getcwd(), "backend/AppData/daily-projections/")
+            file_path = os.path.join(appdata_path, object_name)
+            with open(file_path, 'w') as f:
+                json.dump(daily_projections_json, f, indent=4)
+            logger.info(f'Successfully uploaded {file_path} to AppData Folder')
+
+
 
 #TODO: Refactor this process to allow for only downloading a single year without overwriting the "asoofYYYY" so we don't overwrite it 
-def scrape_historical_fantasypros_projections(years:List[int]):
+def scrape_historical_fantasypros_projections(years:List[int], s3:bool=settings.S3):
     """
     Downloads histroical FantasyPros projections.
     
@@ -87,9 +97,17 @@ def scrape_historical_fantasypros_projections(years:List[int]):
             historical_projections.append({year: yearly_projections})
             all_historical_projections[scoring_format] = historical_projections
 
-            yearly_projections_json = json.dumps(yearly_projections)
-            object_name = f"fp-metrics-{scoring_format}-{year}.json"
-            uploader.upload_json_to_s3(yearly_projections_json, f'fp/historical-metrics/{object_name}')
+            object_name = f"fp-projections-{scoring_format}-{year}.json"
+            if s3:
+                yearly_projections_json = json.dumps(yearly_projections)
+                uploader.upload_json_to_s3(yearly_projections_json, f'fp/historical-projections/{object_name}')
+            else:
+                yearly_projections_json = yearly_projections
+                appdata_path = os.path.join(os.getcwd(), "backend/AppData/historical-projections/")
+                file_path = os.path.join(appdata_path, object_name)
+                with open(file_path, 'w') as f:
+                    json.dump(yearly_projections_json, f, indent=4)
+                logger.info(f'Successfully uploaded {file_path} to AppData Folder')
 
         all_historical_projections[scoring_format] = historical_projections
 
@@ -118,7 +136,15 @@ def scrape_historical_fantasypros_projections(years:List[int]):
                     all_players_data.append(player_data)
 
 
-        all_players_data_json = json.dumps(all_players_data)
-        object_name = f"fp-metrics-{scoring_format}-allyearsasof-{CURR_LEAGUE_YR}.json"
-
-        uploader.upload_json_to_s3(all_players_data_json, f'fp/historical-metrics/{object_name}')
+        
+        object_name = f"fp-projections-{scoring_format}-allyearsasof-{CURR_LEAGUE_YR}.json"
+        if s3:
+            all_players_data_json = json.dumps(all_players_data)
+            uploader.upload_json_to_s3(all_players_data_json, f'fp/historical-projections/{object_name}')
+        else:
+            all_players_data_json = all_players_data
+            appdata_path = os.path.join(os.getcwd(), "backend/AppData/historical-projections/")
+            file_path = os.path.join(appdata_path, object_name)
+            with open(file_path, 'w') as f:
+                json.dump(all_players_data_json, f, indent=4)
+            logger.info(f'Successfully uploaded {file_path} to AppData Folder')

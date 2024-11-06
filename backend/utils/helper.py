@@ -1,7 +1,6 @@
 from typing import List
 import pandas as pd
 from functools import reduce
-from sklearn.preprocessing import MinMaxScaler
 
 
 def denormalize(df, column, values, columns_to_keep:List[str]=None, index:List[str]=['player_name'], groupby:List[str] = ['player_name', 'year']):

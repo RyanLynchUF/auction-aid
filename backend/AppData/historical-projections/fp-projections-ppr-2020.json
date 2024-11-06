@@ -1,0 +1,2919 @@
+{
+    "vbd": {
+        "10": {},
+        "12": {},
+        "14": {}
+    },
+    "adp": {
+        "Christian McCaffrey": {
+            "pos": "RB",
+            "projected_pos_rank": 1,
+            "adp_avg": 1.0
+        },
+        "Saquon Barkley": {
+            "pos": "RB",
+            "projected_pos_rank": 2,
+            "adp_avg": 2.0
+        },
+        "Ezekiel Elliott": {
+            "pos": "RB",
+            "projected_pos_rank": 3,
+            "adp_avg": 3.0
+        },
+        "Dalvin Cook": {
+            "pos": "RB",
+            "projected_pos_rank": 4,
+            "adp_avg": 4.8
+        },
+        "Michael Thomas": {
+            "pos": "WR",
+            "projected_pos_rank": 1,
+            "adp_avg": 5.0
+        },
+        "Alvin Kamara": {
+            "pos": "RB",
+            "projected_pos_rank": 5,
+            "adp_avg": 5.3
+        },
+        "Derrick Henry": {
+            "pos": "RB",
+            "projected_pos_rank": 6,
+            "adp_avg": 7.3
+        },
+        "Davante Adams": {
+            "pos": "WR",
+            "projected_pos_rank": 2,
+            "adp_avg": 11.3
+        },
+        "Josh Jacobs": {
+            "pos": "RB",
+            "projected_pos_rank": 7,
+            "adp_avg": 12.0
+        },
+        "Joe Mixon": {
+            "pos": "RB",
+            "projected_pos_rank": 8,
+            "adp_avg": 12.8
+        },
+        "Clyde Edwards-Helaire": {
+            "pos": "RB",
+            "projected_pos_rank": 9,
+            "adp_avg": 14.0
+        },
+        "Miles Sanders": {
+            "pos": "RB",
+            "projected_pos_rank": 10,
+            "adp_avg": 14.0
+        },
+        "Austin Ekeler": {
+            "pos": "RB",
+            "projected_pos_rank": 11,
+            "adp_avg": 14.3
+        },
+        "Tyreek Hill": {
+            "pos": "WR",
+            "projected_pos_rank": 3,
+            "adp_avg": 14.8
+        },
+        "Nick Chubb": {
+            "pos": "RB",
+            "projected_pos_rank": 12,
+            "adp_avg": 15.0
+        },
+        "Kenyan Drake": {
+            "pos": "RB",
+            "projected_pos_rank": 13,
+            "adp_avg": 15.0
+        },
+        "Julio Jones": {
+            "pos": "WR",
+            "projected_pos_rank": 4,
+            "adp_avg": 15.3
+        },
+        "DeAndre Hopkins": {
+            "pos": "WR",
+            "projected_pos_rank": 5,
+            "adp_avg": 15.5
+        },
+        "Aaron Jones": {
+            "pos": "RB",
+            "projected_pos_rank": 14,
+            "adp_avg": 18.3
+        },
+        "Travis Kelce": {
+            "pos": "TE",
+            "projected_pos_rank": 1,
+            "adp_avg": 18.8
+        },
+        "Patrick Mahomes": {
+            "pos": "QB",
+            "projected_pos_rank": 1,
+            "adp_avg": 20.0
+        },
+        "Chris Godwin": {
+            "pos": "WR",
+            "projected_pos_rank": 6,
+            "adp_avg": 20.8
+        },
+        "Lamar Jackson": {
+            "pos": "QB",
+            "projected_pos_rank": 2,
+            "adp_avg": 21.0
+        },
+        "George Kittle": {
+            "pos": "TE",
+            "projected_pos_rank": 2,
+            "adp_avg": 23.3
+        },
+        "Kenny Golladay": {
+            "pos": "WR",
+            "projected_pos_rank": 7,
+            "adp_avg": 26.0
+        },
+        "Mike Evans": {
+            "pos": "WR",
+            "projected_pos_rank": 8,
+            "adp_avg": 27.0
+        },
+        "Chris Carson": {
+            "pos": "RB",
+            "projected_pos_rank": 15,
+            "adp_avg": 30.3
+        },
+        "DJ Moore": {
+            "pos": "WR",
+            "projected_pos_rank": 9,
+            "adp_avg": 30.3
+        },
+        "Todd Gurley": {
+            "pos": "RB",
+            "projected_pos_rank": 16,
+            "adp_avg": 30.8
+        },
+        "Allen Robinson": {
+            "pos": "WR",
+            "projected_pos_rank": 10,
+            "adp_avg": 32.0
+        },
+        "Odell Beckham": {
+            "pos": "WR",
+            "projected_pos_rank": 11,
+            "adp_avg": 32.0
+        },
+        "Adam Thielen": {
+            "pos": "WR",
+            "projected_pos_rank": 12,
+            "adp_avg": 32.3
+        },
+        "JuJu Smith-Schuster": {
+            "pos": "WR",
+            "projected_pos_rank": 13,
+            "adp_avg": 33.8
+        },
+        "James Conner": {
+            "pos": "RB",
+            "projected_pos_rank": 17,
+            "adp_avg": 34.8
+        },
+        "Amari Cooper": {
+            "pos": "WR",
+            "projected_pos_rank": 14,
+            "adp_avg": 35.3
+        },
+        "David Johnson": {
+            "pos": "RB",
+            "projected_pos_rank": 18,
+            "adp_avg": 35.3
+        },
+        "Le'Veon Bell": {
+            "pos": "RB",
+            "projected_pos_rank": 19,
+            "adp_avg": 37.8
+        },
+        "Cooper Kupp": {
+            "pos": "WR",
+            "projected_pos_rank": 15,
+            "adp_avg": 38.0
+        },
+        "Melvin Gordon": {
+            "pos": "RB",
+            "projected_pos_rank": 20,
+            "adp_avg": 40.5
+        },
+        "Zach Ertz": {
+            "pos": "TE",
+            "projected_pos_rank": 3,
+            "adp_avg": 42.0
+        },
+        "Mark Andrews": {
+            "pos": "TE",
+            "projected_pos_rank": 4,
+            "adp_avg": 42.3
+        },
+        "A.J. Brown": {
+            "pos": "WR",
+            "projected_pos_rank": 16,
+            "adp_avg": 42.3
+        },
+        "Jonathan Taylor": {
+            "pos": "RB",
+            "projected_pos_rank": 21,
+            "adp_avg": 42.8
+        },
+        "Calvin Ridley": {
+            "pos": "WR",
+            "projected_pos_rank": 17,
+            "adp_avg": 43.0
+        },
+        "Robert Woods": {
+            "pos": "WR",
+            "projected_pos_rank": 18,
+            "adp_avg": 46.0
+        },
+        "Courtland Sutton": {
+            "pos": "WR",
+            "projected_pos_rank": 19,
+            "adp_avg": 46.5
+        },
+        "Keenan Allen": {
+            "pos": "WR",
+            "projected_pos_rank": 20,
+            "adp_avg": 50.5
+        },
+        "Tyler Lockett": {
+            "pos": "WR",
+            "projected_pos_rank": 21,
+            "adp_avg": 51.0
+        },
+        "DK Metcalf": {
+            "pos": "WR",
+            "projected_pos_rank": 22,
+            "adp_avg": 51.3
+        },
+        "Devin Singletary": {
+            "pos": "RB",
+            "projected_pos_rank": 22,
+            "adp_avg": 53.8
+        },
+        "Dak Prescott": {
+            "pos": "QB",
+            "projected_pos_rank": 3,
+            "adp_avg": 53.8
+        },
+        "DJ Chark": {
+            "pos": "WR",
+            "projected_pos_rank": 23,
+            "adp_avg": 54.3
+        },
+        "Raheem Mostert": {
+            "pos": "RB",
+            "projected_pos_rank": 23,
+            "adp_avg": 54.8
+        },
+        "Cam Akers": {
+            "pos": "RB",
+            "projected_pos_rank": 24,
+            "adp_avg": 54.8
+        },
+        "Mark Ingram": {
+            "pos": "RB",
+            "projected_pos_rank": 25,
+            "adp_avg": 55.0
+        },
+        "Terry McLaurin": {
+            "pos": "WR",
+            "projected_pos_rank": 24,
+            "adp_avg": 56.8
+        },
+        "T.Y. Hilton": {
+            "pos": "WR",
+            "projected_pos_rank": 25,
+            "adp_avg": 57.0
+        },
+        "Darren Waller": {
+            "pos": "TE",
+            "projected_pos_rank": 5,
+            "adp_avg": 57.3
+        },
+        "Kareem Hunt": {
+            "pos": "RB",
+            "projected_pos_rank": 26,
+            "adp_avg": 58.0
+        },
+        "Kyler Murray": {
+            "pos": "QB",
+            "projected_pos_rank": 4,
+            "adp_avg": 58.5
+        },
+        "Deshaun Watson": {
+            "pos": "QB",
+            "projected_pos_rank": 5,
+            "adp_avg": 59.0
+        },
+        "Leonard Fournette": {
+            "pos": "RB",
+            "projected_pos_rank": 27,
+            "adp_avg": 59.3
+        },
+        "Russell Wilson": {
+            "pos": "QB",
+            "projected_pos_rank": 6,
+            "adp_avg": 59.5
+        },
+        "DeVante Parker": {
+            "pos": "WR",
+            "projected_pos_rank": 26,
+            "adp_avg": 62.3
+        },
+        "Stefon Diggs": {
+            "pos": "WR",
+            "projected_pos_rank": 27,
+            "adp_avg": 63.0
+        },
+        "David Montgomery": {
+            "pos": "RB",
+            "projected_pos_rank": 28,
+            "adp_avg": 63.8
+        },
+        "D'Andre Swift": {
+            "pos": "RB",
+            "projected_pos_rank": 29,
+            "adp_avg": 65.8
+        },
+        "Marquise Brown": {
+            "pos": "WR",
+            "projected_pos_rank": 28,
+            "adp_avg": 69.8
+        },
+        "A.J. Green": {
+            "pos": "WR",
+            "projected_pos_rank": 29,
+            "adp_avg": 70.0
+        },
+        "Jarvis Landry": {
+            "pos": "WR",
+            "projected_pos_rank": 30,
+            "adp_avg": 73.0
+        },
+        "Evan Engram": {
+            "pos": "TE",
+            "projected_pos_rank": 6,
+            "adp_avg": 73.5
+        },
+        "Tyler Boyd": {
+            "pos": "WR",
+            "projected_pos_rank": 31,
+            "adp_avg": 73.8
+        },
+        "Michael Gallup": {
+            "pos": "WR",
+            "projected_pos_rank": 32,
+            "adp_avg": 74.8
+        },
+        "William Fuller V": {
+            "pos": "WR",
+            "projected_pos_rank": 33,
+            "adp_avg": 75.5
+        },
+        "Julian Edelman": {
+            "pos": "WR",
+            "projected_pos_rank": 34,
+            "adp_avg": 76.0
+        },
+        "Rob Gronkowski": {
+            "pos": "TE",
+            "projected_pos_rank": 7,
+            "adp_avg": 78.8
+        },
+        "James White": {
+            "pos": "RB",
+            "projected_pos_rank": 30,
+            "adp_avg": 80.8
+        },
+        "Tom Brady": {
+            "pos": "QB",
+            "projected_pos_rank": 7,
+            "adp_avg": 81.5
+        },
+        "Tyler Higbee": {
+            "pos": "TE",
+            "projected_pos_rank": 8,
+            "adp_avg": 83.5
+        },
+        "Drew Brees": {
+            "pos": "QB",
+            "projected_pos_rank": 8,
+            "adp_avg": 83.8
+        },
+        "Matt Ryan": {
+            "pos": "QB",
+            "projected_pos_rank": 9,
+            "adp_avg": 84.8
+        },
+        "Deebo Samuel": {
+            "pos": "WR",
+            "projected_pos_rank": 35,
+            "adp_avg": 85.3
+        },
+        "J.K. Dobbins": {
+            "pos": "RB",
+            "projected_pos_rank": 31,
+            "adp_avg": 85.8
+        },
+        "Hunter Henry": {
+            "pos": "TE",
+            "projected_pos_rank": 9,
+            "adp_avg": 86.5
+        },
+        "Tarik Cohen": {
+            "pos": "RB",
+            "projected_pos_rank": 32,
+            "adp_avg": 86.5
+        },
+        "Brandin Cooks": {
+            "pos": "WR",
+            "projected_pos_rank": 36,
+            "adp_avg": 87.5
+        },
+        "Ronald Jones": {
+            "pos": "RB",
+            "projected_pos_rank": 33,
+            "adp_avg": 88.5
+        },
+        "Phillip Lindsay": {
+            "pos": "RB",
+            "projected_pos_rank": 34,
+            "adp_avg": 88.8
+        },
+        "Marvin Jones": {
+            "pos": "WR",
+            "projected_pos_rank": 37,
+            "adp_avg": 90.0
+        },
+        "Jordan Howard": {
+            "pos": "RB",
+            "projected_pos_rank": 35,
+            "adp_avg": 91.3
+        },
+        "Josh Allen": {
+            "pos": "QB",
+            "projected_pos_rank": 10,
+            "adp_avg": 93.8
+        },
+        "Aaron Rodgers": {
+            "pos": "QB",
+            "projected_pos_rank": 11,
+            "adp_avg": 97.5
+        },
+        "Marlon Mack": {
+            "pos": "RB",
+            "projected_pos_rank": 36,
+            "adp_avg": 99.3
+        },
+        "Kerryon Johnson": {
+            "pos": "RB",
+            "projected_pos_rank": 37,
+            "adp_avg": 99.8
+        },
+        "Matt Breida": {
+            "pos": "RB",
+            "projected_pos_rank": 38,
+            "adp_avg": 100.5
+        },
+        "Diontae Johnson": {
+            "pos": "WR",
+            "projected_pos_rank": 38,
+            "adp_avg": 100.5
+        },
+        "Antonio Gibson": {
+            "pos": "RB",
+            "projected_pos_rank": 39,
+            "adp_avg": 101.0
+        },
+        "Christian Kirk": {
+            "pos": "WR",
+            "projected_pos_rank": 39,
+            "adp_avg": 102.5
+        },
+        "Zack Moss": {
+            "pos": "RB",
+            "projected_pos_rank": 40,
+            "adp_avg": 103.5
+        },
+        "CeeDee Lamb": {
+            "pos": "WR",
+            "projected_pos_rank": 40,
+            "adp_avg": 104.5
+        },
+        "Jamison Crowder": {
+            "pos": "WR",
+            "projected_pos_rank": 41,
+            "adp_avg": 104.8
+        },
+        "Carson Wentz": {
+            "pos": "QB",
+            "projected_pos_rank": 12,
+            "adp_avg": 105.3
+        },
+        "Jared Cook": {
+            "pos": "TE",
+            "projected_pos_rank": 10,
+            "adp_avg": 105.5
+        },
+        "Sterling Shepard": {
+            "pos": "WR",
+            "projected_pos_rank": 42,
+            "adp_avg": 105.5
+        },
+        "Hayden Hurst": {
+            "pos": "TE",
+            "projected_pos_rank": 11,
+            "adp_avg": 106.3
+        },
+        "Emmanuel Sanders": {
+            "pos": "WR",
+            "projected_pos_rank": 43,
+            "adp_avg": 106.5
+        },
+        "San Francisco 49ers": {
+            "pos": "DST",
+            "projected_pos_rank": 1,
+            "adp_avg": 107.5
+        },
+        "Latavius Murray": {
+            "pos": "RB",
+            "projected_pos_rank": 41,
+            "adp_avg": 107.5
+        },
+        "Matthew Stafford": {
+            "pos": "QB",
+            "projected_pos_rank": 13,
+            "adp_avg": 110.5
+        },
+        "Sony Michel": {
+            "pos": "RB",
+            "projected_pos_rank": 42,
+            "adp_avg": 112.3
+        },
+        "Tevin Coleman": {
+            "pos": "RB",
+            "projected_pos_rank": 43,
+            "adp_avg": 113.5
+        },
+        "Jerry Jeudy": {
+            "pos": "WR",
+            "projected_pos_rank": 44,
+            "adp_avg": 114.8
+        },
+        "Darius Slayton": {
+            "pos": "WR",
+            "projected_pos_rank": 45,
+            "adp_avg": 115.0
+        },
+        "Noah Fant": {
+            "pos": "TE",
+            "projected_pos_rank": 12,
+            "adp_avg": 115.0
+        },
+        "Pittsburgh Steelers": {
+            "pos": "DST",
+            "projected_pos_rank": 2,
+            "adp_avg": 115.3
+        },
+        "Henry Ruggs": {
+            "pos": "WR",
+            "projected_pos_rank": 46,
+            "adp_avg": 116.5
+        },
+        "John Brown": {
+            "pos": "WR",
+            "projected_pos_rank": 47,
+            "adp_avg": 117.0
+        },
+        "Alexander Mattison": {
+            "pos": "RB",
+            "projected_pos_rank": 44,
+            "adp_avg": 121.8
+        },
+        "Austin Hooper": {
+            "pos": "TE",
+            "projected_pos_rank": 13,
+            "adp_avg": 122.0
+        },
+        "Baltimore Ravens": {
+            "pos": "DST",
+            "projected_pos_rank": 3,
+            "adp_avg": 123.8
+        },
+        "Justin Jefferson": {
+            "pos": "WR",
+            "projected_pos_rank": 48,
+            "adp_avg": 125.0
+        },
+        "Preston Williams": {
+            "pos": "WR",
+            "projected_pos_rank": 49,
+            "adp_avg": 128.3
+        },
+        "Buffalo Bills": {
+            "pos": "DST",
+            "projected_pos_rank": 4,
+            "adp_avg": 128.5
+        },
+        "Darrell Henderson": {
+            "pos": "RB",
+            "projected_pos_rank": 45,
+            "adp_avg": 128.8
+        },
+        "Daniel Jones": {
+            "pos": "QB",
+            "projected_pos_rank": 14,
+            "adp_avg": 131.3
+        },
+        "Duke Johnson": {
+            "pos": "RB",
+            "projected_pos_rank": 46,
+            "adp_avg": 131.5
+        },
+        "Mecole Hardman": {
+            "pos": "WR",
+            "projected_pos_rank": 50,
+            "adp_avg": 133.0
+        },
+        "Ben Roethlisberger": {
+            "pos": "QB",
+            "projected_pos_rank": 15,
+            "adp_avg": 133.8
+        },
+        "Justin Tucker": {
+            "pos": "K",
+            "projected_pos_rank": 1,
+            "adp_avg": 134.0
+        },
+        "T.J. Hockenson": {
+            "pos": "TE",
+            "projected_pos_rank": 14,
+            "adp_avg": 134.8
+        },
+        "Boston Scott": {
+            "pos": "RB",
+            "projected_pos_rank": 47,
+            "adp_avg": 135.0
+        },
+        "Harrison Butker": {
+            "pos": "K",
+            "projected_pos_rank": 2,
+            "adp_avg": 135.8
+        },
+        "Tony Pollard": {
+            "pos": "RB",
+            "projected_pos_rank": 48,
+            "adp_avg": 136.5
+        },
+        "Golden Tate": {
+            "pos": "WR",
+            "projected_pos_rank": 51,
+            "adp_avg": 137.3
+        },
+        "Robbie Chosen": {
+            "pos": "WR",
+            "projected_pos_rank": 52,
+            "adp_avg": 138.8
+        },
+        "Anthony Miller": {
+            "pos": "WR",
+            "projected_pos_rank": 53,
+            "adp_avg": 139.3
+        },
+        "Mike Gesicki": {
+            "pos": "TE",
+            "projected_pos_rank": 15,
+            "adp_avg": 139.3
+        },
+        "Chase Edmonds": {
+            "pos": "RB",
+            "projected_pos_rank": 49,
+            "adp_avg": 139.8
+        },
+        "DeSean Jackson": {
+            "pos": "WR",
+            "projected_pos_rank": 54,
+            "adp_avg": 141.5
+        },
+        "New England Patriots": {
+            "pos": "DST",
+            "projected_pos_rank": 5,
+            "adp_avg": 142.0
+        },
+        "Jared Goff": {
+            "pos": "QB",
+            "projected_pos_rank": 16,
+            "adp_avg": 143.5
+        },
+        "Chicago Bears": {
+            "pos": "DST",
+            "projected_pos_rank": 6,
+            "adp_avg": 146.3
+        },
+        "Baker Mayfield": {
+            "pos": "QB",
+            "projected_pos_rank": 17,
+            "adp_avg": 148.3
+        },
+        "Wil Lutz": {
+            "pos": "K",
+            "projected_pos_rank": 3,
+            "adp_avg": 149.0
+        },
+        "Nyheim Hines": {
+            "pos": "RB",
+            "projected_pos_rank": 50,
+            "adp_avg": 149.5
+        },
+        "Joe Burrow": {
+            "pos": "QB",
+            "projected_pos_rank": 18,
+            "adp_avg": 149.5
+        },
+        "Mike Williams": {
+            "pos": "WR",
+            "projected_pos_rank": 55,
+            "adp_avg": 149.8
+        },
+        "Sammy Watkins": {
+            "pos": "WR",
+            "projected_pos_rank": 56,
+            "adp_avg": 153.5
+        },
+        "Ryquell Armstead": {
+            "pos": "RB",
+            "projected_pos_rank": 51,
+            "adp_avg": 156.8
+        },
+        "Ryan Tannehill": {
+            "pos": "QB",
+            "projected_pos_rank": 19,
+            "adp_avg": 157.5
+        },
+        "Cam Newton": {
+            "pos": "QB",
+            "projected_pos_rank": 20,
+            "adp_avg": 159.5
+        },
+        "Minnesota Vikings": {
+            "pos": "DST",
+            "projected_pos_rank": 7,
+            "adp_avg": 160.0
+        },
+        "Jonnu Smith": {
+            "pos": "TE",
+            "projected_pos_rank": 16,
+            "adp_avg": 160.3
+        },
+        "Jalen Reagor": {
+            "pos": "WR",
+            "projected_pos_rank": 57,
+            "adp_avg": 160.5
+        },
+        "Greg Zuerlein": {
+            "pos": "K",
+            "projected_pos_rank": 4,
+            "adp_avg": 161.5
+        },
+        "Jack Doyle": {
+            "pos": "TE",
+            "projected_pos_rank": 17,
+            "adp_avg": 161.5
+        },
+        "Chris Herndon": {
+            "pos": "TE",
+            "projected_pos_rank": 18,
+            "adp_avg": 161.8
+        },
+        "N'Keal Harry": {
+            "pos": "WR",
+            "projected_pos_rank": 58,
+            "adp_avg": 163.3
+        },
+        "Jimmy Garoppolo": {
+            "pos": "QB",
+            "projected_pos_rank": 21,
+            "adp_avg": 163.5
+        },
+        "Allen Lazard": {
+            "pos": "WR",
+            "projected_pos_rank": 59,
+            "adp_avg": 165.3
+        },
+        "Blake Jarwin": {
+            "pos": "TE",
+            "projected_pos_rank": 19,
+            "adp_avg": 165.5
+        },
+        "Breshad Perriman": {
+            "pos": "WR",
+            "projected_pos_rank": 60,
+            "adp_avg": 166.8
+        },
+        "Brandon Aiyuk": {
+            "pos": "WR",
+            "projected_pos_rank": 61,
+            "adp_avg": 167.5
+        },
+        "Michael Pittman": {
+            "pos": "WR",
+            "projected_pos_rank": 62,
+            "adp_avg": 168.0
+        },
+        "Justin Jackson": {
+            "pos": "RB",
+            "projected_pos_rank": 52,
+            "adp_avg": 168.3
+        },
+        "Adrian Peterson": {
+            "pos": "RB",
+            "projected_pos_rank": 53,
+            "adp_avg": 168.5
+        },
+        "AJ Dillon": {
+            "pos": "RB",
+            "projected_pos_rank": 54,
+            "adp_avg": 169.5
+        },
+        "Damien Harris": {
+            "pos": "RB",
+            "projected_pos_rank": 55,
+            "adp_avg": 170.8
+        },
+        "New Orleans Saints": {
+            "pos": "DST",
+            "projected_pos_rank": 8,
+            "adp_avg": 172.8
+        },
+        "Robbie Gould": {
+            "pos": "K",
+            "projected_pos_rank": 5,
+            "adp_avg": 174.0
+        },
+        "Chris Thompson": {
+            "pos": "RB",
+            "projected_pos_rank": 56,
+            "adp_avg": 174.5
+        },
+        "Darrel Williams": {
+            "pos": "RB",
+            "projected_pos_rank": 57,
+            "adp_avg": 174.5
+        },
+        "Philip Rivers": {
+            "pos": "QB",
+            "projected_pos_rank": 22,
+            "adp_avg": 177.3
+        },
+        "Parris Campbell": {
+            "pos": "WR",
+            "projected_pos_rank": 63,
+            "adp_avg": 177.8
+        },
+        "Gardner Minshew": {
+            "pos": "QB",
+            "projected_pos_rank": 23,
+            "adp_avg": 181.0
+        },
+        "Drew Lock": {
+            "pos": "QB",
+            "projected_pos_rank": 24,
+            "adp_avg": 181.8
+        },
+        "Larry Fitzgerald": {
+            "pos": "WR",
+            "projected_pos_rank": 64,
+            "adp_avg": 182.8
+        },
+        "Kansas City Chiefs": {
+            "pos": "DST",
+            "projected_pos_rank": 9,
+            "adp_avg": 183.8
+        },
+        "Zane Gonzalez": {
+            "pos": "K",
+            "projected_pos_rank": 6,
+            "adp_avg": 185.3
+        },
+        "Los Angeles Chargers": {
+            "pos": "DST",
+            "projected_pos_rank": 10,
+            "adp_avg": 187.5
+        },
+        "Los Angeles Rams": {
+            "pos": "DST",
+            "projected_pos_rank": 11,
+            "adp_avg": 189.5
+        },
+        "Matt Prater": {
+            "pos": "K",
+            "projected_pos_rank": 7,
+            "adp_avg": 189.8
+        },
+        "Indianapolis Colts": {
+            "pos": "DST",
+            "projected_pos_rank": 12,
+            "adp_avg": 194.0
+        },
+        "Tampa Bay Buccaneers": {
+            "pos": "DST",
+            "projected_pos_rank": 13,
+            "adp_avg": 202.5
+        },
+        "Younghoe Koo": {
+            "pos": "K",
+            "projected_pos_rank": 8,
+            "adp_avg": 204.5
+        },
+        "Jake Elliott": {
+            "pos": "K",
+            "projected_pos_rank": 9,
+            "adp_avg": 206.3
+        },
+        "Eric Ebron": {
+            "pos": "TE",
+            "projected_pos_rank": 20,
+            "adp_avg": 146.0
+        },
+        "Matt Gay": {
+            "pos": "K",
+            "projected_pos_rank": 10,
+            "adp_avg": 208.0
+        },
+        "Dallas Goedert": {
+            "pos": "TE",
+            "projected_pos_rank": 21,
+            "adp_avg": 149.0
+        },
+        "Philadelphia Eagles": {
+            "pos": "DST",
+            "projected_pos_rank": 14,
+            "adp_avg": 210.0
+        },
+        "Seattle Seahawks": {
+            "pos": "DST",
+            "projected_pos_rank": 15,
+            "adp_avg": 210.8
+        },
+        "Benny Snell": {
+            "pos": "RB",
+            "projected_pos_rank": 58,
+            "adp_avg": 213.0
+        },
+        "Chris Boswell": {
+            "pos": "K",
+            "projected_pos_rank": 11,
+            "adp_avg": 214.5
+        },
+        "Curtis Samuel": {
+            "pos": "WR",
+            "projected_pos_rank": 65,
+            "adp_avg": 158.3
+        },
+        "Dan Bailey": {
+            "pos": "K",
+            "projected_pos_rank": 12,
+            "adp_avg": 216.8
+        },
+        "Ke'Shawn Vaughn": {
+            "pos": "RB",
+            "projected_pos_rank": 59,
+            "adp_avg": 162.3
+        },
+        "Jerick McKinnon": {
+            "pos": "RB",
+            "projected_pos_rank": 60,
+            "adp_avg": 220.3
+        },
+        "Ka'imi Fairbairn": {
+            "pos": "K",
+            "projected_pos_rank": 13,
+            "adp_avg": 220.8
+        },
+        "Kirk Cousins": {
+            "pos": "QB",
+            "projected_pos_rank": 25,
+            "adp_avg": 166.7
+        },
+        "Alshon Jeffery": {
+            "pos": "WR",
+            "projected_pos_rank": 66,
+            "adp_avg": 167.0
+        },
+        "Bryan Edwards": {
+            "pos": "WR",
+            "projected_pos_rank": 67,
+            "adp_avg": 239.8
+        },
+        "Teddy Bridgewater": {
+            "pos": "QB",
+            "projected_pos_rank": 26,
+            "adp_avg": 191.3
+        },
+        "Joshua Kelley": {
+            "pos": "RB",
+            "projected_pos_rank": 61,
+            "adp_avg": 193.7
+        },
+        "Ryan Succop": {
+            "pos": "K",
+            "projected_pos_rank": 14,
+            "adp_avg": 243.3
+        },
+        "Denver Broncos": {
+            "pos": "DST",
+            "projected_pos_rank": 16,
+            "adp_avg": 197.0
+        },
+        "Bryce Love": {
+            "pos": "RB",
+            "projected_pos_rank": 62,
+            "adp_avg": 199.7
+        },
+        "Randall Cobb": {
+            "pos": "WR",
+            "projected_pos_rank": 68,
+            "adp_avg": 202.7
+        },
+        "Greg Olsen": {
+            "pos": "TE",
+            "projected_pos_rank": 22,
+            "adp_avg": 202.7
+        },
+        "Derek Carr": {
+            "pos": "QB",
+            "projected_pos_rank": 27,
+            "adp_avg": 203.3
+        },
+        "Irv Smith": {
+            "pos": "TE",
+            "projected_pos_rank": 23,
+            "adp_avg": 206.3
+        },
+        "Carlos Hyde": {
+            "pos": "RB",
+            "projected_pos_rank": 63,
+            "adp_avg": 209.0
+        },
+        "O.J. Howard": {
+            "pos": "TE",
+            "projected_pos_rank": 24,
+            "adp_avg": 209.0
+        },
+        "Cole Beasley": {
+            "pos": "WR",
+            "projected_pos_rank": 69,
+            "adp_avg": 211.3
+        },
+        "Kyle Rudolph": {
+            "pos": "TE",
+            "projected_pos_rank": 25,
+            "adp_avg": 212.0
+        },
+        "LeSean McCoy": {
+            "pos": "RB",
+            "projected_pos_rank": 64,
+            "adp_avg": 214.0
+        },
+        "Tennessee Titans": {
+            "pos": "DST",
+            "projected_pos_rank": 17,
+            "adp_avg": 214.3
+        },
+        "Devonta Freeman": {
+            "pos": "RB",
+            "projected_pos_rank": 65,
+            "adp_avg": 214.3
+        },
+        "Sam Darnold": {
+            "pos": "QB",
+            "projected_pos_rank": 28,
+            "adp_avg": 218.3
+        },
+        "Dallas Cowboys": {
+            "pos": "DST",
+            "projected_pos_rank": 18,
+            "adp_avg": 218.7
+        },
+        "Mason Crosby": {
+            "pos": "K",
+            "projected_pos_rank": 15,
+            "adp_avg": 223.3
+        },
+        "Antonio Brown": {
+            "pos": "WR",
+            "projected_pos_rank": 70,
+            "adp_avg": 224.3
+        },
+        "Jason Myers": {
+            "pos": "K",
+            "projected_pos_rank": 16,
+            "adp_avg": 239.7
+        },
+        "Brandon McManus": {
+            "pos": "K",
+            "projected_pos_rank": 17,
+            "adp_avg": 240.7
+        },
+        "Jimmy Graham": {
+            "pos": "TE",
+            "projected_pos_rank": 26,
+            "adp_avg": 241.0
+        },
+        "Hunter Renfrow": {
+            "pos": "WR",
+            "projected_pos_rank": 71,
+            "adp_avg": 168.0
+        },
+        "Washington Commanders": {
+            "pos": "DST",
+            "projected_pos_rank": 19,
+            "adp_avg": 243.7
+        },
+        "James Robinson": {
+            "pos": "RB",
+            "projected_pos_rank": 66,
+            "adp_avg": 245.7
+        },
+        "Jamaal Williams": {
+            "pos": "RB",
+            "projected_pos_rank": 67,
+            "adp_avg": 174.0
+        },
+        "Stephen Gostkowski": {
+            "pos": "K",
+            "projected_pos_rank": 18,
+            "adp_avg": 247.7
+        },
+        "Will Dissly": {
+            "pos": "TE",
+            "projected_pos_rank": 27,
+            "adp_avg": 247.7
+        },
+        "Green Bay Packers": {
+            "pos": "DST",
+            "projected_pos_rank": 20,
+            "adp_avg": 250.3
+        },
+        "Devine Ozigbo": {
+            "pos": "RB",
+            "projected_pos_rank": 68,
+            "adp_avg": 250.7
+        },
+        "Denzel Mims": {
+            "pos": "WR",
+            "projected_pos_rank": 72,
+            "adp_avg": 181.0
+        },
+        "Tua Tagovailoa": {
+            "pos": "QB",
+            "projected_pos_rank": 29,
+            "adp_avg": 254.3
+        },
+        "Ian Thomas": {
+            "pos": "TE",
+            "projected_pos_rank": 28,
+            "adp_avg": 191.5
+        },
+        "Dwayne Haskins": {
+            "pos": "QB",
+            "projected_pos_rank": 30,
+            "adp_avg": 261.3
+        },
+        "Josh Lambo": {
+            "pos": "K",
+            "projected_pos_rank": 19,
+            "adp_avg": 261.7
+        },
+        "Tee Higgins": {
+            "pos": "WR",
+            "projected_pos_rank": 73,
+            "adp_avg": 201.5
+        },
+        "Rodrigo Blankenship": {
+            "pos": "K",
+            "projected_pos_rank": 20,
+            "adp_avg": 266.0
+        },
+        "Darrynton Evans": {
+            "pos": "RB",
+            "projected_pos_rank": 69,
+            "adp_avg": 204.0
+        },
+        "Tyler Eifert": {
+            "pos": "TE",
+            "projected_pos_rank": 29,
+            "adp_avg": 268.0
+        },
+        "James Washington": {
+            "pos": "WR",
+            "projected_pos_rank": 74,
+            "adp_avg": 211.5
+        },
+        "Dede Westbrook": {
+            "pos": "WR",
+            "projected_pos_rank": 75,
+            "adp_avg": 212.0
+        },
+        "Corey Davis": {
+            "pos": "WR",
+            "projected_pos_rank": 76,
+            "adp_avg": 213.0
+        },
+        "Devin Asiasi": {
+            "pos": "TE",
+            "projected_pos_rank": 30,
+            "adp_avg": 272.7
+        },
+        "Houston Texans": {
+            "pos": "DST",
+            "projected_pos_rank": 21,
+            "adp_avg": 273.0
+        },
+        "Jace Sternberger": {
+            "pos": "TE",
+            "projected_pos_rank": 31,
+            "adp_avg": 273.0
+        },
+        "Rashaad Penny": {
+            "pos": "RB",
+            "projected_pos_rank": 70,
+            "adp_avg": 218.0
+        },
+        "Jalen Richard": {
+            "pos": "RB",
+            "projected_pos_rank": 71,
+            "adp_avg": 221.5
+        },
+        "Laviska Shenault": {
+            "pos": "WR",
+            "projected_pos_rank": 77,
+            "adp_avg": 221.5
+        },
+        "Mitchell Trubisky": {
+            "pos": "QB",
+            "projected_pos_rank": 31,
+            "adp_avg": 278.3
+        },
+        "Brian Hill": {
+            "pos": "RB",
+            "projected_pos_rank": 72,
+            "adp_avg": 222.5
+        },
+        "Cole Kmet": {
+            "pos": "TE",
+            "projected_pos_rank": 32,
+            "adp_avg": 281.0
+        },
+        "Anthony McFarland": {
+            "pos": "RB",
+            "projected_pos_rank": 73,
+            "adp_avg": 226.5
+        },
+        "Malcolm Brown": {
+            "pos": "RB",
+            "projected_pos_rank": 74,
+            "adp_avg": 229.0
+        },
+        "Atlanta Falcons": {
+            "pos": "DST",
+            "projected_pos_rank": 22,
+            "adp_avg": 229.5
+        },
+        "Kenny Stills": {
+            "pos": "WR",
+            "projected_pos_rank": 78,
+            "adp_avg": 230.5
+        },
+        "Giovani Bernard": {
+            "pos": "RB",
+            "projected_pos_rank": 75,
+            "adp_avg": 234.5
+        },
+        "Chase Claypool": {
+            "pos": "WR",
+            "projected_pos_rank": 79,
+            "adp_avg": 235.5
+        },
+        "Jacksonville Jaguars": {
+            "pos": "DST",
+            "projected_pos_rank": 23,
+            "adp_avg": 288.0
+        },
+        "Dion Lewis": {
+            "pos": "RB",
+            "projected_pos_rank": 76,
+            "adp_avg": 238.5
+        },
+        "Ito Smith": {
+            "pos": "RB",
+            "projected_pos_rank": 77,
+            "adp_avg": 239.0
+        },
+        "Austin Seibert": {
+            "pos": "K",
+            "projected_pos_rank": 21,
+            "adp_avg": 241.5
+        },
+        "Jaylen Samuels": {
+            "pos": "RB",
+            "projected_pos_rank": 78,
+            "adp_avg": 243.5
+        },
+        "Dawson Knox": {
+            "pos": "TE",
+            "projected_pos_rank": 33,
+            "adp_avg": 244.5
+        },
+        "Jalen Hurts": {
+            "pos": "QB",
+            "projected_pos_rank": 32,
+            "adp_avg": 245.5
+        },
+        "Tyrod Taylor": {
+            "pos": "QB",
+            "projected_pos_rank": 33,
+            "adp_avg": 247.5
+        },
+        "Lynn Bowden": {
+            "pos": "WR",
+            "projected_pos_rank": 80,
+            "adp_avg": 251.0
+        },
+        "David Njoku": {
+            "pos": "TE",
+            "projected_pos_rank": 34,
+            "adp_avg": 253.0
+        },
+        "Ryan Fitzpatrick": {
+            "pos": "QB",
+            "projected_pos_rank": 34,
+            "adp_avg": 253.5
+        },
+        "Royce Freeman": {
+            "pos": "RB",
+            "projected_pos_rank": 79,
+            "adp_avg": 255.5
+        },
+        "Peyton Barber": {
+            "pos": "RB",
+            "projected_pos_rank": 80,
+            "adp_avg": 259.0
+        },
+        "Rex Burkhead": {
+            "pos": "RB",
+            "projected_pos_rank": 81,
+            "adp_avg": 259.5
+        },
+        "Detroit Lions": {
+            "pos": "DST",
+            "projected_pos_rank": 24,
+            "adp_avg": 260.0
+        },
+        "Joey Slye": {
+            "pos": "K",
+            "projected_pos_rank": 22,
+            "adp_avg": 262.5
+        },
+        "New York Jets": {
+            "pos": "DST",
+            "projected_pos_rank": 25,
+            "adp_avg": 263.0
+        },
+        "C.J. Uzomah": {
+            "pos": "TE",
+            "projected_pos_rank": 35,
+            "adp_avg": 263.0
+        },
+        "Frank Gore": {
+            "pos": "RB",
+            "projected_pos_rank": 82,
+            "adp_avg": 264.0
+        },
+        "Cleveland Browns": {
+            "pos": "DST",
+            "projected_pos_rank": 26,
+            "adp_avg": 319.7
+        },
+        "Vance McDonald": {
+            "pos": "TE",
+            "projected_pos_rank": 36,
+            "adp_avg": 267.0
+        },
+        "Tre'Quan Smith": {
+            "pos": "WR",
+            "projected_pos_rank": 81,
+            "adp_avg": 268.5
+        },
+        "Stephen Hauschka": {
+            "pos": "K",
+            "projected_pos_rank": 23,
+            "adp_avg": 272.5
+        },
+        "Steven Sims": {
+            "pos": "WR",
+            "projected_pos_rank": 82,
+            "adp_avg": 274.0
+        },
+        "Gerald Everett": {
+            "pos": "TE",
+            "projected_pos_rank": 37,
+            "adp_avg": 276.5
+        },
+        "Tyler Bass": {
+            "pos": "K",
+            "projected_pos_rank": 24,
+            "adp_avg": 315.0
+        },
+        "Josh Gordon": {
+            "pos": "WR",
+            "projected_pos_rank": 83,
+            "adp_avg": 278.5
+        },
+        "Dustin Hopkins": {
+            "pos": "K",
+            "projected_pos_rank": 25,
+            "adp_avg": 278.5
+        },
+        "La'Mical Perine": {
+            "pos": "RB",
+            "projected_pos_rank": 83,
+            "adp_avg": 280.0
+        },
+        "Michael Badgley": {
+            "pos": "K",
+            "projected_pos_rank": 26,
+            "adp_avg": 282.0
+        },
+        "Jason Sanders": {
+            "pos": "K",
+            "projected_pos_rank": 27,
+            "adp_avg": 282.0
+        },
+        "Nelson Agholor": {
+            "pos": "WR",
+            "projected_pos_rank": 84,
+            "adp_avg": 285.5
+        },
+        "Kendrick Bourne": {
+            "pos": "WR",
+            "projected_pos_rank": 85,
+            "adp_avg": 330.0
+        },
+        "John Ross": {
+            "pos": "WR",
+            "projected_pos_rank": 86,
+            "adp_avg": 182.0
+        },
+        "J.D. McKissic": {
+            "pos": "RB",
+            "projected_pos_rank": 84,
+            "adp_avg": 287.0
+        },
+        "Jameis Winston": {
+            "pos": "QB",
+            "projected_pos_rank": 35,
+            "adp_avg": 287.5
+        },
+        "Marquez Valdes-Scantling": {
+            "pos": "WR",
+            "projected_pos_rank": 87,
+            "adp_avg": 287.5
+        },
+        "Auden Tate": {
+            "pos": "WR",
+            "projected_pos_rank": 88,
+            "adp_avg": 288.0
+        },
+        "Darwin Thompson": {
+            "pos": "RB",
+            "projected_pos_rank": 85,
+            "adp_avg": 291.0
+        },
+        "Lamar Miller": {
+            "pos": "RB",
+            "projected_pos_rank": 86,
+            "adp_avg": 195.0
+        },
+        "Taysom Hill": {
+            "pos": "TE",
+            "projected_pos_rank": 38,
+            "adp_avg": 294.0
+        },
+        "Daniel Carlson": {
+            "pos": "K",
+            "projected_pos_rank": 28,
+            "adp_avg": 294.5
+        },
+        "Arizona Cardinals": {
+            "pos": "DST",
+            "projected_pos_rank": 27,
+            "adp_avg": 296.0
+        },
+        "Cameron Brate": {
+            "pos": "TE",
+            "projected_pos_rank": 39,
+            "adp_avg": 296.5
+        },
+        "Russell Gage": {
+            "pos": "WR",
+            "projected_pos_rank": 89,
+            "adp_avg": 296.5
+        },
+        "Carolina Panthers": {
+            "pos": "DST",
+            "projected_pos_rank": 28,
+            "adp_avg": 297.5
+        },
+        "Scotty Miller": {
+            "pos": "WR",
+            "projected_pos_rank": 90,
+            "adp_avg": 297.5
+        },
+        "Justice Hill": {
+            "pos": "RB",
+            "projected_pos_rank": 87,
+            "adp_avg": 206.0
+        },
+        "Mike Davis": {
+            "pos": "RB",
+            "projected_pos_rank": 88,
+            "adp_avg": 299.0
+        },
+        "Eddy Pineiro": {
+            "pos": "K",
+            "projected_pos_rank": 29,
+            "adp_avg": 299.0
+        },
+        "Sam Ficken": {
+            "pos": "K",
+            "projected_pos_rank": 30,
+            "adp_avg": 299.5
+        },
+        "Cincinnati Bengals": {
+            "pos": "DST",
+            "projected_pos_rank": 29,
+            "adp_avg": 211.0
+        },
+        "Jason Witten": {
+            "pos": "TE",
+            "projected_pos_rank": 40,
+            "adp_avg": 301.0
+        },
+        "New York Giants": {
+            "pos": "DST",
+            "projected_pos_rank": 30,
+            "adp_avg": 301.0
+        },
+        "Devin Duvernay": {
+            "pos": "WR",
+            "projected_pos_rank": 91,
+            "adp_avg": 213.0
+        },
+        "Van Jefferson": {
+            "pos": "WR",
+            "projected_pos_rank": 92,
+            "adp_avg": 302.0
+        },
+        "Willie Snead": {
+            "pos": "WR",
+            "projected_pos_rank": 93,
+            "adp_avg": 217.0
+        },
+        "Jordan Reed": {
+            "pos": "TE",
+            "projected_pos_rank": 41,
+            "adp_avg": 304.0
+        },
+        "Darren Fells": {
+            "pos": "TE",
+            "projected_pos_rank": 42,
+            "adp_avg": 305.5
+        },
+        "Mohamed Sanu": {
+            "pos": "WR",
+            "projected_pos_rank": 94,
+            "adp_avg": 223.0
+        },
+        "Colin Kaepernick": {
+            "pos": "QB",
+            "projected_pos_rank": 36,
+            "adp_avg": 225.0
+        },
+        "J.J. Arcega-Whiteside": {
+            "pos": "WR",
+            "projected_pos_rank": 95,
+            "adp_avg": 308.5
+        },
+        "Dan Arnold": {
+            "pos": "TE",
+            "projected_pos_rank": 43,
+            "adp_avg": 310.0
+        },
+        "Jacob Hollister": {
+            "pos": "TE",
+            "projected_pos_rank": 44,
+            "adp_avg": 312.0
+        },
+        "Nick Foles": {
+            "pos": "QB",
+            "projected_pos_rank": 37,
+            "adp_avg": 313.5
+        },
+        "Mike Thomas": {
+            "pos": "WR",
+            "projected_pos_rank": 96,
+            "adp_avg": 239.0
+        },
+        "Las Vegas Raiders": {
+            "pos": "DST",
+            "projected_pos_rank": 31,
+            "adp_avg": 242.0
+        },
+        "Marshawn Lynch": {
+            "pos": "RB",
+            "projected_pos_rank": 89,
+            "adp_avg": 245.0
+        },
+        "Kyle Juszczyk": {
+            "pos": "RB",
+            "projected_pos_rank": 90,
+            "adp_avg": 318.0
+        },
+        "Justin Rohrwasser": {
+            "pos": "K",
+            "projected_pos_rank": 31,
+            "adp_avg": 246.0
+        },
+        "Danny Amendola": {
+            "pos": "WR",
+            "projected_pos_rank": 97,
+            "adp_avg": 248.0
+        },
+        "Nick Folk": {
+            "pos": "K",
+            "projected_pos_rank": 32,
+            "adp_avg": 249.0
+        },
+        "Adam Vinatieri": {
+            "pos": "K",
+            "projected_pos_rank": 33,
+            "adp_avg": 250.0
+        },
+        "Max McCaffrey": {
+            "pos": "WR",
+            "projected_pos_rank": 98,
+            "adp_avg": 251.0
+        },
+        "Andy Isabella": {
+            "pos": "WR",
+            "projected_pos_rank": 99,
+            "adp_avg": 252.0
+        },
+        "Andrew Luck": {
+            "pos": "QB",
+            "projected_pos_rank": 38,
+            "adp_avg": 256.0
+        },
+        "Josh Reynolds": {
+            "pos": "WR",
+            "projected_pos_rank": 100,
+            "adp_avg": 257.0
+        },
+        "Patrick Ricard": {
+            "pos": "RB",
+            "projected_pos_rank": 91,
+            "adp_avg": 257.0
+        },
+        "Isaiah Wright": {
+            "pos": "WR",
+            "projected_pos_rank": 101,
+            "adp_avg": 258.0
+        },
+        "Mark Sanchez": {
+            "pos": "QB",
+            "projected_pos_rank": 39,
+            "adp_avg": 259.0
+        },
+        "Jake Butt": {
+            "pos": "TE",
+            "projected_pos_rank": 45,
+            "adp_avg": 260.0
+        },
+        "Javon Leake": {
+            "pos": "RB",
+            "projected_pos_rank": 92,
+            "adp_avg": 264.0
+        },
+        "Nathan Peterman": {
+            "pos": "QB",
+            "projected_pos_rank": 40,
+            "adp_avg": 267.0
+        },
+        "Malik Taylor": {
+            "pos": "WR",
+            "projected_pos_rank": 102,
+            "adp_avg": 268.0
+        },
+        "John Wolford": {
+            "pos": "QB",
+            "projected_pos_rank": 41,
+            "adp_avg": 269.0
+        },
+        "Sebastian Janikowski": {
+            "pos": "K",
+            "projected_pos_rank": 34,
+            "adp_avg": 270.0
+        },
+        "Nick Boyle": {
+            "pos": "TE",
+            "projected_pos_rank": 46,
+            "adp_avg": 272.0
+        },
+        "Tyre Brady": {
+            "pos": "WR",
+            "projected_pos_rank": 103,
+            "adp_avg": 273.0
+        },
+        "Cody Parkey": {
+            "pos": "K",
+            "projected_pos_rank": 35,
+            "adp_avg": 274.0
+        },
+        "Robert Griffin": {
+            "pos": "QB",
+            "projected_pos_rank": 42,
+            "adp_avg": 275.0
+        },
+        "Chris Conley": {
+            "pos": "WR",
+            "projected_pos_rank": 104,
+            "adp_avg": 275.0
+        },
+        "Gus Edwards": {
+            "pos": "RB",
+            "projected_pos_rank": 93,
+            "adp_avg": 276.0
+        },
+        "Noah Togiai": {
+            "pos": "TE",
+            "projected_pos_rank": 47,
+            "adp_avg": 276.0
+        },
+        "Jordan Love": {
+            "pos": "QB",
+            "projected_pos_rank": 43,
+            "adp_avg": 334.0
+        },
+        "Graham Gano": {
+            "pos": "K",
+            "projected_pos_rank": 36,
+            "adp_avg": 334.0
+        },
+        "KJ Hamler": {
+            "pos": "WR",
+            "projected_pos_rank": 105,
+            "adp_avg": 278.0
+        },
+        "Cole McDonald": {
+            "pos": "QB",
+            "projected_pos_rank": 44,
+            "adp_avg": 278.0
+        },
+        "Matt Barkley": {
+            "pos": "QB",
+            "projected_pos_rank": 45,
+            "adp_avg": 279.0
+        },
+        "Kai Forbath": {
+            "pos": "K",
+            "projected_pos_rank": 37,
+            "adp_avg": 280.0
+        },
+        "Derek Watt": {
+            "pos": "RB",
+            "projected_pos_rank": 94,
+            "adp_avg": 282.0
+        },
+        "Justin Watson": {
+            "pos": "WR",
+            "projected_pos_rank": 106,
+            "adp_avg": 336.5
+        },
+        "Anthony Gordon": {
+            "pos": "QB",
+            "projected_pos_rank": 46,
+            "adp_avg": 283.0
+        },
+        "Eno Benjamin": {
+            "pos": "RB",
+            "projected_pos_rank": 95,
+            "adp_avg": 283.0
+        },
+        "Miles Boykin": {
+            "pos": "WR",
+            "projected_pos_rank": 107,
+            "adp_avg": 284.0
+        },
+        "Randy Bullock": {
+            "pos": "K",
+            "projected_pos_rank": 38,
+            "adp_avg": 285.0
+        },
+        "Jared Pinkney": {
+            "pos": "TE",
+            "projected_pos_rank": 48,
+            "adp_avg": 285.0
+        },
+        "Mike Nugent": {
+            "pos": "K",
+            "projected_pos_rank": 39,
+            "adp_avg": 286.0
+        },
+        "Jarrett Stidham": {
+            "pos": "QB",
+            "projected_pos_rank": 47,
+            "adp_avg": 287.0
+        },
+        "J.J. Taylor": {
+            "pos": "RB",
+            "projected_pos_rank": 96,
+            "adp_avg": 287.0
+        },
+        "J.J. Jones": {
+            "pos": "WR",
+            "projected_pos_rank": 108,
+            "adp_avg": 288.0
+        },
+        "Justin Herbert": {
+            "pos": "QB",
+            "projected_pos_rank": 48,
+            "adp_avg": 288.0
+        },
+        "Xavier Jones": {
+            "pos": "RB",
+            "projected_pos_rank": 97,
+            "adp_avg": 289.0
+        },
+        "Dez Bryant": {
+            "pos": "WR",
+            "projected_pos_rank": 109,
+            "adp_avg": 290.0
+        },
+        "Zach Pascal": {
+            "pos": "WR",
+            "projected_pos_rank": 110,
+            "adp_avg": 291.0
+        },
+        "Will Hastings": {
+            "pos": "WR",
+            "projected_pos_rank": 111,
+            "adp_avg": 291.0
+        },
+        "Rico Dowdle": {
+            "pos": "RB",
+            "projected_pos_rank": 98,
+            "adp_avg": 295.0
+        },
+        "Sean McKeon": {
+            "pos": "TE",
+            "projected_pos_rank": 49,
+            "adp_avg": 296.0
+        },
+        "Cordarrelle Patterson": {
+            "pos": "RB",
+            "projected_pos_rank": 99,
+            "adp_avg": 343.5
+        },
+        "Derrius Guice": {
+            "pos": "RB",
+            "projected_pos_rank": 100,
+            "adp_avg": 344.0
+        },
+        "David Moore": {
+            "pos": "WR",
+            "projected_pos_rank": 112,
+            "adp_avg": 300.0
+        },
+        "Anthony Sherman": {
+            "pos": "RB",
+            "projected_pos_rank": 101,
+            "adp_avg": 301.0
+        },
+        "Josh Hill": {
+            "pos": "TE",
+            "projected_pos_rank": 50,
+            "adp_avg": 302.0
+        },
+        "Darius Anderson": {
+            "pos": "RB",
+            "projected_pos_rank": 102,
+            "adp_avg": 303.0
+        },
+        "Matt Bryant": {
+            "pos": "K",
+            "projected_pos_rank": 40,
+            "adp_avg": 304.0
+        },
+        "Terry Godwin": {
+            "pos": "WR",
+            "projected_pos_rank": 113,
+            "adp_avg": 306.0
+        },
+        "Mason Rudolph": {
+            "pos": "QB",
+            "projected_pos_rank": 49,
+            "adp_avg": 348.5
+        },
+        "Adam Humphries": {
+            "pos": "WR",
+            "projected_pos_rank": 114,
+            "adp_avg": 307.0
+        },
+        "Ricky Seals-Jones": {
+            "pos": "TE",
+            "projected_pos_rank": 51,
+            "adp_avg": 307.0
+        },
+        "Jamaal Charles": {
+            "pos": "RB",
+            "projected_pos_rank": 103,
+            "adp_avg": 309.0
+        },
+        "Phillip Dorsett": {
+            "pos": "WR",
+            "projected_pos_rank": 115,
+            "adp_avg": 310.0
+        },
+        "Tyree Jackson": {
+            "pos": "TE",
+            "projected_pos_rank": 52,
+            "adp_avg": 311.0
+        },
+        "Trishton Jackson": {
+            "pos": "WR",
+            "projected_pos_rank": 116,
+            "adp_avg": 313.0
+        },
+        "Adrian Killins": {
+            "pos": "RB",
+            "projected_pos_rank": 104,
+            "adp_avg": 314.0
+        },
+        "Sam Sloman": {
+            "pos": "K",
+            "projected_pos_rank": 41,
+            "adp_avg": 314.0
+        },
+        "Rashard Higgins": {
+            "pos": "WR",
+            "projected_pos_rank": 117,
+            "adp_avg": 352.5
+        },
+        "Blake Bell": {
+            "pos": "TE",
+            "projected_pos_rank": 53,
+            "adp_avg": 315.0
+        },
+        "Patrick Laird": {
+            "pos": "RB",
+            "projected_pos_rank": 105,
+            "adp_avg": 392.0
+        },
+        "Andy Dalton": {
+            "pos": "QB",
+            "projected_pos_rank": 50,
+            "adp_avg": 316.0
+        },
+        "Aldrick Rosas": {
+            "pos": "K",
+            "projected_pos_rank": 42,
+            "adp_avg": 353.5
+        },
+        "Thaddeus Moss": {
+            "pos": "TE",
+            "projected_pos_rank": 54,
+            "adp_avg": 317.0
+        },
+        "Delanie Walker": {
+            "pos": "TE",
+            "projected_pos_rank": 55,
+            "adp_avg": 318.0
+        },
+        "Dan Chisena": {
+            "pos": "WR",
+            "projected_pos_rank": 118,
+            "adp_avg": 319.0
+        },
+        "Sam Bradford": {
+            "pos": "QB",
+            "projected_pos_rank": 51,
+            "adp_avg": 320.0
+        },
+        "Albert Okwuegbunam": {
+            "pos": "TE",
+            "projected_pos_rank": 56,
+            "adp_avg": 355.5
+        },
+        "Deonte Harty": {
+            "pos": "WR",
+            "projected_pos_rank": 119,
+            "adp_avg": 355.5
+        },
+        "Marcedes Lewis": {
+            "pos": "TE",
+            "projected_pos_rank": 57,
+            "adp_avg": 321.0
+        },
+        "Demarcus Robinson": {
+            "pos": "WR",
+            "projected_pos_rank": 120,
+            "adp_avg": 321.0
+        },
+        "Lil'Jordan Humphrey": {
+            "pos": "WR",
+            "projected_pos_rank": 121,
+            "adp_avg": 323.0
+        },
+        "Joe Flacco": {
+            "pos": "QB",
+            "projected_pos_rank": 52,
+            "adp_avg": 325.0
+        },
+        "Dare Ogunbowale": {
+            "pos": "RB",
+            "projected_pos_rank": 106,
+            "adp_avg": 325.0
+        },
+        "Brandon Marshall": {
+            "pos": "WR",
+            "projected_pos_rank": 122,
+            "adp_avg": 326.0
+        },
+        "Mike Boone": {
+            "pos": "RB",
+            "projected_pos_rank": 107,
+            "adp_avg": 326.0
+        },
+        "Marcus Mariota": {
+            "pos": "QB",
+            "projected_pos_rank": 53,
+            "adp_avg": 327.0
+        },
+        "Tajae Sharpe": {
+            "pos": "WR",
+            "projected_pos_rank": 123,
+            "adp_avg": 328.0
+        },
+        "Carson Meier": {
+            "pos": "TE",
+            "projected_pos_rank": 58,
+            "adp_avg": 328.0
+        },
+        "Jeff Thomas": {
+            "pos": "WR",
+            "projected_pos_rank": 124,
+            "adp_avg": 330.0
+        },
+        "KJ Hill": {
+            "pos": "WR",
+            "projected_pos_rank": 125,
+            "adp_avg": 331.0
+        },
+        "Jordan Chunn": {
+            "pos": "RB",
+            "projected_pos_rank": 108,
+            "adp_avg": 332.0
+        },
+        "Logan Thomas": {
+            "pos": "TE",
+            "projected_pos_rank": 59,
+            "adp_avg": 333.0
+        },
+        "Jon Hilliman": {
+            "pos": "RB",
+            "projected_pos_rank": 109,
+            "adp_avg": 335.0
+        },
+        "Jordy Nelson": {
+            "pos": "WR",
+            "projected_pos_rank": 126,
+            "adp_avg": 336.0
+        },
+        "Antonio Gandy-Golden": {
+            "pos": "WR",
+            "projected_pos_rank": 127,
+            "adp_avg": 336.0
+        },
+        "Dalton Schultz": {
+            "pos": "TE",
+            "projected_pos_rank": 60,
+            "adp_avg": 337.0
+        },
+        "Jakobi Meyers": {
+            "pos": "WR",
+            "projected_pos_rank": 128,
+            "adp_avg": 337.0
+        },
+        "Byron Pringle": {
+            "pos": "WR",
+            "projected_pos_rank": 129,
+            "adp_avg": 338.0
+        },
+        "Kaden Smith": {
+            "pos": "TE",
+            "projected_pos_rank": 61,
+            "adp_avg": 382.5
+        },
+        "Harrison Bryant": {
+            "pos": "TE",
+            "projected_pos_rank": 62,
+            "adp_avg": 339.0
+        },
+        "Adam Trautman": {
+            "pos": "TE",
+            "projected_pos_rank": 63,
+            "adp_avg": 365.0
+        },
+        "Greg Ward": {
+            "pos": "WR",
+            "projected_pos_rank": 130,
+            "adp_avg": 340.0
+        },
+        "Donovan Peoples-Jones": {
+            "pos": "WR",
+            "projected_pos_rank": 131,
+            "adp_avg": 340.0
+        },
+        "Miami Dolphins": {
+            "pos": "DST",
+            "projected_pos_rank": 32,
+            "adp_avg": 341.0
+        },
+        "Reggie Begelton": {
+            "pos": "WR",
+            "projected_pos_rank": 132,
+            "adp_avg": 341.0
+        },
+        "Jesse James": {
+            "pos": "TE",
+            "projected_pos_rank": 64,
+            "adp_avg": 342.0
+        },
+        "Jake Fromm": {
+            "pos": "QB",
+            "projected_pos_rank": 54,
+            "adp_avg": 343.0
+        },
+        "Riley Ridley": {
+            "pos": "WR",
+            "projected_pos_rank": 133,
+            "adp_avg": 344.0
+        },
+        "Demetrius Harris": {
+            "pos": "TE",
+            "projected_pos_rank": 65,
+            "adp_avg": 367.5
+        },
+        "T.J. Yeldon": {
+            "pos": "RB",
+            "projected_pos_rank": 110,
+            "adp_avg": 367.5
+        },
+        "Colt McCoy": {
+            "pos": "QB",
+            "projected_pos_rank": 55,
+            "adp_avg": 345.0
+        },
+        "Phil Dawson": {
+            "pos": "K",
+            "projected_pos_rank": 43,
+            "adp_avg": 346.0
+        },
+        "Elliott Fry": {
+            "pos": "K",
+            "projected_pos_rank": 44,
+            "adp_avg": 346.0
+        },
+        "Jeremy Sprinkle": {
+            "pos": "TE",
+            "projected_pos_rank": 66,
+            "adp_avg": 347.0
+        },
+        "Cairo Santos": {
+            "pos": "K",
+            "projected_pos_rank": 45,
+            "adp_avg": 348.0
+        },
+        "Quincy Adeboyejo": {
+            "pos": "WR",
+            "projected_pos_rank": 134,
+            "adp_avg": 349.0
+        },
+        "Drew Sample": {
+            "pos": "TE",
+            "projected_pos_rank": 67,
+            "adp_avg": 407.0
+        },
+        "Tommy Stevens": {
+            "pos": "QB",
+            "projected_pos_rank": 56,
+            "adp_avg": 350.0
+        },
+        "Alex Smith": {
+            "pos": "QB",
+            "projected_pos_rank": 57,
+            "adp_avg": 351.0
+        },
+        "Bisi Johnson": {
+            "pos": "WR",
+            "projected_pos_rank": 135,
+            "adp_avg": 394.5
+        },
+        "Nate Stanley": {
+            "pos": "QB",
+            "projected_pos_rank": 58,
+            "adp_avg": 353.0
+        },
+        "Robert Tonyan": {
+            "pos": "TE",
+            "projected_pos_rank": 68,
+            "adp_avg": 354.0
+        },
+        "Bo Scarbrough": {
+            "pos": "RB",
+            "projected_pos_rank": 111,
+            "adp_avg": 354.0
+        },
+        "Wayne Gallman": {
+            "pos": "RB",
+            "projected_pos_rank": 112,
+            "adp_avg": 355.0
+        },
+        "Trent Taylor": {
+            "pos": "WR",
+            "projected_pos_rank": 136,
+            "adp_avg": 356.0
+        },
+        "Giorgio Tavecchio": {
+            "pos": "K",
+            "projected_pos_rank": 46,
+            "adp_avg": 357.0
+        },
+        "J.J. Nelson": {
+            "pos": "WR",
+            "projected_pos_rank": 137,
+            "adp_avg": 358.0
+        },
+        "Luke Willson": {
+            "pos": "TE",
+            "projected_pos_rank": 69,
+            "adp_avg": 359.0
+        },
+        "Josiah Deguara": {
+            "pos": "TE",
+            "projected_pos_rank": 70,
+            "adp_avg": 393.5
+        },
+        "Blake Bortles": {
+            "pos": "QB",
+            "projected_pos_rank": 59,
+            "adp_avg": 360.0
+        },
+        "Ray-Ray McCloud": {
+            "pos": "WR",
+            "projected_pos_rank": 138,
+            "adp_avg": 361.0
+        },
+        "Bradley Sowell": {
+            "pos": "OL",
+            "projected_pos_rank": 1,
+            "adp_avg": 362.0
+        },
+        "Salvon Ahmed": {
+            "pos": "RB",
+            "projected_pos_rank": 113,
+            "adp_avg": 364.0
+        },
+        "Jauan Jennings": {
+            "pos": "WR",
+            "projected_pos_rank": 139,
+            "adp_avg": 365.0
+        },
+        "Dante Pettis": {
+            "pos": "WR",
+            "projected_pos_rank": 140,
+            "adp_avg": 398.0
+        },
+        "LeGarrette Blount": {
+            "pos": "RB",
+            "projected_pos_rank": 114,
+            "adp_avg": 366.0
+        },
+        "Kyle Allen": {
+            "pos": "QB",
+            "projected_pos_rank": 60,
+            "adp_avg": 383.5
+        },
+        "Damiere Byrd": {
+            "pos": "WR",
+            "projected_pos_rank": 141,
+            "adp_avg": 367.0
+        },
+        "Matt McCrane": {
+            "pos": "K",
+            "projected_pos_rank": 47,
+            "adp_avg": 367.0
+        },
+        "Davion Davis": {
+            "pos": "WR",
+            "projected_pos_rank": 142,
+            "adp_avg": 368.0
+        },
+        "Ted Ginn": {
+            "pos": "WR",
+            "projected_pos_rank": 143,
+            "adp_avg": 369.0
+        },
+        "P.J. Walker": {
+            "pos": "QB",
+            "projected_pos_rank": 61,
+            "adp_avg": 370.0
+        },
+        "Reggie Gilliam": {
+            "pos": "RB",
+            "projected_pos_rank": 115,
+            "adp_avg": 371.0
+        },
+        "Kirk Merritt": {
+            "pos": "WR",
+            "projected_pos_rank": 144,
+            "adp_avg": 372.0
+        },
+        "Hakeem Butler": {
+            "pos": "WR",
+            "projected_pos_rank": 145,
+            "adp_avg": 422.5
+        },
+        "Quintez Cephus": {
+            "pos": "WR",
+            "projected_pos_rank": 146,
+            "adp_avg": 373.0
+        },
+        "JaMycal Hasty": {
+            "pos": "RB",
+            "projected_pos_rank": 116,
+            "adp_avg": 373.0
+        },
+        "Jaeden Graham": {
+            "pos": "TE",
+            "projected_pos_rank": 71,
+            "adp_avg": 374.0
+        },
+        "DeeJay Dallas": {
+            "pos": "RB",
+            "projected_pos_rank": 117,
+            "adp_avg": 374.0
+        },
+        "Dalton Keene": {
+            "pos": "DT",
+            "projected_pos_rank": 1,
+            "adp_avg": 375.0
+        },
+        "Matthew Slater": {
+            "pos": "WR",
+            "projected_pos_rank": 147,
+            "adp_avg": 377.0
+        },
+        "Equanimeous St. Brown": {
+            "pos": "WR",
+            "projected_pos_rank": 148,
+            "adp_avg": 377.0
+        },
+        "Geno Smith": {
+            "pos": "QB",
+            "projected_pos_rank": 62,
+            "adp_avg": 378.0
+        },
+        "Ty Montgomery": {
+            "pos": "RB",
+            "projected_pos_rank": 118,
+            "adp_avg": 379.0
+        },
+        "Jazz Ferguson": {
+            "pos": "WR",
+            "projected_pos_rank": 149,
+            "adp_avg": 380.0
+        },
+        "Corey Clement": {
+            "pos": "RB",
+            "projected_pos_rank": 119,
+            "adp_avg": 381.0
+        },
+        "David Blough": {
+            "pos": "QB",
+            "projected_pos_rank": 63,
+            "adp_avg": 383.0
+        },
+        "Pharoh Cooper": {
+            "pos": "WR",
+            "projected_pos_rank": 150,
+            "adp_avg": 384.0
+        },
+        "Tim Tebow": {
+            "pos": "TE",
+            "projected_pos_rank": 72,
+            "adp_avg": 385.0
+        },
+        "Ryan Griffin": {
+            "pos": "QB",
+            "projected_pos_rank": 70,
+            "adp_avg": 418.0
+        },
+        "Nick Fitzgerald": {
+            "pos": "QB",
+            "projected_pos_rank": 64,
+            "adp_avg": 387.0
+        },
+        "Blaine Gabbert": {
+            "pos": "QB",
+            "projected_pos_rank": 65,
+            "adp_avg": 388.0
+        },
+        "Cedrick Wilson": {
+            "pos": "WR",
+            "projected_pos_rank": 151,
+            "adp_avg": 389.0
+        },
+        "Tim Patrick": {
+            "pos": "WR",
+            "projected_pos_rank": 152,
+            "adp_avg": 390.0
+        },
+        "Chandler Cox": {
+            "pos": "RB",
+            "projected_pos_rank": 120,
+            "adp_avg": 391.0
+        },
+        "Michael Crabtree": {
+            "pos": "WR",
+            "projected_pos_rank": 153,
+            "adp_avg": 392.0
+        },
+        "Nick Vannett": {
+            "pos": "TE",
+            "projected_pos_rank": 74,
+            "adp_avg": 393.0
+        },
+        "Ameer Abdullah": {
+            "pos": "RB",
+            "projected_pos_rank": 121,
+            "adp_avg": 394.0
+        },
+        "Brett Maher": {
+            "pos": "K",
+            "projected_pos_rank": 48,
+            "adp_avg": 395.0
+        },
+        "Joshua Dobbs": {
+            "pos": "QB",
+            "projected_pos_rank": 66,
+            "adp_avg": 396.0
+        },
+        "Charles Jones": {
+            "pos": "TE",
+            "projected_pos_rank": 75,
+            "adp_avg": 397.0
+        },
+        "Deon Yelder": {
+            "pos": "TE",
+            "projected_pos_rank": 76,
+            "adp_avg": 398.0
+        },
+        "Marcus Kemp": {
+            "pos": "WR",
+            "projected_pos_rank": 154,
+            "adp_avg": 399.0
+        },
+        "Foster Moreau": {
+            "pos": "TE",
+            "projected_pos_rank": 77,
+            "adp_avg": 400.0
+        },
+        "DeAndrew White": {
+            "pos": "WR",
+            "projected_pos_rank": 155,
+            "adp_avg": 402.0
+        },
+        "Chris Manhertz": {
+            "pos": "TE",
+            "projected_pos_rank": 78,
+            "adp_avg": 403.0
+        },
+        "C.J. Ham": {
+            "pos": "RB",
+            "projected_pos_rank": 122,
+            "adp_avg": 404.0
+        },
+        "LeVante Bellamy": {
+            "pos": "RB",
+            "projected_pos_rank": 123,
+            "adp_avg": 405.0
+        },
+        "Jay Ajayi": {
+            "pos": "RB",
+            "projected_pos_rank": 124,
+            "adp_avg": 406.0
+        },
+        "Noah Brown": {
+            "pos": "WR",
+            "projected_pos_rank": 156,
+            "adp_avg": 407.0
+        },
+        "Josh Adams": {
+            "pos": "RB",
+            "projected_pos_rank": 125,
+            "adp_avg": 408.0
+        },
+        "Chad Henne": {
+            "pos": "QB",
+            "projected_pos_rank": 67,
+            "adp_avg": 409.0
+        },
+        "Chandler Catanzaro": {
+            "pos": "K",
+            "projected_pos_rank": 49,
+            "adp_avg": 410.0
+        },
+        "Austin Walter": {
+            "pos": "RB",
+            "projected_pos_rank": 126,
+            "adp_avg": 411.0
+        },
+        "Andy Jones": {
+            "pos": "WR",
+            "projected_pos_rank": 157,
+            "adp_avg": 412.0
+        },
+        "Trace McSorley": {
+            "pos": "QB",
+            "projected_pos_rank": 68,
+            "adp_avg": 413.0
+        },
+        "Tim Boyle": {
+            "pos": "QB",
+            "projected_pos_rank": 69,
+            "adp_avg": 414.0
+        },
+        "Brycen Hopkins": {
+            "pos": "TE",
+            "projected_pos_rank": 79,
+            "adp_avg": 415.0
+        },
+        "Stephen Sullivan": {
+            "pos": "TE",
+            "projected_pos_rank": 80,
+            "adp_avg": 416.0
+        },
+        "Travis Homer": {
+            "pos": "RB",
+            "projected_pos_rank": 127,
+            "adp_avg": 417.0
+        },
+        "Caleb Sturgis": {
+            "pos": "K",
+            "projected_pos_rank": 50,
+            "adp_avg": 420.0
+        },
+        "Zach Gentry": {
+            "pos": "TE",
+            "projected_pos_rank": 81,
+            "adp_avg": 421.0
+        },
+        "Andy Janovich": {
+            "pos": "RB",
+            "projected_pos_rank": 128,
+            "adp_avg": 422.0
+        },
+        "Samaje Perine": {
+            "pos": "RB",
+            "projected_pos_rank": 129,
+            "adp_avg": 423.0
+        },
+        "Olamide Zaccheaus": {
+            "pos": "WR",
+            "projected_pos_rank": 158,
+            "adp_avg": 424.0
+        },
+        "Matt Cassel": {
+            "pos": "QB",
+            "projected_pos_rank": 71,
+            "adp_avg": 425.0
+        },
+        "Patrick DiMarco": {
+            "pos": "RB",
+            "projected_pos_rank": 130,
+            "adp_avg": 426.0
+        },
+        "Jacquizz Rodgers": {
+            "pos": "RB",
+            "projected_pos_rank": 131,
+            "adp_avg": 430.0
+        },
+        "Chad Beebe": {
+            "pos": "WR",
+            "projected_pos_rank": 159,
+            "adp_avg": 432.0
+        },
+        "Zay Jones": {
+            "pos": "WR",
+            "projected_pos_rank": 160,
+            "adp_avg": 433.0
+        },
+        "Doug Martin": {
+            "pos": "RB",
+            "projected_pos_rank": 132,
+            "adp_avg": 434.0
+        },
+        "Kalen Ballage": {
+            "pos": "RB",
+            "projected_pos_rank": 133,
+            "adp_avg": 435.0
+        },
+        "Ty Johnson": {
+            "pos": "RB",
+            "projected_pos_rank": 134,
+            "adp_avg": 436.0
+        },
+        "Tyler Ervin": {
+            "pos": "RB",
+            "projected_pos_rank": 135,
+            "adp_avg": 438.0
+        },
+        "Elijah Holyfield": {
+            "pos": "RB",
+            "projected_pos_rank": 136,
+            "adp_avg": 439.0
+        },
+        "Devlin Hodges": {
+            "pos": "QB",
+            "projected_pos_rank": 72,
+            "adp_avg": 440.0
+        },
+        "Tyler Kroft": {
+            "pos": "TE",
+            "projected_pos_rank": 82,
+            "adp_avg": 442.0
+        },
+        "Tyrie Cleveland": {
+            "pos": "WR",
+            "projected_pos_rank": 161,
+            "adp_avg": 443.0
+        },
+        "D'Onta Foreman": {
+            "pos": "RB",
+            "projected_pos_rank": 137,
+            "adp_avg": 444.0
+        },
+        "Corey Coleman": {
+            "pos": "WR",
+            "projected_pos_rank": 162,
+            "adp_avg": 445.0
+        },
+        "James Proche": {
+            "pos": "WR",
+            "projected_pos_rank": 163,
+            "adp_avg": 446.0
+        },
+        "Brock Osweiler": {
+            "pos": "QB",
+            "projected_pos_rank": 73,
+            "adp_avg": 447.0
+        },
+        "Ryan Izzo": {
+            "pos": "TE",
+            "projected_pos_rank": 83,
+            "adp_avg": 448.0
+        },
+        "Keke Coutee": {
+            "pos": "WR",
+            "projected_pos_rank": 164,
+            "adp_avg": 449.0
+        },
+        "Malcolm Perry": {
+            "pos": "WR",
+            "projected_pos_rank": 165,
+            "adp_avg": 450.0
+        },
+        "AJ McCarron": {
+            "pos": "QB",
+            "projected_pos_rank": 74,
+            "adp_avg": 451.0
+        },
+        "Mo Alie-Cox": {
+            "pos": "TE",
+            "projected_pos_rank": 84,
+            "adp_avg": 452.0
+        },
+        "KeeSean Johnson": {
+            "pos": "WR",
+            "projected_pos_rank": 166,
+            "adp_avg": 453.0
+        },
+        "DaeSean Hamilton": {
+            "pos": "WR",
+            "projected_pos_rank": 167,
+            "adp_avg": 454.0
+        },
+        "DeAndre Carter": {
+            "pos": "WR",
+            "projected_pos_rank": 168,
+            "adp_avg": 456.0
+        },
+        "Ed Dickson": {
+            "pos": "TE",
+            "projected_pos_rank": 85,
+            "adp_avg": 457.0
+        },
+        "Khalfani Muhammad": {
+            "pos": "RB",
+            "projected_pos_rank": 138,
+            "adp_avg": 458.0
+        },
+        "Ventell Bryant": {
+            "pos": "WR",
+            "projected_pos_rank": 169,
+            "adp_avg": 459.0
+        },
+        "Gabe Davis": {
+            "pos": "WR",
+            "projected_pos_rank": 170,
+            "adp_avg": 461.0
+        },
+        "Will Grier": {
+            "pos": "QB",
+            "projected_pos_rank": 75,
+            "adp_avg": 462.0
+        },
+        "Trenton Irwin": {
+            "pos": "WR",
+            "projected_pos_rank": 171,
+            "adp_avg": 464.0
+        },
+        "Kapri Bibbs": {
+            "pos": "RB",
+            "projected_pos_rank": 139,
+            "adp_avg": 466.0
+        },
+        "Elijhaa Penny": {
+            "pos": "RB",
+            "projected_pos_rank": 140,
+            "adp_avg": 467.0
+        },
+        "Collin Johnson": {
+            "pos": "WR",
+            "projected_pos_rank": 172,
+            "adp_avg": 468.0
+        },
+        "Michael Burton": {
+            "pos": "RB",
+            "projected_pos_rank": 141,
+            "adp_avg": 470.0
+        },
+        "Rod Smith": {
+            "pos": "RB",
+            "projected_pos_rank": 142,
+            "adp_avg": 471.0
+        },
+        "John Ursua": {
+            "pos": "WR",
+            "projected_pos_rank": 173,
+            "adp_avg": 474.0
+        },
+        "John Hightower": {
+            "pos": "WR",
+            "projected_pos_rank": 174,
+            "adp_avg": 475.0
+        },
+        "Dalyn Dawkins": {
+            "pos": "RB",
+            "projected_pos_rank": 143,
+            "adp_avg": 476.0
+        },
+        "Darius Jackson": {
+            "pos": "RB",
+            "projected_pos_rank": 144,
+            "adp_avg": 477.0
+        },
+        "Dwayne Washington": {
+            "pos": "RB",
+            "projected_pos_rank": 145,
+            "adp_avg": 478.0
+        },
+        "Freddie Swain": {
+            "pos": "WR",
+            "projected_pos_rank": 175,
+            "adp_avg": 480.0
+        },
+        "Maxx Williams": {
+            "pos": "TE",
+            "projected_pos_rank": 86,
+            "adp_avg": 481.0
+        },
+        "Wendell Smallwood": {
+            "pos": "RB",
+            "projected_pos_rank": 146,
+            "adp_avg": 482.0
+        },
+        "Jaron Brown": {
+            "pos": "WR",
+            "projected_pos_rank": 176,
+            "adp_avg": 483.0
+        },
+        "Josh McCown": {
+            "pos": "QB",
+            "projected_pos_rank": 76,
+            "adp_avg": 484.0
+        },
+        "Drew Stanton": {
+            "pos": "QB",
+            "projected_pos_rank": 77,
+            "adp_avg": 485.0
+        },
+        "Andrew Beck": {
+            "pos": "TE",
+            "projected_pos_rank": 87,
+            "adp_avg": 486.0
+        },
+        "Jason Huntley": {
+            "pos": "RB",
+            "projected_pos_rank": 147,
+            "adp_avg": 488.0
+        },
+        "Demaryius Thomas": {
+            "pos": "WR",
+            "projected_pos_rank": 177,
+            "adp_avg": 489.0
+        },
+        "Alex Barnes": {
+            "pos": "RB",
+            "projected_pos_rank": 148,
+            "adp_avg": 490.0
+        },
+        "Braxton Berrios": {
+            "pos": "WR",
+            "projected_pos_rank": 178,
+            "adp_avg": 491.0
+        },
+        "Isaiah Crowell": {
+            "pos": "RB",
+            "projected_pos_rank": 149,
+            "adp_avg": 492.0
+        },
+        "Dexter Williams": {
+            "pos": "RB",
+            "projected_pos_rank": 150,
+            "adp_avg": 493.0
+        },
+        "Roosevelt Nix": {
+            "pos": "RB",
+            "projected_pos_rank": 151,
+            "adp_avg": 494.0
+        },
+        "Marquez Callaway": {
+            "pos": "WR",
+            "projected_pos_rank": 179,
+            "adp_avg": 495.0
+        },
+        "Jaydon Mickens": {
+            "pos": "WR",
+            "projected_pos_rank": 180,
+            "adp_avg": 496.0
+        },
+        "D.J. Foster": {
+            "pos": "RB",
+            "projected_pos_rank": 152,
+            "adp_avg": 497.0
+        },
+        "Raymond Calais": {
+            "pos": "RB",
+            "projected_pos_rank": 153,
+            "adp_avg": 498.0
+        },
+        "Trenton Cannon": {
+            "pos": "RB",
+            "projected_pos_rank": 154,
+            "adp_avg": 499.0
+        },
+        "Brian Hoyer": {
+            "pos": "QB",
+            "projected_pos_rank": 78,
+            "adp_avg": 500.0
+        }
+    }
+}

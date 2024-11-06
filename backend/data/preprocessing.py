@@ -64,7 +64,7 @@ def transform_latest_player_projections(league_size, latest_projections, latest_
 
     return latest_player_projections_df.set_index('player_name')
 
-def transform_past_player_stats(past_player_stats:Dict, league_features:pd.DataFrame, years:List[int]):
+def transform_past_player_stats(past_player_stats:Dict, league_settings:Dict, years:List[int]):
 
     past_player_stats = {year: past_player_stats[str(year)] for year in years if str(year) in past_player_stats}
 
@@ -83,10 +83,8 @@ def transform_past_player_stats(past_player_stats:Dict, league_features:pd.DataF
     past_player_stats_df = denormalize(past_player_stats_df, 'year', ['actual_pos_rank_ppg', 'ppg', 'actual_pos_rank_total_points', 'total_points', 'team'],
                                        index=['player_name', 'pos'], groupby=['player_name', 'year', 'pos'])
     past_player_stats_df = past_player_stats_df.reset_index()
-
-    #TODO: Remove outliers (players who got hurt, but were highly projected)
     
-    # pos rank replace 0 with max((actual_pos_rank)) group by pos
+    # Replace actual_pos_rank of 0 with max((actual_pos_rank)) grouped by pos
     actual_pos_rank_columns = [col for col in past_player_stats_df.columns if col.startswith('actual_pos_rank_')]
     for col in actual_pos_rank_columns:
         past_player_stats_df[col] = past_player_stats_df.groupby('pos')[col].transform(
@@ -94,9 +92,7 @@ def transform_past_player_stats(past_player_stats:Dict, league_features:pd.DataF
         )
 
     # Remove any players from positions that are not used for the league
-    league_position_features = league_features[['QB', 'TQB', 'RB', 'RBWR', 'WR', 'WRTE', 'TE', 'OP', 'DT', 'DE', 'LB', 
-    'DL', 'CB', 'S', 'DB', 'DP', 'DST', 'K', 'P', 'HC', 'BE', 'IR', 'RBWRTE', 'ER']]
-    valid_positions = [pos for pos, count in league_position_features.items() if count[0] > 0]
+    valid_positions = [pos for pos, count in league_settings['team_composition'].items() if count > 0]
     past_player_stats_df = past_player_stats_df[past_player_stats_df['pos'].isin(valid_positions)]
 
     return past_player_stats_df.set_index('player_name')

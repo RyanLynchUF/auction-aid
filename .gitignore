@@ -3,3 +3,4 @@ import_email_draft.py
 cron.py
 Reference/
 logs/
+AppData/league/*
