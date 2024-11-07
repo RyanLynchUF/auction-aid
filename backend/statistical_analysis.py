@@ -11,11 +11,7 @@ def calculate_true_auction_value(league_settings, input_player_features, latest_
     """
     Conduct series of calculations needed to determine a 'true auction value' - the value a player is actually worth based on their performance
     """
-    #TODO: Read this and go over this again with fresh eyes https://pitcherlist.com/fantasy-101-how-to-turn-projections-into-rankings-and-auction-values/
-    #TODO: Find a better approach for addressing $1 players and filling out the bench
-    #TODO: Ensure $1 is alotted to each remaining bench spot
-
-    #TODO: Remove concatenated column names and use variable in all of code base
+    
     league_size = league_settings['league_size']
 
     # Parameters used in calculation of league-specific VORP

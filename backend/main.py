@@ -18,25 +18,6 @@ from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-"""
-TODO: 
-- Remove all TODO
-- Check if 2021 ADP is back for half-ppr
-- Download historical data as far back as possible
-    - Review Data
-- Create instruction and add links
-    - Generate README: https://www.reddit.com/r/SideProject/s/Pj6jbnUG7w
-- Landing Login details links
-"""
-
-"""
-TODO (tests): 
-- New league sign-in - use seasonsToInclude features
-- League in its first year, add leagues with <3 year experience warning
-- Test with league that is NOT an auction draft
-    - Best way to handle non-auction draft leagues
-"""
-
 app = FastAPI()
 
 app.add_middleware(
@@ -116,7 +97,7 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     # If there is no past_leagues, or if the last season is not in past_leagues, refresh past_leagues and player stats
     if past_leagues is None or past_player_stats is None or int(max(past_leagues.keys())) + 1 < CURR_LEAGUE_YR:
         if curr_league.previousSeasons is None:
-                raise HTTPException(status_code=400, detail="No past league data available.  Auction AId only works for leagues with multiple years of history.")
+            raise HTTPException(status_code=400, detail="No past league data available.  Auction AId only works for leagues with multiple years of history.")
         post_leagues(league_id=league_id, years=curr_league.previousSeasons, swid=swid, espn_s2=espn_s2)
         past_leagues = get_past_leagues(league_id)
         aggregate_and_post_player_stats(past_leagues)
@@ -144,6 +125,11 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     past_player_projections = transform_past_player_projections(league_size, past_player_projections, years=valid_included_past_seasons)
     past_player_stats = transform_past_player_stats(past_player_stats, league_settings, years=valid_included_past_seasons)
     past_player_auction_values = transform_past_auction_values(past_leagues, years=valid_included_past_seasons)
+
+    # If a year without an auction draft is detected, throw an error and notify the user
+    if isinstance(past_player_auction_values, list):
+        raise HTTPException(status_code=400, 
+                            detail="Detected year(s) without auction draft data: " + str(past_player_auction_values))
 
     # Combine input data into one DataFrame for feature engineering and analysis
     input_dataframes = [latest_player_projections, past_player_auction_values,

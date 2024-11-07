@@ -102,6 +102,13 @@ def transform_past_auction_values(past_leagues:Dict, years:List[int]):
     
     # Input data based on results of previous drafts in the league
     past_auction_values_df = get_auction_draft_data(past_leagues)
+
+    # Determine if any of the leagues have no bid data, which means it was likely a snake draft
+    years_with_all_zero_bids = past_auction_values_df.groupby('year')['bid_amt'].apply(lambda x: (x == 0).all())
+    years_with_all_zero_bids = years_with_all_zero_bids[years_with_all_zero_bids].index.tolist()
+    if not years_with_all_zero_bids:
+        return years_with_all_zero_bids
+
     past_auction_values_df = denormalize(past_auction_values_df, 'year', ['bid_amt'])
 
     auction_value_columns = [col for col in past_auction_values_df.columns if col.startswith('bid_amt_')]
