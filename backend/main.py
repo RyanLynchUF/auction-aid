@@ -20,7 +20,7 @@ logger = get_logger(__name__)
 
 """
 TODO: 
-- Implement First Bench Player
+- Remove all TODO
 - Check if 2021 ADP is back for half-ppr
 - Download historical data as far back as possible
     - Review Data

@@ -21,9 +21,6 @@ def calculate_true_auction_value(league_settings, input_player_features, latest_
     # Parameters used in calculation of league-specific VORP
     statistic_for_vorp_calculation = vorp_configuration['statistic_for_vorp_calculation'].lower()
     team_draft_strategy = vorp_configuration['team_draft_strategy']
-    baseline_player_strategy = vorp_configuration['baseline_player_strategy']
-    parameters_for_find_baseline_player = {'baseline_player_strategy':baseline_player_strategy, 
-                                        'statistic_for_vorp_calculation':statistic_for_vorp_calculation}
 
     actual_pos_rank_column = 'actual_pos_rank_' + statistic_for_vorp_calculation
 
@@ -32,6 +29,9 @@ def calculate_true_auction_value(league_settings, input_player_features, latest_
     
     starting_player_counts, bench_player_counts = count_of_positions_for_auction_dollars(league_size, team_position_counts, latest_player_projections)
     total_player_counts = starting_player_counts + bench_player_counts
+
+    # Add starting player counts to the vorp_configuration
+    vorp_configuration['starting_player_counts'] = starting_player_counts
 
     actual_position_ranks_with_vorp = calculate_value_over_replacement_player(input_player_features, included_past_seasons, vorp_configuration)
 
@@ -105,11 +105,13 @@ def calculate_true_auction_value(league_settings, input_player_features, latest_
 def calculate_value_over_replacement_player(input_player_features, included_past_seasons, vorp_configuration):
     # Parameters used in calculation of league-specific VORP
     statistic_for_vorp_calculation = vorp_configuration['statistic_for_vorp_calculation'].lower()
-    team_draft_strategy = vorp_configuration['team_draft_strategy']
-    baseline_player_strategy = vorp_configuration['baseline_player_strategy']
-    parameters_for_find_baseline_player = {'baseline_player_strategy':baseline_player_strategy, 
-                                        'statistic_for_vorp_calculation':statistic_for_vorp_calculation}
     
+    baseline_player_strategy = vorp_configuration['baseline_player_strategy']
+    starting_player_counts = vorp_configuration['starting_player_counts']
+    parameters_for_find_baseline_player = {'baseline_player_strategy':baseline_player_strategy, 
+                            'statistic_for_vorp_calculation':statistic_for_vorp_calculation, 
+                            'starting_player_counts':starting_player_counts}
+
     actual_pos_rank_column = 'actual_pos_rank_' + statistic_for_vorp_calculation
 
     # Normalize data to prep for VORP calculations
@@ -146,18 +148,23 @@ def calculate_value_over_replacement_player(input_player_features, included_past
     return statistics_by_position_rank.reset_index()
 
 # Function to find the baseline players
-def find_baseline_player(group, baseline_player_strategy, statistic_for_vorp_calculation):
+def find_baseline_player(group, baseline_player_strategy, statistic_for_vorp_calculation, starting_player_counts):
     
     if baseline_player_strategy == 'First $1 Player':
-        # Find the first player with a actual_pos_rank_avg_bid_amt < 1
-        #TODO: Less than or equal?
+        # Find the first player with a actual_pos_rank_avg_bid_amt <= 1
         mask = group['actual_pos_rank_avg_bid_amt'] <= 1
         if mask.any():
             baseline = group.loc[mask, statistic_for_vorp_calculation].iloc[0]
             pos_rank = group.loc[mask, statistic_for_vorp_calculation].index[0][1]
-        else: # Handle case where no actual_pos_rank_avg_bid_amt < 1
+        else: # Handle case where no actual_pos_rank_avg_bid_amt <= 1
             baseline = 0  
             pos_rank = 1
+        group['baseline_' + statistic_for_vorp_calculation] = baseline
+        group['baseline_pos_rank'] = pos_rank
+    elif baseline_player_strategy == 'Last Starter':
+        position = group.index[0][0]
+        pos_rank = starting_player_counts.loc[position]['count']
+        baseline = group.loc[position, pos_rank][statistic_for_vorp_calculation]
         group['baseline_' + statistic_for_vorp_calculation] = baseline
         group['baseline_pos_rank'] = pos_rank
 
