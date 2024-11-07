@@ -26,11 +26,11 @@ CURR_LEAGUE_YR = settings.CURR_LEAGUE_YR
 SCORING_FORMATS = ['standard', 'ppr', 'half-ppr']
 LEAGUE_SIZES = ['10', '12', '14']
     
-def scrape_daily_fantasypros_projections(s3:bool=settings.S3):
+def scrape_daily_fantasypros_projections(scoring_formats:List[str]=SCORING_FORMATS, s3:bool=settings.S3):
     """
     Daily process to scrape the latest projection data from FantasyPros.
     """
-    for scoring_format in SCORING_FORMATS:
+    for scoring_format in scoring_formats:
         daily_projections = {}
         date_string = datetime.now().strftime('%Y%m%d')
 
@@ -63,7 +63,7 @@ def scrape_daily_fantasypros_projections(s3:bool=settings.S3):
 
 
 #TODO: Refactor this process to allow for only downloading a single year without overwriting the "asoofYYYY" so we don't overwrite it 
-def scrape_historical_fantasypros_projections(years:List[int], s3:bool=settings.S3):
+def scrape_historical_fantasypros_projections(years:List[int], scoring_formats:List[str]=SCORING_FORMATS, s3:bool=settings.S3):
     """
     Downloads histroical FantasyPros projections.
     
@@ -73,7 +73,6 @@ def scrape_historical_fantasypros_projections(years:List[int], s3:bool=settings.
         List of years to download
     """
 
-    scoring_formats = ['standard', 'ppr', 'half-ppr']
     league_sizes = ['10', '12', '14']
 
     all_historical_projections = {}

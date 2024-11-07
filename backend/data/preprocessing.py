@@ -20,9 +20,7 @@ def transform_latest_player_projections(league_size, latest_projections, latest_
     s3 : bool
         Boolean value to indicate if teh data should be read from s3
     """
-    
-    #TODO: Make sure nulls are being handled appropriately in calculations
-    
+
     # Players expected to be drafted in the current year
     player_names = [name for name in latest_auction_value.keys()]
 
@@ -47,8 +45,6 @@ def transform_latest_player_projections(league_size, latest_projections, latest_
         'vols': [vbd_dict[player]['vols'] for player in player_names],
         'adp': [adp_dict[player]['adp_avg'] for player in player_names]
         }
-
-    
 
     latest_player_projections_df = pd.DataFrame(player_projections_input_features)
 
@@ -77,7 +73,10 @@ def transform_past_player_stats(past_player_stats:Dict, league_settings:Dict, ye
 
     past_player_stats_df = pd.DataFrame.from_records(records).set_index('player_name')
 
-    past_player_stats_df['actual_pos_rank_total_points'] =  past_player_stats_df['actual_pos_rank']
+    past_player_stats_df = past_player_stats_df[past_player_stats_df['team'].notna()]
+
+    #TODO: Address null actual_pos_rank since they don't have it in old data
+    past_player_stats_df['actual_pos_rank_total_points'] =  past_player_stats_df.groupby(['pos', 'year'])['total_points'].rank(method='first', ascending=False)
     past_player_stats_df['actual_pos_rank_ppg'] = past_player_stats_df.groupby(['pos', 'year'])['ppg'].rank(method='first', ascending=False)
 
     past_player_stats_df = denormalize(past_player_stats_df, 'year', ['actual_pos_rank_ppg', 'ppg', 'actual_pos_rank_total_points', 'total_points', 'team'],
@@ -110,7 +109,7 @@ def transform_past_auction_values(past_leagues:Dict, years:List[int]):
 
     return past_auction_values_df
 
-def transform_past_expert_player_projections(league_size:int, past_player_projections:Dict, years:List[int]):
+def transform_past_player_projections(league_size:int, past_player_projections:Dict, years:List[int]):
     
     years_string = [str(year) for year in years]
 

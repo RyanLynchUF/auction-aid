@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from typing import List
+import re
 
 
 from config import settings
@@ -109,8 +110,13 @@ def generate_player_features(input_features:pd.DataFrame, included_past_seasons:
 
     # Select the previous year's bid_amt
     input_features['prev_year_bid_amt'] = input_features['bid_amt_' + str(max(included_past_seasons))]
-    
-    if max(included_past_seasons) + 1 == CURR_LEAGUE_YR:
+
+    # Determine the max year in the dataset to see if we are working with training or prediction data
+    df_columns = input_features.columns  
+    years = [int(re.search(r'(\d{4})$', col).group(0)) for col in df_columns if re.search(r'(\d{4})$', col) and str(CURR_LEAGUE_YR) not in col]
+    max_year_in_data = max(years) if years else None
+
+    if max(included_past_seasons) == max_year_in_data:
         input_features['curr_year_bid_amt'] = np.nan
         input_features['curr_year_vbd'] = input_features['vbd_' + str(CURR_LEAGUE_YR)]
         input_features['curr_year_projected_pos_rank'] = input_features['projected_pos_rank_' + str(CURR_LEAGUE_YR)]

@@ -5,7 +5,6 @@ import os
 import re
 import json
 import jsonpickle
-import time
 
 from data.s3Interface import S3Uploader, S3Reader
 import config.settings as settings
@@ -95,13 +94,13 @@ def post_leagues(league_id:int=None, years=List[int], espn_s2:str=None, swid:str
     swid : str
         Unique ID assigned to private leagues on ESPN
     """
-    try:
-        leagues = {}
-        for year in years:
+    leagues = {}
+    for year in years:
+        try:
             leagues[year] = get_league_data(league_id=league_id, year=year, swid=swid, espn_s2=espn_s2)
             upload_league(leagues[year])
-    except Exception as error:
-        logger.error(f'Failed to download past leagues: {error}')
+        except Exception as error:
+            logger.error(f'Failed to download past leagues: {error}')
 
 def get_past_leagues(league_id:int, s3:bool=settings.S3):
     """
@@ -120,8 +119,9 @@ def get_past_leagues(league_id:int, s3:bool=settings.S3):
 
     if s3:
         s3_league_objects = reader.s3.list_objects_v2(Bucket=AWS_S3_BUCKET_NAME_LEAGUE)
-        s3_matching_league_objects = [obj['Key'] for obj in s3_league_objects['Contents'] if re.search(fr'^espn\/league\/espn-{league_id}-\d+\.json$', obj['Key'])]
-        if not s3_matching_league_objects:
+        try:
+            s3_matching_league_objects = [obj['Key'] for obj in s3_league_objects['Contents'] if re.search(fr'^espn\/league\/espn-{league_id}-\d+\.json$', obj['Key'])]
+        except:
             logger.info("No past leagues currently in S3.")
             return None
         for object_key in s3_matching_league_objects:
@@ -182,13 +182,13 @@ def aggregate_and_post_player_stats(past_leagues:Dict, s3=settings.S3):
             players = league.player_info(playerId=batch)
             
             for player in players:  
-                if any(var == [] for var in (player.posRank, player.position)): continue
+                if any(var == [] for var in (player.position)): continue
                 player_stat = {
                     'player_name': player.name,
                     'team': player.proTeam,
                     'ppg': float(player.avg_points),
                     'pos': player.position,
-                    'actual_pos_rank': int(player.posRank),
+                    'actual_pos_rank': int(player.posRank) if player.posRank else None,
                     'total_points': float(player.total_points)
                     }
                 player_stats.append(player_stat)

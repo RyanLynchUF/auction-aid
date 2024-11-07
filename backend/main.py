@@ -8,7 +8,7 @@ import pandas as pd
 
 from data.espn.league_api import get_league_data, get_past_leagues, post_leagues, aggregate_and_post_player_stats, get_league_player_stats
 from data.projections_api import get_fantasypros_projections_daily, get_past_fantasypros_projections, scrape_fantasypros_auction_values
-from data.preprocessing import transform_latest_player_projections, transform_past_expert_player_projections, transform_past_auction_values, transform_past_player_stats
+from data.preprocessing import transform_latest_player_projections, transform_past_player_projections, transform_past_auction_values, transform_past_player_stats
 from statistical_analysis import calculate_true_auction_value, generate_player_draft_score
 import features as features
 import models as models
@@ -20,7 +20,10 @@ logger = get_logger(__name__)
 
 """
 TODO: 
+- Implement First Bench Player
 - Check if 2021 ADP is back for half-ppr
+- Download historical data as far back as possible
+    - Review Data
 - Create instruction and add links
     - Generate README: https://www.reddit.com/r/SideProject/s/Pj6jbnUG7w
 - Landing Login details links
@@ -28,15 +31,10 @@ TODO:
 
 """
 TODO (tests): 
-- New league sign-in - start to finish
-    - S3 storage and AppData storage
-    - Test while changing S3 bucket name
-- New league sign-in - stop and restart at different steps
 - New league sign-in - use seasonsToInclude features
 - League in its first year, add leagues with <3 year experience warning
-- Test on public leagues
 - Test with league that is NOT an auction draft
-- Cron daily download
+    - Best way to handle non-auction draft leagues
 """
 
 app = FastAPI()
@@ -112,17 +110,16 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     # Get current league data and available past league data
     curr_league = get_league_data(league_id=league_id, year=CURR_LEAGUE_YR, swid=swid, espn_s2=espn_s2)
     past_leagues = get_past_leagues(league_id=league_id)
+    past_player_stats = get_league_player_stats(league_id)
 
     # Load current and past league data
     # If there is no past_leagues, or if the last season is not in past_leagues, refresh past_leagues and player stats
-    if past_leagues is None or int(max(past_leagues.keys())) + 1 < CURR_LEAGUE_YR:
+    if past_leagues is None or past_player_stats is None or int(max(past_leagues.keys())) + 1 < CURR_LEAGUE_YR:
         if curr_league.previousSeasons is None:
                 raise HTTPException(status_code=400, detail="No past league data available.  Auction AId only works for leagues with multiple years of history.")
         post_leagues(league_id=league_id, years=curr_league.previousSeasons, swid=swid, espn_s2=espn_s2)
         past_leagues = get_past_leagues(league_id)
         aggregate_and_post_player_stats(past_leagues)
-        past_player_stats = get_league_player_stats(league_id)
-    else:
         past_player_stats = get_league_player_stats(league_id)
 
     # Load projection data 
@@ -130,20 +127,23 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     if projections_source == 'FantasyPros':
         expert_auction_valuation = scrape_fantasypros_auction_values(scoring_format=scoring_format, year=CURR_LEAGUE_YR, 
                                                         league_size=league_size, 
-                                                        team_balance=auction_dollars_per_team) # TODO: Add team decomposition if we start using this data
+                                                        team_balance=auction_dollars_per_team) 
         player_projections = get_fantasypros_projections_daily(scoring_format=scoring_format)
-        past_player_projections = get_past_fantasypros_projections(scoring_format=scoring_format)
+        past_player_projections = get_past_fantasypros_projections(years=included_past_seasons, scoring_format=scoring_format)
     else:
         logger.error(f"Unavailable projection source: {projections_source}")
 
     # Create dictionary which contains league setting
     league_settings = features.create_league_settings(curr_league)
 
+    # Update years to be the list of successfully downloaded past leagues and past player stats
+    valid_included_past_seasons = [int(year) for year in past_leagues.keys()]
+
     # Transform input data into format for further processing and feature engineering
     latest_player_projections = transform_latest_player_projections(league_size, player_projections, expert_auction_valuation)
-    past_player_projections = transform_past_expert_player_projections(league_size, past_player_projections, years=included_past_seasons)
-    past_player_stats = transform_past_player_stats(past_player_stats, league_settings, years=included_past_seasons)
-    past_player_auction_values = transform_past_auction_values(past_leagues, years=included_past_seasons)
+    past_player_projections = transform_past_player_projections(league_size, past_player_projections, years=valid_included_past_seasons)
+    past_player_stats = transform_past_player_stats(past_player_stats, league_settings, years=valid_included_past_seasons)
+    past_player_auction_values = transform_past_auction_values(past_leagues, years=valid_included_past_seasons)
 
     # Combine input data into one DataFrame for feature engineering and analysis
     input_dataframes = [latest_player_projections, past_player_auction_values,
@@ -154,19 +154,19 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     input_player_features = input_player_features.drop(columns=input_player_features.filter(like='to_merge').columns)
     input_player_features = input_player_features.set_index('player_name')
     # Create actual_pos_rank column values for DST using projections, since actual data is not available 
-    actual_pos_rank_columns = [f'{actual_pos_rank_column}_{year}' for year in included_past_seasons]
+    actual_pos_rank_columns = [f'{actual_pos_rank_column}_{year}' for year in valid_included_past_seasons]
     input_player_features.loc[input_player_features['pos'] == 'DST', actual_pos_rank_columns] = \
     input_player_features.loc[input_player_features['pos'] == 'DST', 'projected_pos_rank_2024']
     
     # Generate statistics for actual position ranks (e.g., RB1, RB2, etc.) based on past league(s)
     actual_position_rank_statistics = calculate_true_auction_value(league_settings, input_player_features, latest_player_projections,
-                                            included_past_seasons, auction_dollars_per_team, vorp_configuration).reset_index()
+                                            valid_included_past_seasons, auction_dollars_per_team, vorp_configuration).reset_index()
 
 # Feature Engineering
     # Determine years to use for training data vs. prediction data for upcoming draft
-    past_seasons_for_training = included_past_seasons.copy()
-    past_seasons_for_training.remove(max(included_past_seasons))
-    past_seasons_for_prediction = included_past_seasons.copy()
+    past_seasons_for_training = valid_included_past_seasons.copy()
+    past_seasons_for_training.remove(max(valid_included_past_seasons))
+    past_seasons_for_prediction = valid_included_past_seasons.copy()
     
     # Generate features for players based on past league(s) and  projections
     training_player_features = features.generate_player_features(input_player_features, past_seasons_for_training, statistic_for_vorp_calculation).reset_index()

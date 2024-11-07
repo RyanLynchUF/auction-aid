@@ -3,7 +3,7 @@ import glob
 import re
 import json
 from datetime import datetime
-
+from typing import List
 
 from data.data_pipline import scrape_daily_fantasypros_projections, scrape_historical_fantasypros_projections
 from data.s3Interface import S3Reader
@@ -42,6 +42,10 @@ def get_fantasypros_projections_daily(scoring_format:str='standard', s3:bool=set
     if s3:
         response = reader.s3.list_objects_v2(Bucket=AWS_S3_BUCKET_NAME_LEAGUE) 
         matching_objects = [obj for obj in response['Contents'] if re.search(rf'/daily-projections/fp-projections-{scoring_format}-', obj['Key'])]
+        if not matching_objects:
+            scrape_daily_fantasypros_projections(scoring_formats=[scoring_format])
+            response = reader.s3.list_objects_v2(Bucket=AWS_S3_BUCKET_NAME_LEAGUE) 
+        matching_objects = [obj for obj in response['Contents'] if re.search(rf'/daily-projections/fp-projections-{scoring_format}-', obj['Key'])]
         most_recent_object = sorted(matching_objects, key=lambda obj: obj['LastModified'], reverse=True)[0]
         obj_response = reader.read_from_s3(object_key=most_recent_object['Key'])
         json_string = obj_response['Body'].read().decode('utf-8')
@@ -66,7 +70,7 @@ def get_fantasypros_projections_daily(scoring_format:str='standard', s3:bool=set
                     logger.info(f"Deleted old projection data: {file}")
                 except Exception as e:
                     logger.error(f"Failed to delete {file}. Reason: {e}")
-            scrape_daily_fantasypros_projections()
+            scrape_daily_fantasypros_projections(scoring_formats=[scoring_format])
             appdata_matching_league_objects = [os.path.join(root, file)
                                             for root, dirs, files in os.walk(appdata_path)
                                             for file in files
@@ -85,8 +89,7 @@ def get_fantasypros_projections_daily(scoring_format:str='standard', s3:bool=set
                 logger.info(f"Error reading file {file_name}: {e}")
 
     return daily_player_projections
-
-def get_past_fantasypros_projections(scoring_format:str='standard', s3:bool=settings.S3):
+def get_past_fantasypros_projections(years:List[int], scoring_format:str='standard', s3:bool=settings.S3):
     """
     Read latest FantasyPros projections from either S3 or local storage.
     
@@ -99,6 +102,12 @@ def get_past_fantasypros_projections(scoring_format:str='standard', s3:bool=sett
     if s3:
         response = reader.s3.list_objects_v2(Bucket=AWS_S3_BUCKET_NAME_LEAGUE)
         matching_objects = [obj for obj in response['Contents'] if re.search(rf'/historical-projections/fp-projections-{scoring_format}-allyearsasof-{CURR_LEAGUE_YR}.json', obj['Key'])]
+        if not matching_objects:
+            logger.info(f"Historical projection data not yet downloaded.  Scraping historical projection data...")
+            scrape_historical_fantasypros_projections(years=years, scoring_formats=[scoring_format], s3=settings.S3)
+            response = reader.s3.list_objects_v2(Bucket=AWS_S3_BUCKET_NAME_LEAGUE)
+            matching_objects = [obj for obj in response['Contents'] if re.search(rf'/historical-projections/fp-projections-{scoring_format}-allyearsasof-{CURR_LEAGUE_YR}.json', obj['Key'])]
+
         for obj in matching_objects:
             obj_response = reader.read_from_s3(object_key=obj['Key'])
             json_string = obj_response['Body'].read().decode('utf-8')
@@ -113,8 +122,9 @@ def get_past_fantasypros_projections(scoring_format:str='standard', s3:bool=sett
                                             if re.search(rf'fp-projections-{scoring_format}-allyearsasof-{CURR_LEAGUE_YR}.json', file)]
         
         if not appdata_matching_league_objects:
+            logger.info(f"Historical projection data not yet downloaded.  Scraping historical projection data...")
             # Download historical projections 
-            scrape_historical_fantasypros_projections(years=range(2020, CURR_LEAGUE_YR), s3=settings.S3)
+            scrape_historical_fantasypros_projections(years=years, scoring_formats=[scoring_format], s3=settings.S3)
             appdata_matching_league_objects = [os.path.join(root, file)
                                             for root, dirs, files in os.walk(appdata_path)
                                             for file in files
