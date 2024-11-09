@@ -7,7 +7,7 @@ from functools import reduce
 import pandas as pd
 
 from data.espn.league_api import get_league_data, get_past_leagues, post_leagues, aggregate_and_post_player_stats, get_league_player_stats
-from data.projections_api import get_fantasypros_projections_daily, get_past_fantasypros_projections, scrape_fantasypros_auction_values
+from data.fantasypros.projections_api import get_fantasypros_projections_daily, get_past_fantasypros_projections, scrape_fantasypros_auction_values
 from data.preprocessing import transform_latest_player_projections, transform_past_player_projections, transform_past_auction_values, transform_past_player_stats
 from statistical_analysis import calculate_true_auction_value, generate_player_draft_score
 import features as features
@@ -19,6 +19,10 @@ from utils.logger import get_logger
 logger = get_logger(__name__)
 
 app = FastAPI()
+
+"""
+#TODO: Clean-up implementations of json.loads / dumps
+"""
 
 app.add_middleware(
     CORSMiddleware,
@@ -194,7 +198,7 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     prediction_features = prediction_features.drop(['curr_year_bid_amt'] +  features_to_remove, axis=1)
 
     # Train models
-    model, multicollinearity_columns_to_remove = models.train_model(training_features, model_type='random_forest', mode='predraft')
+    model, multicollinearity_columns_to_remove = models.train_model(training_features, model_type='random_forest', mode='testing')
     
     # Drop identifed columns with multi-collinearity
     training_features = training_features.drop(multicollinearity_columns_to_remove, axis=1)  

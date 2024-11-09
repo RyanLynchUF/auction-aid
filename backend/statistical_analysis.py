@@ -18,6 +18,7 @@ def calculate_true_auction_value(league_settings, input_player_features, latest_
     statistic_for_vorp_calculation = vorp_configuration['statistic_for_vorp_calculation'].lower()
     team_draft_strategy = vorp_configuration['team_draft_strategy']
 
+    #Experiment with projected pos rank for vorp?
     actual_pos_rank_column = 'actual_pos_rank_' + statistic_for_vorp_calculation
 
     # Determine the number of slots remaining to be drafted and the total number of auction dollars remaining
@@ -119,7 +120,7 @@ def calculate_value_over_replacement_player(input_player_features, included_past
     input_player_features = input_player_features[input_player_features['year'].isin([str(year) for year in included_past_seasons])]               
     input_player_features = input_player_features.set_index(['player_name', 'year'])
     
-    # Replace nan with 0 for actual_auction_value column to tie non-drafted players to a an auction value of 0.
+    # Replace nan with 0 for actual_auction_value column to tie non-drafted players to an auction value of 0.
     input_player_features['bid_amt'] = input_player_features['bid_amt'].fillna(0)
 
     # Create new dataframe to calculate statistcs based on the actual_pos_rank

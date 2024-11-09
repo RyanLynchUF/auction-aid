@@ -16,8 +16,7 @@ CURR_LEAGUE_YR = settings.CURR_LEAGUE_YR
 
 def train_model(input_features:pd.DataFrame, mode:str='testing', model_type:str='random_forest'):
     """
-    
-    mode: testing, pre-draft, drafting
+    mode: testing, pre-draft
     """
 
     input_features = input_features.drop(labels=['pos'], axis=1)

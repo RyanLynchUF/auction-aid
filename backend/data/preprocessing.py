@@ -75,7 +75,6 @@ def transform_past_player_stats(past_player_stats:Dict, league_settings:Dict, ye
 
     past_player_stats_df = past_player_stats_df[past_player_stats_df['team'].notna()]
 
-    #TODO: Address null actual_pos_rank since they don't have it in old data
     past_player_stats_df['actual_pos_rank_total_points'] =  past_player_stats_df.groupby(['pos', 'year'])['total_points'].rank(method='first', ascending=False)
     past_player_stats_df['actual_pos_rank_ppg'] = past_player_stats_df.groupby(['pos', 'year'])['ppg'].rank(method='first', ascending=False)
 
@@ -106,7 +105,7 @@ def transform_past_auction_values(past_leagues:Dict, years:List[int]):
     # Determine if any of the leagues have no bid data, which means it was likely a snake draft
     years_with_all_zero_bids = past_auction_values_df.groupby('year')['bid_amt'].apply(lambda x: (x == 0).all())
     years_with_all_zero_bids = years_with_all_zero_bids[years_with_all_zero_bids].index.tolist()
-    if not years_with_all_zero_bids:
+    if years_with_all_zero_bids:
         return years_with_all_zero_bids
 
     past_auction_values_df = denormalize(past_auction_values_df, 'year', ['bid_amt'])
@@ -142,7 +141,6 @@ def transform_past_player_projections(league_size:int, past_player_projections:D
     past_player_projections_df = past_player_projections_df.dropna(subset=columns_to_keep, how='all')
 
     return past_player_projections_df
-
 
 def get_auction_draft_data(leagues):
     draft_history_df = pd.DataFrame()
