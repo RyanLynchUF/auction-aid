@@ -1,6 +1,11 @@
 .env
+.venv-auction-aid
 import_email_draft.py
 cron.py
 Reference/
 logs/
+fp_historical_metrics_backup/
+Docker/
 AppData/league/*
+AppData/daily-projections/*
+AppData/historical-projections/*

@@ -20,10 +20,6 @@ logger = get_logger(__name__)
 
 app = FastAPI()
 
-"""
-#TODO: Clean-up implementations of json.loads / dumps
-"""
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"], 
@@ -108,7 +104,15 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
         past_player_stats = get_league_player_stats(league_id)
 
     # Load projection data 
+
     league_size = curr_league.settings.team_count
+    if league_size <= 10:
+        league_size = 10
+    elif league_size <= 13:
+        league_size = 12
+    else:
+        league_size = 14
+        
     if projections_source == 'FantasyPros':
         expert_auction_valuation = scrape_fantasypros_auction_values(scoring_format=scoring_format, year=CURR_LEAGUE_YR, 
                                                         league_size=league_size, 

@@ -23,9 +23,17 @@ def create_league_settings(league):
     """
     scoring_format_dict = {item['id']: item for item in league.settings.scoring_format}
     
+    league_size = [len(league.teams)][0]
+    if league_size <= 10:
+        league_size = 10
+    elif league_size <= 13:
+        league_size = 12
+    else:
+        league_size = 14
+
     league_settings = {
         'league_id': [league.league_id][0],
-        'league_size': [len(league.teams)][0],
+        'league_size': league_size,
         'scoring_format_' + scoring_format_dict[53]['abbr'] : [scoring_format_dict[53]['points']][0], # Points per Reception
         'scoring_format_' + scoring_format_dict[4]['abbr'] : [scoring_format_dict[4]['points']][0], # Passing TDs
         'team_composition': {

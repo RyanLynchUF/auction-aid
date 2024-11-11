@@ -16,7 +16,7 @@ logger = get_logger(__name__)
 CURR_LEAGUE_YR = settings.CURR_LEAGUE_YR
 
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
 AWS_ACCESS_KEY_ID=os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY')
@@ -134,7 +134,7 @@ def get_past_fantasypros_projections(years:List[int], scoring_format:str='standa
             file_name = os.path.basename(file_path)
             try:
                 with open(file_path, 'r') as f:
-                    latest_past_player_projections = json.loads(f.read())
+                    latest_past_player_projections = json.loads(f.read()) #TODO: Update to json.load(f)
             except json.JSONDecodeError:
                 logger.info(f"Error decoding JSON in file: {file_name}")
             except Exception as e:
