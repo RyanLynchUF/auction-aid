@@ -210,7 +210,7 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     prediction_features = prediction_features.drop(['curr_year_bid_amt'] +  features_to_remove, axis=1)
 
     # Train models
-    model, multicollinearity_columns_to_remove = models.train_model(training_features, model_type='random_forest', mode='testing')
+    model, multicollinearity_columns_to_remove = models.train_model(training_features, model_type='random_forest', mode='pre-draft')
     
     # Drop identifed columns with multi-collinearity
     training_features = training_features.drop(multicollinearity_columns_to_remove, axis=1)  
