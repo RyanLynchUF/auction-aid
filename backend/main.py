@@ -16,6 +16,12 @@ import models as models
 import config.settings as settings
 from utils.logger import get_logger
 
+"""
+TODO: Fix wrapping on loading screen
+Determine why error isn't popping up on screen on errors in production mode
+    - May need to add HTTPException with all error, or integrate into logger class!
+"""
+
 logger = get_logger(__name__)
 
 app = FastAPI()
@@ -89,19 +95,23 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     actual_pos_rank_column = 'actual_pos_rank_' + statistic_for_vorp_calculation
 
     # Get current league data and available past league data
-    curr_league = get_league_data(league_id=league_id, year=CURR_LEAGUE_YR, swid=swid, espn_s2=espn_s2)
-    past_leagues = get_past_leagues(league_id=league_id)
-    past_player_stats = get_league_player_stats(league_id)
-
-    # Load current and past league data
-    # If there is no past_leagues, or if the last season is not in past_leagues, refresh past_leagues and player stats
-    if past_leagues is None or past_player_stats is None or int(max(past_leagues.keys())) + 1 < CURR_LEAGUE_YR:
-        if curr_league.previousSeasons is None:
-            raise HTTPException(status_code=400, detail="No past league data available.  Auction AId only works for leagues with multiple years of history.")
-        post_leagues(league_id=league_id, years=curr_league.previousSeasons, swid=swid, espn_s2=espn_s2)
-        past_leagues = get_past_leagues(league_id)
-        aggregate_and_post_player_stats(past_leagues)
+    try: 
+        curr_league = get_league_data(league_id=league_id, year=CURR_LEAGUE_YR, swid=swid, espn_s2=espn_s2)
+        past_leagues = get_past_leagues(league_id=league_id)
         past_player_stats = get_league_player_stats(league_id)
+
+        # Load current and past league data
+        # If there is no past_leagues, or if the last season is not in past_leagues, refresh past_leagues and player stats
+        if past_leagues is None or past_player_stats is None or int(max(past_leagues.keys())) + 1 < CURR_LEAGUE_YR:
+            if curr_league.previousSeasons is None:
+                raise HTTPException(status_code=400, detail="No past league data available.  Auction AId only works for leagues with multiple years of history.")
+            post_leagues(league_id=league_id, years=curr_league.previousSeasons, swid=swid, espn_s2=espn_s2)
+            past_leagues = get_past_leagues(league_id)
+            aggregate_and_post_player_stats(past_leagues)
+            past_player_stats = get_league_player_stats(league_id)
+    except Exception as e:
+        raise HTTPException(status_code=400, 
+                            detail=f"Issue downloading past league data: {e}")
 
     # Load projection data 
 
@@ -112,7 +122,7 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
         league_size = 12
     else:
         league_size = 14
-        
+
     if projections_source == 'FantasyPros':
         expert_auction_valuation = scrape_fantasypros_auction_values(scoring_format=scoring_format, year=CURR_LEAGUE_YR, 
                                                         league_size=league_size, 
@@ -233,4 +243,6 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
 
 if __name__ == '__main__':
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    config = uvicorn.Config("main:app", port=5000, log_level="info")
+    server = uvicorn.Server(config)
+    uvicorn.run(app, host="0.0.0.0")

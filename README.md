@@ -29,7 +29,7 @@ Currently, Auction AId is in a basic Beta version.  In the future, it may be hos
 #### Install Backend - Python and Packages
 
 1. Install the latest version of [Python](https://www.python.org/downloads/)
-2. Setup Python virtual environment 
+2. Create and activate Python virtual environment 
     - Using Visual Studio: https://code.visualstudio.com/docs/python/environments
     - Using the terminal: https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/
 2. Install the required packages from `requirements.txt`
@@ -40,7 +40,7 @@ pip install -r /path/to/requirements.txt
 
 #### Install Frontend - Node.js, npm, and React
 
-1. Install Node.js and node package manager (npm) using instructions [here](https://nodejs.org/en/download/package-manager/)
+1. Install Node.js and node package manager (npm) using instructions [here](https://gist.github.com/MichaelCurrin/aa1fc56419a355972b96bce23f3bccba)
 
 ### Configuration
 

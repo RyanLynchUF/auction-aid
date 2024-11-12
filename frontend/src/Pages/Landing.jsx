@@ -42,7 +42,7 @@ const Landing = () => {
           </div>
           <p className="block text-white">Enter your ESPN League details below.</p>
           <a className="block text-white mb-4" 
-            href="https://example.com/faq.html" 
+            href="https://github.com/RyanLynchUF/auction-aid" 
             rel="noreferrer"
             target="_blank" >
             Need help?  Click <b>here</b>.

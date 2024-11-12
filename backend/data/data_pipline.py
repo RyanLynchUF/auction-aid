@@ -54,7 +54,7 @@ def scrape_daily_fantasypros_projections(scoring_formats:List[str]=SCORING_FORMA
             uploader.upload_json_to_s3(daily_projections_json, f'fp/daily-projections/{object_name}')
         else:
             daily_projections_json = daily_projections
-            appdata_path = os.path.join(os.getcwd(), "backend/AppData/daily-projections/")
+            appdata_path = os.path.join(os.getcwd(), "AppData/daily-projections/")
             file_path = os.path.join(appdata_path, object_name)
             with open(file_path, 'w') as f:
                 json.dump(daily_projections_json, f, indent=4)
@@ -102,7 +102,7 @@ def scrape_historical_fantasypros_projections(years:List[int], scoring_formats:L
                 uploader.upload_json_to_s3(yearly_projections_json, f'fp/historical-projections/{object_name}')
             else:
                 yearly_projections_json = yearly_projections
-                appdata_path = os.path.join(os.getcwd(), "backend/AppData/historical-projections/")
+                appdata_path = os.path.join(os.getcwd(), "AppData/historical-projections/")
                 file_path = os.path.join(appdata_path, object_name)
                 with open(file_path, 'w') as f:
                     json.dump(yearly_projections_json, f, indent=4)
@@ -142,7 +142,7 @@ def scrape_historical_fantasypros_projections(years:List[int], scoring_formats:L
             uploader.upload_json_to_s3(all_players_data_json, f'fp/historical-projections/{object_name}')
         else:
             all_players_data_json = all_players_data
-            appdata_path = os.path.join(os.getcwd(), "backend/AppData/historical-projections/")
+            appdata_path = os.path.join(os.getcwd(), "AppData/historical-projections/")
             file_path = os.path.join(appdata_path, object_name)
             with open(file_path, 'w') as f:
                 json.dump(all_players_data_json, f, indent=4)

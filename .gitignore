@@ -7,7 +7,15 @@ Reference/
 logs/
 fp_historical_metrics_backup/
 Docker/
+auth/
+
+
 AppData/league/*
 AppData/daily-projections/*
 AppData/historical-projections/*
-auth/
+
+!AppData/league/.gitkeep 
+!AppData/daily-projections/.gitkeep 
+!AppData/historical-projections/.gitkeep 
+
+

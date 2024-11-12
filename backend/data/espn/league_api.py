@@ -74,7 +74,7 @@ def upload_league(league:League, s3:bool=settings.S3):
     if s3:
         uploader.upload_json_to_s3(league_json, f'espn/league/{object_name}')
     else:
-        appdata_path = os.path.join(os.getcwd(), "backend/AppData/league")
+        appdata_path = os.path.join(os.getcwd(), "AppData/league")
         file_path = os.path.join(appdata_path, object_name)
         with open(file_path, 'w') as f:
             json.dump(league_json, f, indent=4)
@@ -130,7 +130,7 @@ def get_past_leagues(league_id:int, s3:bool=settings.S3):
             if object_key[-9:-5] != str(CURR_LEAGUE_YR):
                 leagues[object_key[-9:-5]] = obj
     else:
-        appdata_path = os.path.join(os.getcwd(), "backend/AppData/league")
+        appdata_path = os.path.join(os.getcwd(), "AppData/league")
         appdata_matching_league_objects = [os.path.join(root, file)
                                             for root, dirs, files in os.walk(appdata_path)
                                             for file in files
@@ -201,7 +201,7 @@ def aggregate_and_post_player_stats(past_leagues:Dict, s3=settings.S3):
         player_history_stats_json = json.dumps(dict(player_history_stats), indent=4)
         uploader.upload_json_to_s3(player_history_stats_json, f'espn/league/playerstats/{object_name}')
     else:
-        appdata_path = os.path.join(os.getcwd(), "backend/AppData/league")
+        appdata_path = os.path.join(os.getcwd(), "AppData/league")
         file_path = os.path.join(appdata_path, object_name)
         with open(file_path, 'w') as f:
             json.dump(player_history_stats, f, indent=4)
@@ -231,7 +231,7 @@ def get_league_player_stats(league_id:int, s3=settings.S3):
             obj_response = reader.read_from_s3(object_key=object_key)
             player_history_stats = json.loads(obj_response['Body'].read())
     else:
-        appdata_path = os.path.join(os.getcwd(), "backend/AppData/league")
+        appdata_path = os.path.join(os.getcwd(), "AppData/league")
         appdata_matching_league_objects = [os.path.join(root, file)
                                             for root, dirs, files in os.walk(appdata_path)
                                             for file in files

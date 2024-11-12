@@ -53,7 +53,7 @@ def get_fantasypros_projections_daily(scoring_format:str='standard', s3:bool=set
     else:
         date_string = datetime.now().strftime('%Y%m%d')
 
-        appdata_path = os.path.join(os.getcwd(), "backend/AppData/daily-projections/")
+        appdata_path = os.path.join(os.getcwd(), "AppData/daily-projections/")
 
         # Download latest projections 
         appdata_matching_league_objects = [os.path.join(root, file)
@@ -115,7 +115,7 @@ def get_past_fantasypros_projections(years:List[int], scoring_format:str='standa
             if obj['Key'][-9:-5] == str(CURR_LEAGUE_YR):
                 latest_past_player_projections = past_player_projections
     else:
-        appdata_path = os.path.join(os.getcwd(), "backend/AppData/historical-projections/")
+        appdata_path = os.path.join(os.getcwd(), "AppData/historical-projections/")
         appdata_matching_league_objects = [os.path.join(root, file)
                                             for root, dirs, files in os.walk(appdata_path)
                                             for file in files
