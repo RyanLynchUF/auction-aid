@@ -1,5 +1,6 @@
 .env
 .venv-auction-aid
+.gitignore
 import_email_draft.py
 cron.py
 Reference/
@@ -9,3 +10,4 @@ Docker/
 AppData/league/*
 AppData/daily-projections/*
 AppData/historical-projections/*
+auth/
