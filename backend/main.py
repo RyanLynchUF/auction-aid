@@ -18,8 +18,6 @@ from utils.logger import get_logger
 
 """
 TODO: Fix wrapping on loading screen
-Determine why error isn't popping up on screen on errors in production mode
-    - May need to add HTTPException with all error, or integrate into logger class!
 """
 
 logger = get_logger(__name__)
