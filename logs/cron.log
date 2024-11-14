@@ -234,3 +234,9 @@
 2024-11-09 02:30:15,137 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241109.json to auctionaid-test/fp/daily-projections/fp-projections-standard-20241109.json
 2024-11-09 02:30:18,218 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241109.json to auctionaid-test/fp/daily-projections/fp-projections-ppr-20241109.json
 2024-11-09 02:30:27,949 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241109.json to auctionaid-test/fp/daily-projections/fp-projections-half-ppr-20241109.json
+2024-11-13 02:30:27,414 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241113.json to auctionaid/fp/daily-projections/fp-projections-standard-20241113.json
+2024-11-13 02:30:30,164 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241113.json to auctionaid/fp/daily-projections/fp-projections-ppr-20241113.json
+2024-11-13 02:30:40,759 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241113.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20241113.json
+2024-11-14 02:30:16,579 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241114.json to auctionaid/fp/daily-projections/fp-projections-standard-20241114.json
+2024-11-14 02:30:19,377 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241114.json to auctionaid/fp/daily-projections/fp-projections-ppr-20241114.json
+2024-11-14 02:30:30,608 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241114.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20241114.json

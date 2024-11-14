@@ -51,9 +51,11 @@ const Accordion = ({ isOpen, toggle, children }) => (
 );
 
 const LoadingScreen = ({ statusMessage }) => (
-  <div className="fixed inset-0 bg-black bg-opacity-75 flex flex-col items-center justify-center z-50">
-    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#8c52ff] mb-4"></div>
-    <p className="text-white text-xl font-semibold">{statusMessage}</p>
+  <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+    <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-48 p-4 text-center flex flex-col items-center">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#8c52ff] mb-4"></div>
+      <p className="text-white text-xl font-semibold">{statusMessage}</p>
+    </div>
   </div>
 );
 
