@@ -139,6 +139,9 @@ The application is now running!
 ## Troubleshooting / FAQ
 This section will be updated as questions become asked frequently!
 
+1.) What is Expected Auction Value (EAV) vs. True Auction Value (TAV)?
+EAV is what Auction AId expects your league to pay for a player based on draft history.  TAV is what Auction AId believes a player is worth based on their past performances.  To learn more, read [here](https://ryanlynch.me/Technical+Projects/AuctionAId/Auction+AId+Release+1.0+-+A+New+Tool+for+Fantasy+Football+Auction+Drafts#Auction%20AId%20Fantasy%20Football%20Analysis).
+
 
 ## Acknowledgements
 This project is possible thanks to:
