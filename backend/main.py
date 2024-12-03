@@ -16,9 +16,6 @@ import models as models
 import config.settings as settings
 from utils.logger import get_logger
 
-"""
-TODO: Fix wrapping on loading screen
-"""
 
 logger = get_logger(__name__)
 
@@ -120,6 +117,9 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
         league_size = 12
     else:
         league_size = 14
+
+    # Limit only to seasons where there is available FantasyPros data
+    included_past_seasons = [season for season in included_past_seasons if season > 2012]
 
     if projections_source == 'FantasyPros':
         expert_auction_valuation = scrape_fantasypros_auction_values(scoring_format=scoring_format, year=CURR_LEAGUE_YR, 

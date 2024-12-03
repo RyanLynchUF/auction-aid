@@ -67,8 +67,7 @@ def upload_league(league:League, s3:bool=settings.S3):
 
     league_id = league.league_id
     year = league.year
-    league_json = jsonpickle.encode(league, max_depth=30,
-                                 separators=(',', ': '))
+    league_json = jsonpickle.encode(league, separators=(',', ': '))
     
     object_name = f"espn-{league_id}-{year}.json"
     if s3:
@@ -143,7 +142,8 @@ def get_past_leagues(league_id:int, s3:bool=settings.S3):
             file_name = os.path.basename(file_path)
             try:
                 with open(file_path, 'r') as f:
-                    leagues[file_name[-9:-5]] = jsonpickle.decode(json.load(f))
+                    json_file = json.load(f)
+                    leagues[file_name[-9:-5]] = jsonpickle.decode(json_file)
                     logger.info(f'Successfully read {file_name}')   
             except json.JSONDecodeError:
                 logger.info(f"Error decoding JSON in file: {file_name}")

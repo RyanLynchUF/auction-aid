@@ -1,10 +1,12 @@
 .env
 .venv-auction-aid
 .gitignore
+.vscode
 import_email_draft.py
 cron.py
 Reference/
 logs/
+logs/cron.log
 fp_historical_metrics_backup/
 Docker/
 auth/
@@ -19,3 +21,12 @@ AppData/historical-projections/*
 !AppData/historical-projections/.gitkeep 
 
 
+frontend/node_modules/.cache/default-development/0.pack
+frontend/node_modules/.cache/default-development/1.pack
+frontend/node_modules/.cache/default-development/3.pack
+frontend/node_modules/.cache/default-development/5.pack
+frontend/node_modules/.cache/default-development/6.pack
+frontend/node_modules/.cache/default-development/7.pack
+frontend/node_modules/.cache/default-development/8.pack
+frontend/node_modules/.cache/default-development/index.pack
+frontend/node_modules/.cache/default-development/index.pack.old
