@@ -135,6 +135,8 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
 
     # Update years to be the list of successfully downloaded past leagues and past player stats
     valid_included_past_seasons = [int(year) for year in past_leagues.keys()]
+    # Limit only to seasons where there is available FantasyPros data
+    valid_included_past_seasons = [season for season in valid_included_past_seasons if season > 2012]
 
     # Transform input data into format for further processing and feature engineering
     latest_player_projections = transform_latest_player_projections(league_size, player_projections, expert_auction_valuation)
