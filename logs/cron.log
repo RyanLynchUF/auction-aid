@@ -240,3 +240,194 @@
 2024-11-14 02:30:16,579 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241114.json to auctionaid/fp/daily-projections/fp-projections-standard-20241114.json
 2024-11-14 02:30:19,377 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241114.json to auctionaid/fp/daily-projections/fp-projections-ppr-20241114.json
 2024-11-14 02:30:30,608 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241114.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20241114.json
+2024-12-04 02:30:16,499 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241204.json to auctionaid/fp/daily-projections/fp-projections-standard-20241204.json
+2024-12-04 02:30:19,657 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241204.json to auctionaid/fp/daily-projections/fp-projections-ppr-20241204.json
+2024-12-04 02:30:32,802 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241204.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20241204.json
+2024-12-05 02:30:14,161 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241205.json to auctionaid/fp/daily-projections/fp-projections-standard-20241205.json
+2024-12-05 02:30:17,006 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241205.json to auctionaid/fp/daily-projections/fp-projections-ppr-20241205.json
+2024-12-05 02:30:29,595 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241205.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20241205.json
+2024-12-07 02:30:17,242 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241207.json to auctionaid/fp/daily-projections/fp-projections-standard-20241207.json
+2024-12-07 02:30:20,052 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241207.json to auctionaid/fp/daily-projections/fp-projections-ppr-20241207.json
+2024-12-07 02:30:31,952 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241207.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20241207.json
+2024-12-10 02:30:16,786 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241210.json to auctionaid/fp/daily-projections/fp-projections-standard-20241210.json
+2024-12-10 02:30:20,195 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241210.json to auctionaid/fp/daily-projections/fp-projections-ppr-20241210.json
+2024-12-10 02:30:33,277 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241210.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20241210.json
+2024-12-11 02:30:15,520 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241211.json to auctionaid/fp/daily-projections/fp-projections-standard-20241211.json
+2024-12-11 02:30:17,917 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241211.json to auctionaid/fp/daily-projections/fp-projections-ppr-20241211.json
+2024-12-11 02:30:30,051 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241211.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20241211.json
+2024-12-24 02:30:28,368 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241224.json to auctionaid/fp/daily-projections/fp-projections-standard-20241224.json
+2024-12-24 02:30:31,221 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241224.json to auctionaid/fp/daily-projections/fp-projections-ppr-20241224.json
+2024-12-24 02:30:44,465 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241224.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20241224.json
+2024-12-28 02:30:16,532 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20241228.json to auctionaid/fp/daily-projections/fp-projections-standard-20241228.json
+2024-12-28 02:30:19,209 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20241228.json to auctionaid/fp/daily-projections/fp-projections-ppr-20241228.json
+2024-12-28 02:30:33,203 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20241228.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20241228.json
+2025-01-01 02:30:16,576 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250101.json to auctionaid/fp/daily-projections/fp-projections-standard-20250101.json
+2025-01-01 02:30:20,758 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250101.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250101.json
+2025-01-01 02:30:32,474 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250101.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250101.json
+2025-01-04 02:30:19,477 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250104.json to auctionaid/fp/daily-projections/fp-projections-standard-20250104.json
+2025-01-04 02:30:22,500 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250104.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250104.json
+2025-01-04 02:30:34,478 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250104.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250104.json
+2025-01-08 02:30:15,939 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250108.json to auctionaid/fp/daily-projections/fp-projections-standard-20250108.json
+2025-01-08 02:30:19,811 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250108.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250108.json
+2025-01-08 02:30:32,789 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250108.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250108.json
+2025-01-09 02:30:16,454 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250109.json to auctionaid/fp/daily-projections/fp-projections-standard-20250109.json
+2025-01-09 02:30:20,976 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250109.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250109.json
+2025-01-09 02:30:33,010 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250109.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250109.json
+2025-01-17 02:30:28,955 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250117.json to auctionaid/fp/daily-projections/fp-projections-standard-20250117.json
+2025-01-17 02:30:34,952 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250117.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250117.json
+2025-01-17 02:30:47,828 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250117.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250117.json
+2025-01-18 02:30:26,019 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250118.json to auctionaid/fp/daily-projections/fp-projections-standard-20250118.json
+2025-01-18 02:30:30,223 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250118.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250118.json
+2025-01-18 02:30:42,965 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250118.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250118.json
+2025-01-28 02:30:25,957 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250128.json to auctionaid/fp/daily-projections/fp-projections-standard-20250128.json
+2025-01-28 02:30:28,277 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250128.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250128.json
+2025-01-28 02:30:39,182 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250128.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250128.json
+2025-01-29 02:30:25,043 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250129.json to auctionaid/fp/daily-projections/fp-projections-standard-20250129.json
+2025-01-29 02:30:27,424 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250129.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250129.json
+2025-01-29 02:30:39,111 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250129.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250129.json
+2025-01-30 02:30:27,117 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250130.json to auctionaid/fp/daily-projections/fp-projections-standard-20250130.json
+2025-01-30 02:30:29,501 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250130.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250130.json
+2025-01-30 02:30:40,886 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250130.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250130.json
+2025-02-06 02:30:24,807 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250206.json to auctionaid/fp/daily-projections/fp-projections-standard-20250206.json
+2025-02-06 02:30:27,465 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250206.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250206.json
+2025-02-06 02:30:38,185 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250206.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250206.json
+2025-02-13 02:30:25,975 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250213.json to auctionaid/fp/daily-projections/fp-projections-standard-20250213.json
+2025-02-13 02:30:29,184 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250213.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250213.json
+2025-02-13 02:30:42,291 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250213.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250213.json
+2025-02-14 02:30:15,536 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250214.json to auctionaid/fp/daily-projections/fp-projections-standard-20250214.json
+2025-02-14 02:30:18,511 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250214.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250214.json
+2025-02-14 02:30:28,598 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250214.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250214.json
+2025-02-15 02:30:25,095 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250215.json to auctionaid/fp/daily-projections/fp-projections-standard-20250215.json
+2025-02-15 02:30:27,534 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250215.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250215.json
+2025-02-15 02:30:40,108 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250215.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250215.json
+2025-02-19 02:30:24,692 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250219.json to auctionaid/fp/daily-projections/fp-projections-standard-20250219.json
+2025-02-19 02:30:27,360 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250219.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250219.json
+2025-02-19 02:30:37,465 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250219.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250219.json
+2025-02-27 02:30:28,103 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250227.json to auctionaid/fp/daily-projections/fp-projections-standard-20250227.json
+2025-02-27 02:30:31,099 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250227.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250227.json
+2025-02-27 02:30:40,605 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250227.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250227.json
+2025-03-04 02:30:14,800 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250304.json to auctionaid/fp/daily-projections/fp-projections-standard-20250304.json
+2025-03-04 02:30:17,464 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250304.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250304.json
+2025-03-04 02:30:29,118 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250304.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250304.json
+2025-03-05 02:30:34,860 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250305.json to auctionaid/fp/daily-projections/fp-projections-standard-20250305.json
+2025-03-05 02:30:38,687 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250305.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250305.json
+2025-03-05 02:30:49,799 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250305.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250305.json
+2025-03-07 02:30:25,491 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250307.json to auctionaid/fp/daily-projections/fp-projections-standard-20250307.json
+2025-03-07 02:30:28,954 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250307.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250307.json
+2025-03-07 02:30:40,891 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250307.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250307.json
+2025-03-12 02:30:28,073 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250312.json to auctionaid/fp/daily-projections/fp-projections-standard-20250312.json
+2025-03-12 02:30:31,016 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250312.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250312.json
+2025-03-12 02:30:41,955 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250312.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250312.json
+2025-03-14 02:30:23,418 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250314.json to auctionaid/fp/daily-projections/fp-projections-standard-20250314.json
+2025-03-14 02:30:26,086 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250314.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250314.json
+2025-03-14 02:30:35,477 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250314.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250314.json
+2025-04-01 02:30:36,568 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250401.json to auctionaid/fp/daily-projections/fp-projections-standard-20250401.json
+2025-04-01 02:30:40,425 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250401.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250401.json
+2025-04-01 02:30:51,300 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250401.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250401.json
+2025-04-03 02:30:24,973 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250403.json to auctionaid/fp/daily-projections/fp-projections-standard-20250403.json
+2025-04-03 02:30:27,371 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250403.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250403.json
+2025-04-03 02:30:38,551 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250403.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250403.json
+2025-04-04 02:30:22,741 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250404.json to auctionaid/fp/daily-projections/fp-projections-standard-20250404.json
+2025-04-04 02:30:25,117 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250404.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250404.json
+2025-04-04 02:30:36,666 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250404.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250404.json
+2025-04-10 02:30:34,624 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250410.json to auctionaid/fp/daily-projections/fp-projections-standard-20250410.json
+2025-04-10 02:30:37,586 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250410.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250410.json
+2025-04-10 02:30:48,034 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250410.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250410.json
+2025-04-11 02:30:15,389 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250411.json to auctionaid/fp/daily-projections/fp-projections-standard-20250411.json
+2025-04-11 02:30:18,093 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250411.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250411.json
+2025-04-11 02:30:29,713 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250411.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250411.json
+2025-04-12 02:30:24,066 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250412.json to auctionaid/fp/daily-projections/fp-projections-standard-20250412.json
+2025-04-12 02:30:27,111 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250412.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250412.json
+2025-04-12 02:30:37,902 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250412.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250412.json
+2025-04-13 02:30:14,772 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250413.json to auctionaid/fp/daily-projections/fp-projections-standard-20250413.json
+2025-04-13 02:30:16,681 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250413.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250413.json
+2025-04-13 02:30:27,710 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250413.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250413.json
+2025-04-14 02:30:14,300 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-standard-20250414.json to auctionaid/fp/daily-projections/fp-projections-standard-20250414.json
+2025-04-14 02:30:16,991 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-ppr-20250414.json to auctionaid/fp/daily-projections/fp-projections-ppr-20250414.json
+2025-04-14 02:30:27,474 - data.s3Interface - INFO - Successfully uploaded fp/daily-projections/fp-projections-half-ppr-20250414.json to auctionaid/fp/daily-projections/fp-projections-half-ppr-20250414.json
+Traceback (most recent call last):
+  File "/Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/backend/cron.py", line 1, in <module>
+    from data.data_pipline import scrape_daily_fantasypros_projections, scrape_historical_fantasypros_projections
+  File "/Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/backend/data/data_pipline.py", line 6, in <module>
+    from data.s3Interface import S3Uploader
+ModuleNotFoundError: No module named 'data.s3Interface'
+Traceback (most recent call last):
+  File "/Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/backend/cron.py", line 1, in <module>
+    from data.data_pipline import scrape_daily_fantasypros_projections, scrape_historical_fantasypros_projections
+  File "/Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/backend/data/data_pipline.py", line 6, in <module>
+    from data.s3Interface import S3Uploader
+ModuleNotFoundError: No module named 'data.s3Interface'
+Traceback (most recent call last):
+  File "/Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/backend/cron.py", line 1, in <module>
+    from data.data_pipline import scrape_daily_fantasypros_projections, scrape_historical_fantasypros_projections
+  File "/Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/backend/data/data_pipline.py", line 6, in <module>
+    from data.s3Interface import S3Uploader
+ModuleNotFoundError: No module named 'data.s3Interface'
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory
+/bin/sh: /Users/ryanlynch/Desktop/Desktop/Career/TechnicalProjects/2_AuctionAid/cronAuction/bin/python: No such file or directory

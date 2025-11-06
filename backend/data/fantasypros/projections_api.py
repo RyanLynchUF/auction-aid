@@ -27,7 +27,6 @@ reader = S3Reader(aws_access_key_id=AWS_ACCESS_KEY_ID,
                         bucket_name=AWS_S3_BUCKET_NAME_LEAGUE)
 
 #TODO: Make configurable to read from S3 or AppData
-
 def get_fantasypros_projections_daily(scoring_format:str='standard', s3:bool=settings.S3):
     """
     Read latest FantasyPros projections from either S3 or local storage.

@@ -157,10 +157,11 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     input_player_features['pos'] = input_player_features.filter(like='to_merge').bfill(axis=1).iloc[:, 0]
     input_player_features = input_player_features.drop(columns=input_player_features.filter(like='to_merge').columns)
     input_player_features = input_player_features.set_index('player_name')
+
     # Create actual_pos_rank column values for DST using projections, since actual data is not available 
     actual_pos_rank_columns = [f'{actual_pos_rank_column}_{year}' for year in valid_included_past_seasons]
     input_player_features.loc[input_player_features['pos'] == 'DST', actual_pos_rank_columns] = \
-    input_player_features.loc[input_player_features['pos'] == 'DST', 'projected_pos_rank_2024']
+    input_player_features.loc[input_player_features['pos'] == 'DST', 'projected_pos_rank_' + str(CURR_LEAGUE_YR)]
     
     # Generate statistics for actual position ranks (e.g., RB1, RB2, etc.) based on past league(s)
     actual_position_rank_statistics = calculate_true_auction_value(league_settings, input_player_features, latest_player_projections,
@@ -200,6 +201,8 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     prediction_features.loc[:,columns_for_nan_replacement] = prediction_features.loc[:,columns_for_nan_replacement].fillna(0)
 
     # Remove unneccesary columns 
+    #TODO: Fix Rank numbering
+    #TODO: Improve results
     features_to_remove = ['avg_bid_amt_from_league_history',
                                                 'projected_pos_rank',
                                                 'team_ARI', 'team_ATL',

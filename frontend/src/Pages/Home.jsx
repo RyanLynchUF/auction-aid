@@ -243,7 +243,7 @@ const Home = () => {
             label="Keepers"
             options={['No']}
             value={formState.keepers}
-            onChange={handleDropdownChange}f
+            onChange={handleDropdownChange}
             name="keepers"
             info="Indicate if your league has keepers.  Keepers not currently supported in Beta version."
           />

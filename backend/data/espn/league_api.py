@@ -141,10 +141,18 @@ def get_past_leagues(league_id:int, s3:bool=settings.S3):
         for file_path in appdata_matching_league_objects:
             file_name = os.path.basename(file_path)
             try:
-                with open(file_path, 'r') as f:
-                    json_file = json.load(f)
-                    leagues[file_name[-9:-5]] = jsonpickle.decode(json_file)
-                    logger.info(f'Successfully read {file_name}')   
+                with open(file_path, "r") as f:
+                    try:
+                        # Try normal JSON load (2024 format)
+                        data = json.load(f)
+                        obj = jsonpickle.decode(data)
+                    except Exception:
+                        # Reset file pointer and read raw text (2023 format)
+                        f.seek(0)
+                        data = f.read()
+
+                    leagues[file_name[-9:-5]] = obj
+                    logger.info(f"Successfully read {file_name}")
             except json.JSONDecodeError:
                 logger.info(f"Error decoding JSON in file: {file_name}")
             except Exception as e:

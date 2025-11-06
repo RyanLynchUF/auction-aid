@@ -124,7 +124,7 @@ def calculate_value_over_replacement_player(input_player_features, included_past
     input_player_features['bid_amt'] = input_player_features['bid_amt'].fillna(0)
 
     # Create new dataframe to calculate statistcs based on the actual_pos_rank
-    statistics_by_position_rank = input_player_features[['pos', actual_pos_rank_column, 'ppg', 'total_points', 'bid_amt']]
+    statistics_by_position_rank = input_player_features[['pos', actual_pos_rank_column, 'ppg', 'total_points', 'bid_amt']].copy()
 
     # Filter out all players with nan values in ['ppg', actual_pos_rank_column, 'total_points'], but keep DST players
     statistics_by_position_rank = statistics_by_position_rank.dropna(how='all', subset=['ppg', actual_pos_rank_column, 'total_points'])

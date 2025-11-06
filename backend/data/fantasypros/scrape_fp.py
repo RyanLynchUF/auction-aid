@@ -73,7 +73,12 @@ class FPScraper:
         remove_substrings = [" Jr.", " III", " II", " IV", " Sr."]
         # Remove certain substrings from player name 
         for player in ecr_data['players']:
-            player_name = player['player_name']
+            player_name = player.get('player_name')
+    
+            # Skip this player if no name exists
+            if not player_name:
+                continue
+
             for sub in remove_substrings:
                 if player_name in ['Las Vegas Raiders', 'Minnesota Vikings']: continue
                 if sub in player_name:
@@ -175,11 +180,18 @@ class FPScraper:
             # Extract adp_avg (always the last column)
             adp_avg = columns[-1].text.strip()
 
+            # Extract the first number (handles decimals, commas, and ignores extra digits)
+            match = re.search(r'[\d,]+\.?\d*', adp_avg)
+            if match:
+                adp_avg_value = float(match.group().replace(',', ''))
+            else:
+                adp_avg_value = None
+
             # Store data in dictionary
             adp_data[player_name] = {
                 'pos': position,
                 'projected_pos_rank': int(rank_str) if rank_str else None,
-                'adp_avg': float(adp_avg.replace(',', ''))
+                'adp_avg': adp_avg_value
             }
 
 

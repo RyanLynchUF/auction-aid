@@ -25,7 +25,7 @@ def transform_latest_player_projections(league_size, latest_projections, latest_
     player_names = [name for name in latest_auction_value.keys()]
 
     # Player Fantasy Pros Metrics
-    ecr_dict = {item['player_name']: item for item in latest_projections['ecr']['players']} 
+    ecr_dict = {item.get('player_name', 'NULL'): item for item in latest_projections['ecr']['players']} 
     ecr_dict = defaultdict(lambda: {'player_position_id': '', 'rank_ecr': np.nan, 'rank_ave': np.nan}, ecr_dict) 
     adp_dict = defaultdict(lambda: {'adp_avg': np.nan}, latest_projections['adp']) 
     vbd_dict = latest_projections['vbd'][str(league_size)]
