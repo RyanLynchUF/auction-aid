@@ -4,7 +4,7 @@
 
 Welcome to Auction AId!  A Fantasy Football auction draft tool designed to use your league's data to identify where you can find value during your next auction draft.  The tool currently only supports leagues using ESPN for their Fantasy Football league using the API from [cwendt94/espn-api](https://github.com/cwendt94/espn-api).
 
-If you'd like to learn more about how Auction AId works under the hood, read [this blog post](https://ryanlynch.me/Technical+Projects/AuctionAId/Auction+AId+Release+1.0+-+A+New+Tool+for+Fantasy+Football+Auction+Drafts).
+If you'd like to learn more about how Auction AId works under the hood, read [this blog post](https://ryanlynch.me/Technical+Projects+Dashboard/AuctionAId/Auction+AId+Release+1.0+-+A+New+Tool+for+Fantasy+Football+Auction+Drafts).
 
 Please free to make suggestions, bug reports, or pull requests for features or fixes!  If you enjoyed using Auction AId, feed my caffeine addiction.
 
