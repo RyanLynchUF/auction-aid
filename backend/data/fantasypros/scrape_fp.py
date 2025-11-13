@@ -228,7 +228,7 @@ class FPScraper:
             # Extract player name
             player_name = columns[1].text.split("(")[0].strip()
 
-            #TODO: Address extra names that are getting parsed
+            # Addresses extra names appear in the HTML by skipping them
             if ',' in player_name:
                 continue
 

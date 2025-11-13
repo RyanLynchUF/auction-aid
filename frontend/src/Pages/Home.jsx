@@ -67,34 +67,81 @@ const calculatePercentile = (data, percentile) => {
   return sorted[index];
 };
 
-const getBackgroundColor = (score, lowerQuartile, upperQuartile) => {
+// Updated function to calculate percentiles per position
+const calculatePositionPercentiles = (auctionData) => {
+  const percentilesByPosition = {};
+  
+  // Group players by position
+  const playersByPosition = auctionData.reduce((acc, player) => {
+    if (!acc[player.pos]) acc[player.pos] = [];
+    acc[player.pos].push(player.normalized_draft_score);
+    return acc;
+  }, {});
+  
+  // Calculate percentiles for each position
+  Object.keys(playersByPosition).forEach(pos => {
+    const scores = playersByPosition[pos].sort((a, b) => a - b);
+    percentilesByPosition[pos] = {
+      lower: calculatePercentile(scores, 0.15),  // Bottom 15%
+      upper: calculatePercentile(scores, 0.85),  // Top 15%
+      min: Math.min(...scores),
+      max: Math.max(...scores)
+    };
+  });
+  
+  return percentilesByPosition;
+};
 
-  if (score >= upperQuartile) {
-    // Top 25%: Darker shades of green as score approaches maximum
-    const greenIntensity = Math.round(110 + ((score) * 81));
-    return `rgb(48, ${greenIntensity}, 48)`;
-  } else if (score > lowerQuartile && score < upperQuartile) {
-    // Middle 50%: Neutral color
-    return '#312f30';
+// Updated color function with gradient intensity
+const getBackgroundColor = (score, position, percentilesByPosition) => {
+  const posPercentiles = percentilesByPosition[position];
+  
+  if (!posPercentiles) return '#312f30'; // Neutral if position not found
+  
+  const { lower, upper, min, max } = posPercentiles;
+  
+  if (score >= upper) {
+    // Top 15%: Green gradient (brighter = better)
+    // Normalize score within the top 15% range (upper to max)
+    const normalizedScore = (score - upper) / (max - upper);
+    
+    // Green intensity: ranges from medium green to bright green
+    // RGB: (34, 197, 94) is a nice bright green, (22, 163, 74) is darker
+    const greenR = Math.round(22 + (normalizedScore * 28));      // 22 -> 50
+    const greenG = Math.round(163 + (normalizedScore * 34));     // 163 -> 197
+    const greenB = Math.round(74 + (normalizedScore * 20));      // 74 -> 94
+    
+    return `rgb(${greenR}, ${greenG}, ${greenB})`;
+    
+  } else if (score <= lower) {
+    // Bottom 15%: Red gradient (brighter = worse)
+    // Normalize score within the bottom 15% range (min to lower)
+    const normalizedScore = (score - min) / (lower - min);
+    
+    // Red intensity: ranges from bright red to medium red
+    // Brighter red for worse players (lower scores)
+    const redR = Math.round(220 - (normalizedScore * 60));       // 220 -> 160
+    const redG = Math.round(38 - (normalizedScore * 8));         // 38 -> 30
+    const redB = Math.round(38 - (normalizedScore * 8));         // 38 -> 30
+    
+    return `rgb(${redR}, ${redG}, ${redB})`;
+    
   } else {
-    // Bottom 25%: Darker shades of red as score approaches minimum
-    const redIntensity = Math.round(180 - (score) * 81); 
-    return `rgb(${redIntensity}, 30, 30)`;
+    // Middle 70%: Neutral gray
+    return '#312f30';
   }
 };
 
 const AuctionTable = ({ auctionData }) => {
-  // Extract all normalized draft scores to calculate percentiles
-  const scores = auctionData.map(player => player.normalized_draft_score);
-  const lowerQuartile = calculatePercentile(scores, 0.10);
-  const upperQuartile = calculatePercentile(scores, 0.90);
+  // Calculate percentiles per position instead of globally
+  const percentilesByPosition = calculatePositionPercentiles(auctionData);
   
   return (
     <div className="mt-8 overflow-x-auto max-h-[500px]">
       <table className="min-w-full divide-y divide-[#312f30]">
         <thead className="bg-[#7042cc] sticky top-0 z-10">
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Rank</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Avg. ECR</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Team</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Pos.</th>
@@ -111,7 +158,11 @@ const AuctionTable = ({ auctionData }) => {
             <tr
               key={index}
               style={{
-                backgroundColor: getBackgroundColor(player.normalized_draft_score, lowerQuartile, upperQuartile),
+                backgroundColor: getBackgroundColor(
+                  player.normalized_draft_score, 
+                  player.pos, 
+                  percentilesByPosition
+                ),
               }}
             >
               <td className="px-6 py-4 whitespace-nowrap text-white">{player.ecr_avg}</td>
@@ -292,7 +343,7 @@ const Home = () => {
               
       <div className="flex items-center mb-1">
         <label className="block text-sm font-medium text-white mt-3 mb-2 mr-2">Past seasons to include in analysis. Only include seasons with auction drafts.  
-        Auction AId works best with more history.</label>
+        Auction AId works best with more history. Note: ESPN removed League data older than 2019, so these seasons will be excluded in calculations.</label>
             <div className="relative group">
               {leagueData.previous_seasons.map((season) => (
                 <label key={season} className="inline-flex items-center mr-4">

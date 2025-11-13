@@ -126,9 +126,11 @@ def calculate_value_over_replacement_player(input_player_features, included_past
     # Create new dataframe to calculate statistcs based on the actual_pos_rank
     statistics_by_position_rank = input_player_features[['pos', actual_pos_rank_column, 'ppg', 'total_points', 'bid_amt']].copy()
 
+    # Fill NaN values before filtering
+    statistics_by_position_rank[['ppg', 'total_points']] = statistics_by_position_rank[['ppg', 'total_points']].fillna(1)
+
     # Filter out all players with nan values in ['ppg', actual_pos_rank_column, 'total_points'], but keep DST players
     statistics_by_position_rank = statistics_by_position_rank.dropna(how='all', subset=['ppg', actual_pos_rank_column, 'total_points'])
-    statistics_by_position_rank[['ppg', 'total_points']] = statistics_by_position_rank[['ppg', 'total_points']].fillna(1)
     statistics_by_position_rank = statistics_by_position_rank.set_index(['pos', actual_pos_rank_column])
 
     # Get average values for the statistical performance and actual_auction_value amounts for each position rank
@@ -287,26 +289,63 @@ def count_of_positions_for_auction_dollars(league_size, team_position_counts, la
     return  starter_counts, bench_counts
 
 
-def generate_player_draft_score(draft_insights:pd.DataFrame):
-    # Determine the difference between the predicted value of the player and the true value of the player to determine which players are overvalued by the league.
-    draft_insights['auction_value_difference'] = draft_insights['expected_auction_value'] - draft_insights['true_auction_value']
+def generate_player_draft_score(draft_insights: pd.DataFrame):
+    """
+    Calculate a draft score to identify undervalued players.
+    Higher scores = better draft targets (true value > expected cost).
+    Scores are normalized within position groups for fair comparison.
+    """
     
-    # Normalize the auction_value_difference among a position group to compare the players on an even scale.
-    draft_insights['normalized_auction_value_difference'] = draft_insights.groupby('pos')['auction_value_difference'].transform(min_max_scale, invert_min_and_max=True)
-
-    # Determine total proportion of vorp a player has for an entire position
-    draft_insights['proportion_of_vorp_for_position'] = draft_insights['vorp'] / draft_insights.groupby('pos')['vorp'].transform('sum')
-    draft_insights['normalized_proportion_of_vorp_for_position'] = draft_insights.groupby('pos')['proportion_of_vorp_for_position'].transform(min_max_scale)
-    draft_insights[['proportion_of_vorp_for_position', 'normalized_proportion_of_vorp_for_position', 'normalized_auction_value_difference']] = \
-    draft_insights[['proportion_of_vorp_for_position', 'normalized_proportion_of_vorp_for_position', 'normalized_auction_value_difference']].fillna(0)
-
-    # Create a final score that weighs both the value of the player and the scarcity of the position via vorp_pct_difference
-    draft_insights['draft_score'] = 0.8 * draft_insights['normalized_auction_value_difference'] + \
+    # Calculate value difference (positive = undervalued, negative = overvalued)
+    draft_insights['auction_value_difference'] = (
+        draft_insights['true_auction_value'] - draft_insights['expected_auction_value']
+    )
+    
+    # Normalize within position groups (0-1 scale per position)
+    draft_insights['normalized_auction_value_difference'] = (
+        draft_insights.groupby('pos')['auction_value_difference']
+        .transform(min_max_scale, invert_min_and_max=False)
+    )
+    
+    # Calculate VORP proportion within position (with safety for zero VORP positions)
+    vorp_sum_by_pos = draft_insights.groupby('pos')['vorp'].transform('sum')
+    draft_insights['proportion_of_vorp_for_position'] = (
+        draft_insights['vorp'] / vorp_sum_by_pos.replace(0, 1)  # Avoid division by zero
+    )
+    
+    # Normalize VORP proportion within position
+    draft_insights['normalized_proportion_of_vorp_for_position'] = (
+        draft_insights.groupby('pos')['proportion_of_vorp_for_position']
+        .transform(min_max_scale)
+    )
+    
+    # Fill NaN values (for players with no VORP or missing data)
+    draft_insights[[
+        'proportion_of_vorp_for_position',
+        'normalized_proportion_of_vorp_for_position',
+        'normalized_auction_value_difference'
+    ]] = draft_insights[[
+        'proportion_of_vorp_for_position',
+        'normalized_proportion_of_vorp_for_position',
+        'normalized_auction_value_difference'
+    ]].fillna(0)
+    
+    # Calculate draft score (weighted combination)
+    # 80% value difference, 20% positional scarcity
+    draft_insights['draft_score'] = (
+        0.8 * draft_insights['normalized_auction_value_difference'] +
         0.2 * draft_insights['normalized_proportion_of_vorp_for_position']
-
-    draft_insights['normalized_draft_score'] = draft_insights['draft_score'].transform(min_max_scale)
-
-    draft_insights[['draft_score', 'normalized_draft_score']] = \
-    draft_insights[['draft_score', 'normalized_draft_score']].fillna(0)
+    )
+    
+    # Normalize draft score WITHIN position groups for UI color scale
+    draft_insights['normalized_draft_score'] = (
+        draft_insights.groupby('pos')['draft_score']
+        .transform(min_max_scale)
+    )
+    
+    # Fill any remaining NaN values
+    draft_insights[['draft_score', 'normalized_draft_score']] = (
+        draft_insights[['draft_score', 'normalized_draft_score']].fillna(0)
+    )
     
     return draft_insights

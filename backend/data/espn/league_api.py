@@ -50,7 +50,7 @@ def get_league_data(league_id:int, year:int, espn_s2:str = None, swid:str = None
         logger.info(f'Successfully retrieved league {league_id} for year {year} from ESPN.')
         return league
     except Exception as error:
-        logger.error(f'Failed to download league: {error}')
+        logger.error(f'Failed to download league for year {year}.  This may be due to the ESPN data cutoff pre-2019: {error}')
 
 def upload_league(league:League, s3:bool=settings.S3):
     """
@@ -162,7 +162,7 @@ def get_past_leagues(league_id:int, s3:bool=settings.S3):
         
 def aggregate_and_post_player_stats(past_leagues:Dict, s3=settings.S3):
     """
-    Use data from past leagues to aggrgate player stats data. Then, upload the data to preferred location.
+    Use data from past leagues to aggregate player stats data. Reads existing file and only adds missing years.
     
     Parameters:
     -----------
@@ -174,9 +174,39 @@ def aggregate_and_post_player_stats(past_leagues:Dict, s3=settings.S3):
     """
     
     league_id = past_leagues[list(past_leagues.keys())[0]].league_id
-    player_history_stats = {}
+    
+    # Read existing player stats file if it exists
+    existing_player_stats = get_league_player_stats(league_id, s3=s3)
+    
+    if existing_player_stats:
+        player_history_stats = existing_player_stats
+        existing_years = set(existing_player_stats.keys())
+        logger.info(f"Found existing player stats for years: {sorted(existing_years)}")
+    else:
+        player_history_stats = {}
+        existing_years = set()
+        logger.info("No existing player stats found. Creating new file.")
+    
+    # Identify missing years
+    requested_years = set(str(year) for year in past_leagues.keys())
+    missing_years = requested_years - existing_years
+    
+    if not missing_years:
+        logger.info(f"All requested years already exist in player stats. No update needed.")
+        return player_history_stats
+    
+    logger.info(f"Adding player stats for missing years: {sorted(missing_years)}")
 
+    # Only process missing years
     for year, league in past_leagues.items():
+        year_str = str(year)
+        
+        # Skip years that already exist
+        if year_str in existing_years:
+            logger.info(f"Skipping year {year_str} - already exists")
+            continue
+            
+        logger.info(f"Processing player stats for year {year_str}")
         player_stats = []
         player_ids = [int(k) for k, v in league.player_map.items() if k.isdigit()]
         # Define the batch size
@@ -201,9 +231,10 @@ def aggregate_and_post_player_stats(past_leagues:Dict, s3=settings.S3):
                     }
                 player_stats.append(player_stat)
 
+        player_history_stats[year_str] = player_stats
+        logger.info(f"Added {len(player_stats)} players for year {year_str}")
 
-        player_history_stats[year] = player_stats
-
+    # Save updated player stats
     object_name = f"espn-{league_id}-playerstats.json"
     if s3:
         player_history_stats_json = json.dumps(dict(player_history_stats), indent=4)
@@ -213,6 +244,10 @@ def aggregate_and_post_player_stats(past_leagues:Dict, s3=settings.S3):
         file_path = os.path.join(appdata_path, object_name)
         with open(file_path, 'w') as f:
             json.dump(player_history_stats, f, indent=4)
+    
+    logger.info(f"Successfully saved player stats with {len(player_history_stats)} years")
+    
+    return player_history_stats
   
 def get_league_player_stats(league_id:int, s3=settings.S3):
     """

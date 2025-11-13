@@ -97,7 +97,7 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
 
         # Load current and past league data
         # If there is no past_leagues, or if the last season is not in past_leagues, refresh past_leagues and player stats
-        if past_leagues is None or past_player_stats is None or int(max(past_leagues.keys())) + 1 < CURR_LEAGUE_YR:
+        if past_leagues is None or past_player_stats is None or int(max(past_leagues.keys())) + 1 < CURR_LEAGUE_YR or int(max(past_player_stats.keys())) + 1 < CURR_LEAGUE_YR:
             if curr_league.previousSeasons is None:
                 raise HTTPException(status_code=400, detail="No past league data available.  Auction AId only works for leagues with multiple years of history.")
             post_leagues(league_id=league_id, years=curr_league.previousSeasons, swid=swid, espn_s2=espn_s2)
@@ -134,7 +134,7 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     league_settings = features.create_league_settings(curr_league)
 
     # Update years to be the list of successfully downloaded past leagues and past player stats
-    valid_included_past_seasons = [int(year) for year in past_leagues.keys()]
+    valid_included_past_seasons = [int(year) for year in past_leagues.keys() if int(year) in included_past_seasons]
     # Limit only to seasons where there is available FantasyPros data
     valid_included_past_seasons = [season for season in valid_included_past_seasons if season > 2012]
 
@@ -201,8 +201,6 @@ async def generate_auction_aid(auction_aid_form_data: GenerateAuctionAidForm):
     prediction_features.loc[:,columns_for_nan_replacement] = prediction_features.loc[:,columns_for_nan_replacement].fillna(0)
 
     # Remove unneccesary columns 
-    #TODO: Fix Rank numbering
-    #TODO: Improve results
     features_to_remove = ['avg_bid_amt_from_league_history',
                                                 'projected_pos_rank',
                                                 'team_ARI', 'team_ATL',

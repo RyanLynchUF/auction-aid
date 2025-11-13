@@ -1,6 +1,7 @@
 from typing import List
 import pandas as pd
 from functools import reduce
+import re
 
 
 def denormalize(df, column, values, columns_to_keep:List[str]=None, index:List[str]=['player_name'], groupby:List[str] = ['player_name', 'year']):
@@ -57,3 +58,31 @@ def min_max_scale(series:pd.Series, invert_min_and_max:bool=False):
         return 1 - (series - min_val) / (max_val - min_val)
     else:
         return (series - min_val) / (max_val - min_val)
+
+def get_available_years_for_metric(df_columns, metric_prefix: str, exclude_year: int = None) -> List[int]:
+    """
+    Extract sorted list of years that exist for a given metric prefix (e.g., 'bid_amt_', 'vbd_')
+    
+    Parameters:
+    -----------
+    df_columns : pd.Index or list
+        Column names from a DataFrame
+    metric_prefix : str
+        The prefix to search for (e.g., 'bid_amt_', 'vbd_', 'projected_pos_rank_')
+    exclude_year : int, optional
+        Year to exclude from results (e.g., current league year)
+    
+    Returns:
+    --------
+    List[int]
+        Sorted list of years found for the metric
+    """
+    pattern = re.compile(rf'{re.escape(metric_prefix)}(\d{{4}})$')
+    years = []
+    for col in df_columns:
+        match = pattern.search(col)
+        if match:
+            year = int(match.group(1))
+            if exclude_year is None or year != exclude_year:
+                years.append(year)
+    return sorted(years)

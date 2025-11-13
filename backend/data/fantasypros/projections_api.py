@@ -26,7 +26,7 @@ reader = S3Reader(aws_access_key_id=AWS_ACCESS_KEY_ID,
                         aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
                         bucket_name=AWS_S3_BUCKET_NAME_LEAGUE)
 
-#TODO: Make configurable to read from S3 or AppData
+
 def get_fantasypros_projections_daily(scoring_format:str='standard', s3:bool=settings.S3):
     """
     Read latest FantasyPros projections from either S3 or local storage.
@@ -88,6 +88,7 @@ def get_fantasypros_projections_daily(scoring_format:str='standard', s3:bool=set
                 logger.info(f"Error reading file {file_name}: {e}")
 
     return daily_player_projections
+
 def get_past_fantasypros_projections(years:List[int], scoring_format:str='standard', s3:bool=settings.S3):
     """
     Read latest FantasyPros projections from either S3 or local storage.
@@ -103,7 +104,7 @@ def get_past_fantasypros_projections(years:List[int], scoring_format:str='standa
         matching_objects = [obj for obj in response['Contents'] if re.search(rf'/historical-projections/fp-projections-{scoring_format}-allyearsasof-{CURR_LEAGUE_YR}.json', obj['Key'])]
         if not matching_objects:
             logger.info(f"Historical projection data not yet downloaded.  Scraping historical projection data...")
-            scrape_historical_fantasypros_projections(years=years, scoring_formats=[scoring_format], s3=settings.S3)
+            scrape_historical_fantasypros_projections(scoring_formats=[scoring_format], s3=settings.S3)
             response = reader.s3.list_objects_v2(Bucket=AWS_S3_BUCKET_NAME_LEAGUE)
             matching_objects = [obj for obj in response['Contents'] if re.search(rf'/historical-projections/fp-projections-{scoring_format}-allyearsasof-{CURR_LEAGUE_YR}.json', obj['Key'])]
 
@@ -123,7 +124,7 @@ def get_past_fantasypros_projections(years:List[int], scoring_format:str='standa
         if not appdata_matching_league_objects:
             logger.info(f"Historical projection data not yet downloaded.  Scraping historical projection data...")
             # Download historical projections 
-            scrape_historical_fantasypros_projections(years=years, scoring_formats=[scoring_format], s3=settings.S3)
+            scrape_historical_fantasypros_projections(scoring_formats=[scoring_format], s3=settings.S3)
             appdata_matching_league_objects = [os.path.join(root, file)
                                             for root, dirs, files in os.walk(appdata_path)
                                             for file in files
@@ -133,7 +134,7 @@ def get_past_fantasypros_projections(years:List[int], scoring_format:str='standa
             file_name = os.path.basename(file_path)
             try:
                 with open(file_path, 'r') as f:
-                    latest_past_player_projections = json.loads(f.read()) #TODO: Update to json.load(f)
+                    latest_past_player_projections = json.load(f) 
             except json.JSONDecodeError:
                 logger.info(f"Error decoding JSON in file: {file_name}")
             except Exception as e:

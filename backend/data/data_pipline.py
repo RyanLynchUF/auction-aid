@@ -12,6 +12,8 @@ from utils.logger import get_logger
 from dotenv import load_dotenv
 load_dotenv(override=True)
 
+CURR_LEAGUE_YR = settings.CURR_LEAGUE_YR
+
 AWS_ACCESS_KEY_ID=os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY=os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_S3_BUCKET_NAME_LEAGUE=os.getenv('AWS_S3_BUCKET_NAME_LEAGUE')
@@ -62,15 +64,22 @@ def scrape_daily_fantasypros_projections(scoring_formats:List[str]=SCORING_FORMA
 
 
 
-#TODO: Refactor this process to allow for only downloading a single year without overwriting the "asoofYYYY" so we don't overwrite it 
-def scrape_historical_fantasypros_projections(years:List[int], scoring_formats:List[str]=SCORING_FORMATS, s3:bool=settings.S3):
+def scrape_historical_fantasypros_projections(years: List[int] = range(2013, CURR_LEAGUE_YR), scoring_formats: List[str] = SCORING_FORMATS, 
+                                              s3: bool = settings.S3, create_combined_file: bool = True):
     """
-    Downloads histroical FantasyPros projections.
+    Downloads historical FantasyPros projections.
     
     Parameters:
     -----------
     years : List[int]
         List of years to download
+    scoring_formats : List[str]
+        List of scoring formats (e.g., ['standard', 'ppr', 'half-ppr'])
+    s3 : bool
+        Whether to upload to S3 or save locally
+    create_combined_file : bool
+        If True, creates the "allyearsasof" combined file. If False, only creates individual year files.
+        Default is True to maintain backward compatibility.
     """
 
     league_sizes = ['10', '12', '14']
@@ -110,40 +119,41 @@ def scrape_historical_fantasypros_projections(years:List[int], scoring_formats:L
 
         all_historical_projections[scoring_format] = historical_projections
 
-    for scoring_format, years_data in all_historical_projections.items():
-        all_players_data = []
+    # Only create the combined "allyearsasof" file if requested
+    if create_combined_file:
+        for scoring_format, years_data in all_historical_projections.items():
+            all_players_data = []
 
-        for year_data in years_data:
-            year = list(year_data.keys())[0]
-            vbd_data = year_data[year].get('vbd', {})
-            adp_data = year_data[year].get('adp', {})
+            for year_data in years_data:
+                year = list(year_data.keys())[0]
+                vbd_data = year_data[year].get('vbd', {})
+                adp_data = year_data[year].get('adp', {})
 
-            for league_size, players in vbd_data.items():
-                for player_name, stats in players.items():
-                    player_data = {
-                        'player_name': player_name,
-                        'pos': adp_data.get(player_name, {}).get('pos', None),
-                        'projected_pos_rank': adp_data.get(player_name, {}).get('projected_pos_rank', None),
-                        'year': year,
-                        'league_size': league_size,
-                        'vbd': stats.get('vbd', None),
-                        'vorp': stats.get('vorp', None),
-                        'vols': stats.get('vols', None),
-                        'adp_avg': adp_data.get(player_name, {}).get('adp_avg', None)
-                        
-                    }
-                    all_players_data.append(player_data)
+                for league_size, players in vbd_data.items():
+                    for player_name, stats in players.items():
+                        player_data = {
+                            'player_name': player_name,
+                            'pos': adp_data.get(player_name, {}).get('pos', None),
+                            'projected_pos_rank': adp_data.get(player_name, {}).get('projected_pos_rank', None),
+                            'year': year,
+                            'league_size': league_size,
+                            'vbd': stats.get('vbd', None),
+                            'vorp': stats.get('vorp', None),
+                            'vols': stats.get('vols', None),
+                            'adp_avg': adp_data.get(player_name, {}).get('adp_avg', None)
+                            
+                        }
+                        all_players_data.append(player_data)
 
-
-        
-        object_name = f"fp-projections-{scoring_format}-allyearsasof-{CURR_LEAGUE_YR}.json"
-        if s3:
-            all_players_data_json = json.dumps(all_players_data)
-            uploader.upload_json_to_s3(all_players_data_json, f'fp/historical-projections/{object_name}')
-        else:
-            all_players_data_json = all_players_data
-            appdata_path = os.path.join(os.getcwd(), "AppData/historical-projections/")
-            file_path = os.path.join(appdata_path, object_name)
-            with open(file_path, 'w') as f:
-                json.dump(all_players_data_json, f, indent=4)
-            logger.info(f'Successfully uploaded {file_path} to AppData Folder')
+            
+            object_name = f"fp-projections-{scoring_format}-allyearsasof-{CURR_LEAGUE_YR}.json"
+            if s3:
+                all_players_data_json = json.dumps(all_players_data)
+                uploader.upload_json_to_s3(all_players_data_json, f'fp/historical-projections/{object_name}')
+            else:
+                all_players_data_json = all_players_data
+                appdata_path = os.path.join(os.getcwd(), "AppData/historical-projections/")
+                file_path = os.path.join(appdata_path, object_name)
+                with open(file_path, 'w') as f:
+                    json.dump(all_players_data_json, f, indent=4)
+                logger.info(f'Successfully uploaded {file_path} to AppData Folder')

@@ -6,6 +6,7 @@ import re
 
 from config import settings
 from utils.logger import get_logger
+from utils.helper import get_available_years_for_metric
 
 logger = get_logger(__name__)
 
@@ -116,22 +117,68 @@ def generate_player_features(input_features:pd.DataFrame, included_past_seasons:
     team_encodings = pd.get_dummies(input_features['team'], prefix='team')
     input_features = pd.concat([input_features, pos_encodings, team_encodings], axis=1)
 
-    # Select the previous year's bid_amt
-    input_features['prev_year_bid_amt'] = input_features['bid_amt_' + str(max(included_past_seasons))]
+    # Get available years for each metric from the actual data
+    df_columns = input_features.columns
+    available_bid_years = get_available_years_for_metric(df_columns, 'bid_amt_', exclude_year=CURR_LEAGUE_YR)
 
-    # Determine the max year in the dataset to see if we are working with training or prediction data
-    df_columns = input_features.columns  
-    years = [int(re.search(r'(\d{4})$', col).group(0)) for col in df_columns if re.search(r'(\d{4})$', col) and str(CURR_LEAGUE_YR) not in col]
-    max_year_in_data = max(years) if years else None
+    # Filter to only include years that are in included_past_seasons
+    included_bid_years = [year for year in available_bid_years if year in included_past_seasons]
 
-    if max(included_past_seasons) == max_year_in_data:
+    # Select the most recent year's bid_amt as "previous year"
+    if included_bid_years:
+        prev_year = max(included_bid_years)
+        input_features['prev_year_bid_amt'] = input_features[f'bid_amt_{prev_year}']
+        logger.info(f"Using {prev_year} as previous year for bid_amt")
+    else:
+        input_features['prev_year_bid_amt'] = np.nan
+        logger.warning("No historical bid_amt data available for selected seasons")
+
+    # Determine if we're in prediction mode (using CURR_LEAGUE_YR) or training mode (next year after most recent)
+    # We're in prediction mode if:
+    # 1. CURR_LEAGUE_YR projection data exists, AND
+    # 2. The most recent included season has bid data (meaning we want to predict beyond our historical bids)
+    has_curr_year_projections = f'vbd_{CURR_LEAGUE_YR}' in df_columns
+    most_recent_included_has_bids = included_bid_years and max(included_bid_years) in available_bid_years
+    
+    # Check if there's a future year beyond included_past_seasons (for training mode)
+    next_years = [year for year in available_bid_years if year > max(included_bid_years)] if included_bid_years else []
+    
+    is_prediction_mode = has_curr_year_projections and most_recent_included_has_bids and not next_years
+
+    if is_prediction_mode:
+        # We're predicting for CURR_LEAGUE_YR
+        logger.info(f"Prediction mode: Using {CURR_LEAGUE_YR} as target year")
         input_features['curr_year_bid_amt'] = np.nan
-        input_features['curr_year_vbd'] = input_features['vbd_' + str(CURR_LEAGUE_YR)]
-        input_features['curr_year_projected_pos_rank'] = input_features['projected_pos_rank_' + str(CURR_LEAGUE_YR)]
-    else: 
-        input_features['curr_year_bid_amt'] = input_features['bid_amt_' + str(max(included_past_seasons) + 1)]
-        input_features['curr_year_vbd'] = input_features['vbd_' + str(max(included_past_seasons) + 1)]
-        input_features['curr_year_projected_pos_rank'] = input_features['projected_pos_rank_' + str(max(included_past_seasons) + 1)]
+        input_features['curr_year_vbd'] = input_features[f'vbd_{CURR_LEAGUE_YR}']
+        input_features['curr_year_projected_pos_rank'] = input_features[f'projected_pos_rank_{CURR_LEAGUE_YR}']
+    else:
+        # We're training on historical data - find the year immediately after the most recent included year
+        if included_bid_years:
+            most_recent_included = max(included_bid_years)
+            
+            if next_years:
+                target_year = min(next_years)  # Use the earliest year after our training data
+                logger.info(f"Training mode: Using {target_year} as target year (next after {most_recent_included})")
+                input_features['curr_year_bid_amt'] = input_features.get(f'bid_amt_{target_year}', np.nan)
+                input_features['curr_year_vbd'] = input_features.get(f'vbd_{target_year}', np.nan)
+                input_features['curr_year_projected_pos_rank'] = input_features.get(f'projected_pos_rank_{target_year}', np.nan)
+            else:
+                # No future year available - use CURR_LEAGUE_YR if projections exist
+                if has_curr_year_projections:
+                    logger.info(f"No historical target year available. Using {CURR_LEAGUE_YR} projections as target.")
+                    input_features['curr_year_bid_amt'] = np.nan
+                    input_features['curr_year_vbd'] = input_features.get(f'vbd_{CURR_LEAGUE_YR}', np.nan)
+                    input_features['curr_year_projected_pos_rank'] = input_features.get(f'projected_pos_rank_{CURR_LEAGUE_YR}', np.nan)
+                else:
+                    logger.warning(f"No target year found after {most_recent_included}. Setting target features to NaN.")
+                    input_features['curr_year_bid_amt'] = np.nan
+                    input_features['curr_year_vbd'] = np.nan
+                    input_features['curr_year_projected_pos_rank'] = np.nan
+        else:
+            logger.warning("No historical bid_amt data available. Setting all target features to NaN.")
+            input_features['curr_year_bid_amt'] = np.nan
+            input_features['curr_year_vbd'] = np.nan
+            input_features['curr_year_projected_pos_rank'] = np.nan
 
     
     # Select only columns needed for modelling
