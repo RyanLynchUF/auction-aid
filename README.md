@@ -85,8 +85,8 @@ Auction AId allows for storing data locally or on AWS S3.  If you'd like to save
 
 ``` python
 # backend/config/settings.py
-CURR_LEAGUE_YR = 2024
-S3 = True # Update to True if running on S3
+CURR_LEAGUE_YR = 2025
+S3 = False # Update to True if running on S3
 ```
 
 2. Create a file titled `.env` in the `auction-aid-master` folder
