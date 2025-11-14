@@ -28,7 +28,7 @@ Currently, Auction AId is in a basic Beta version.  In the future, it may be hos
 
 #### Install Backend - Python and Packages
 
-1. Install the latest version of [Python](https://www.python.org/downloads/)
+1. Install version 3.13 of [Python](https://www.python.org/downloads/)
 2. Create and activate Python virtual environment 
     - Using Visual Studio: https://code.visualstudio.com/docs/python/environments
     - Using the terminal: https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/
